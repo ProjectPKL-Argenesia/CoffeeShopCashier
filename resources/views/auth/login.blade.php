@@ -1,6 +1,25 @@
-@extends('layouts.template')
-@section('title', 'Login')
-@section('content')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Login</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body>
     <section class="grid w-full h-screen bg-gray-100 place-items-center">
         <div
             class="bg-white rounded-2xl shadow-2xl w-[90vw] lg:w-[80vw] xl:w-[65vw] 2xl:w-[60vw] h-[500px] md:h-[460px] xl:h-[500px] 2xl:h-[600px] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
@@ -16,7 +35,8 @@
                             <div class="grid grid-cols-1">
                                 <label class="text-base text-black/80" for="email">Email</label>
                                 <input type="email" name="email" id="email" required autofocus
-                                    placeholder="contoh@gmail.com" class="w-full py-2 rounded-md focus:outline-none focus:ring-0">
+                                    placeholder="contoh@gmail.com"
+                                    class="w-full py-2 rounded-md focus:outline-none focus:ring-0">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
@@ -165,4 +185,6 @@
         }
         jalanKanScript();
     </script>
-@endsection
+</body>
+
+</html>

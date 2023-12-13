@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>Coffee Shop | {{ $title }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.css') }}">
@@ -22,9 +22,9 @@
     <section class="grid grid-cols-12">
         <div class="col-span-2">
             <!-- Sidebar -->
-            @include('layouts.sidebar')
+            @include('layouts.backend.sidebar')
         </div>
-        <div class="col-span-10 2xl:col-span-10">
+        <div class="col-span-10">
             @yield('content')
         </div>
     </section>

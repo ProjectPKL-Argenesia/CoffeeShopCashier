@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,32 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/sidebar', function () {
-    return view('layouts.sidebar');
-});
-
-Route::get('/cashier', function () {
-    return view('pages.cashier');
-})->name('cashier');
-
-Route::get('/table', function () {
-    return view('pages.table');
-})->name('table');
-
-// Route::get('/cashier', function () {
-//     $title = 'Cashier';  
-//     return view('pages.cashier')->with('title', $title);
-// })->name('cashier');
-
-// Route::get('/table', function () {
-//     $title = 'Table';  
-//     return view('pages.table')->with('title', $title);
-// })->name('table');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -48,6 +24,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/', function () {
+        return view('pages.cashier.index', ["title" => "Cashier"]);
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Route::group(['middleware' => 'auth'], function () {
+    //cashier
+    Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+
+    //table
+    Route::get('/table', [TableController::class, 'index'])->name('table.index');
+});
