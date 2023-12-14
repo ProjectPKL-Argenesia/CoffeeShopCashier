@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //table
     Route::get('/table', [TableController::class, 'index'])->name('table.index');
+    
+    //menu
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
 });

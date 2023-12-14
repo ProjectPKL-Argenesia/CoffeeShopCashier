@@ -56,7 +56,7 @@
                     <div class="grid justify-items-stretch grid-cols-2">
                         <div class="flex flex-col capitalize ">
                             <h2 class="font-semibold">Coffee</h2>
-                            <span>Rp. 6.500</span>
+                            <span>6500</span>
                         </div>
                         <div class="grid justify-items-end items-center">
                             <button
@@ -74,7 +74,7 @@
                     <div class="grid justify-items-stretch grid-cols-2">
                         <div class="flex flex-col capitalize ">
                             <h2 class="font-semibold">nanas</h2>
-                            <span>Rp. 6.500</span>
+                            <span>6500</span>
                         </div>
                         <div class="grid justify-items-end items-center">
                             <button
@@ -92,7 +92,7 @@
                     <div class="grid justify-items-stretch grid-cols-2">
                         <div class="flex flex-col capitalize ">
                             <h2 class="font-semibold">pisang</h2>
-                            <span>Rp. 6.500</span>
+                            <span>6500</span>
                         </div>
                         <div class="grid justify-items-end items-center">
                             <button
@@ -162,7 +162,25 @@
                 let element = this.parentElement.parentElement.children[0].children;
                 let counter = this.parentElement.children[1]
                 $(counter).html(parseInt(counter.textContent) - 1);
+
+                
                 ubahCounter('kurang', element)
+
+                if(counter.textContent <= 0){
+                    let newVariabel = order;
+                let keyChar = element[0].textContent;
+                let newData = [...newVariabel.filter((item)=>item.name != keyChar)];
+                 order = newData;
+                 return generatePesanan(); 
+                }
+            });
+
+            $('#containerOrder').on('click', '.button-hapus', function(e) {
+                let newVariabel = order;
+                let keyChar = $(this).data('name');
+                let newData = [...newVariabel.filter((item)=>item.name != keyChar)];
+                 order = newData;
+                 generatePesanan(); 
             });
 
 
@@ -214,7 +232,7 @@
                             <button  class="button-tambah px-2 rounded-md py-1 border border-gray-300 cursor-pointer">+</button>
                         </div>
                         <div class=" flex justify-end items-center max-w-[50px] justify-self-end">
-                            <button id="deleteItems" class="px-5 py-2 bg-rose-500 text-white font-semibold rounded-md">
+                            <button data-name="${item.name}" class="button-hapus px-5 py-2 bg-rose-500 text-white font-semibold rounded-md">
                                 del
                             </button>
                         </div>
@@ -230,14 +248,31 @@
                 let getIndex = order.findIndex((item) => item.name == name);
 
                 let cloneOrder = order;
-                let finalTotal = cloneOrder[getIndex].count += (param == 'tambah' ? 1 : -1);
-                let finalNewData = {
-                    name,
-                    price,
-                    count: finalTotal
+                let finalTotal;
+                let finalPrice ;
+                if(param == 'tambah'){
+                    finalTotal =  cloneOrder[getIndex].count + 1
+                    finalPrice =  parseInt(price)  * finalTotal ;
+                }else{
+                    finalPrice =  parseInt(price) / cloneOrder[getIndex].count ;
+                    finalTotal =  cloneOrder[getIndex].count - 1
                 }
+
+
+                if(finalTotal == 0){
+                    return console.info('selesai');;
+                }else{
+                
+                    let finalNewData = {
+                        name,
+                        price :finalPrice   ,
+                        count: finalTotal
+                }
+                // console.table(finalNewData);
                 cloneOrder[getIndex] = finalNewData;
                 order = cloneOrder;
+                generatePesanan()
+            }
             }
 
         });
