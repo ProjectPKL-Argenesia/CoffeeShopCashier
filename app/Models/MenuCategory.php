@@ -9,5 +9,5 @@ class MenuCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['category_name', 'type'];
 }

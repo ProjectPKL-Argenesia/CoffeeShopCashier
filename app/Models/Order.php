@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['menu_category_id', 'menu_name', 'price', 'qty', 'stock', 'tax'];
+    protected $fillable = ['table_id', 'order_detail_id'];
 }

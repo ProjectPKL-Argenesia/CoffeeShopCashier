@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name');
+            $table->string('menu_name');
             $table->string('price');
             $table->string('qty');
             $table->string('stock');

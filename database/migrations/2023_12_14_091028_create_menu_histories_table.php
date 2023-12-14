@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->references('id')->on('menu');
+            $table->foreignId('menu_id')->references('id')->on('menus');
             $table->timestamps();
         });
     }

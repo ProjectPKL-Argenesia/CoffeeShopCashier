@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_categories', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name');
-            $table->enum('type', ['food', 'drink']);
+            $table->foreignId('table_id')->references('id')->on('tables')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('order_detail_id')->references('id')->on('order_details')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('no_receipt');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_categories');
+        Schema::dropIfExists('orders');
     }
 };
