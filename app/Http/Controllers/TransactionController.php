@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.menu-list.index', ["title" => "Menu List"]);
+        return view('pages.transaction.index', ["title" => "Transaction"]);
     }
 
     /**
