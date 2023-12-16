@@ -1,12 +1,12 @@
 @extends('layouts.backend.main')
 
 @section('content')
-    <section class="bg-gray-300 h-screen p-10">
+    <section class="h-screen p-10 bg-gray-300">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Table</h1>
             <div>
                 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                    class="block text-gray-200 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2 text-center"
+                    class="block px-5 py-2 text-sm font-medium text-center text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-800"
                     type="button">
                     + Add Table
                 </button>
@@ -25,54 +25,56 @@
                                 </svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
-                            <form action="">
-                                <div class="grid grid-cols-12 pt-16 pb-10 px-8">
-                                    <div class="col-span-12 grid grid-cols-12">
+                            <form action="{{ route('table.store') }}" method="POST">
+                                @csrf
+                                <div class="grid grid-cols-12 px-8 pt-16 pb-10">
+                                    <div class="grid grid-cols-12 col-span-12">
                                         <div
-                                            class="flex justify-start items-center col-span-2 text-center font-semibold gap-x-4 text-sm">
-                                            <label for="nama" class="whitespace-nowrap">Table Name</label>
+                                            class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                            <label for="name" class="whitespace-nowrap">Table Name</label>
                                         </div>
-                                        <div class="col-span-1 flex justify-center items-center">
+                                        <div class="flex items-center justify-center col-span-1">
                                             <span>:</span>
                                         </div>
                                         <div class="col-span-9">
-                                            <input type="text" name="nama" id="nama"
-                                                class="w-full py-1 px-2 focus:ring-0 rounded-lg" placeholder="Table 1, Lt. 2">
+                                            <input type="text" name="name" id="name"
+                                                class="w-full px-2 py-1 rounded-lg focus:ring-0"
+                                                placeholder="Table 1, Lt. 2">
                                         </div>
                                     </div>
 
-                                    <div class="col-span-12 grid grid-cols-12 pb-20">
+                                    <div class="grid grid-cols-12 col-span-12 pb-20">
                                         <div
-                                            class="flex justify-start items-center col-span-2 text-center font-semibold gap-x-4 text-sm">
+                                            class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
                                             <label for="nama">Status</label>
                                         </div>
-                                        <div class="col-span-1 flex justify-center items-center">
+                                        <div class="flex items-center justify-center col-span-1">
                                             <span>:</span>
                                         </div>
-                                        <div class="col-span-9 py-2 grid grid-cols-3 gap-x-2">
+                                        <div class="grid grid-cols-3 col-span-9 py-2 gap-x-2">
                                             <div
-                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 text-sm bg-gray-200 gap-x-2 rounded-lg">
+                                                class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="empty">Empty</label>
-                                                <input type="radio" name="status" id="empty"
+                                                <input type="radio" name="status" id="empty" value="Empty"
                                                     class="text-gray-500 focus:ring-0">
                                             </div>
                                             <div
-                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 text-sm bg-red-200 gap-x-2 rounded-lg">
+                                                class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-red-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="broken">Broken</label>
-                                                <input type="radio" name="status" id="broken"
+                                                <input type="radio" name="status" id="broken" value="Broken"
                                                     class="text-red-400 focus:ring-0">
                                             </div>
                                             <div
-                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 text-sm bg-green-200 gap-x-2 rounded-lg">
+                                                class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-green-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="filled">Filled</label>
-                                                <input type="radio" name="status" id="filled"
+                                                <input type="radio" name="status" id="filled" value="Filled"
                                                     class="text-green-400 focus:ring-0">
                                             </div>
                                         </div>
                                     </div>
 
                                     <button type="submit"
-                                        class="py-2 col-span-12 bg-gray-800 rounded-lg text-sm text-gray-100">Done</button>
+                                        class="col-span-12 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
                                 </div>
                             </form>
                         </div>
@@ -80,10 +82,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center gap-x-2 justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4">
+        <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div>
                 <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
-                    class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-2"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                     type="button">
                     <span class="sr-only">Action button</span>
                     Status Table
@@ -110,16 +112,16 @@
             </div>
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
-                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="fa-solid fa-search fa-md text-gray-500 pt-1"></i>
+                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                    <i class="pt-1 text-gray-500 fa-solid fa-search fa-md"></i>
                 </div>
                 <input type="search" id="table-search-users"
-                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search Table">
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -137,96 +139,108 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b">
-                        <td class="px-6 py-4">1.</td>
-                        <td class="px-6 py-4">Table 1, Lt. 2</td>
-                        <td class="px-6 py-4">Empty</td>
-                        <td class="flex px-6 py-4">
+                    @foreach ($dataTable as $item)
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">{{ $item->name }}</td>
+                            <td class="px-6 py-4">{{ $item->status }}</td>
+                            <td class="flex px-6 py-4">
 
-                            <!-- Button Edit -->
-                            <div>
-                                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                                    class="block text-yellow-400 font-medium text-sm px-1 text-center"
-                                    type="button">
-                                    <i class="fa-solid fa-file-signature px-1"></i>Edit
-                                </button>
+                                <!-- Button Edit -->
+                                <div>
+                                    <button data-modal-target="popup-modal-edit" data-modal-toggle="popup-modal-edit"
+                                        class="block px-1 text-sm font-medium text-center text-yellow-400" type="button">
+                                        <i class="px-1 fa-solid fa-file-signature"></i>Edit
+                                    </button>
 
-                                <div id="popup-modal" tabindex="-1"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative p-4 w-full max-w-[40%] min-w-[35%] max-h-full">
-                                        <div class="relative bg-white rounded-lg shadow">
-                                            <button type="button"
-                                                class="absolute top-3 end-2.5 text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-hide="popup-modal">
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <form action="">
-                                                <div class="grid grid-cols-12 pt-16 pb-10 px-8">
-                                                    <div class="col-span-12 grid grid-cols-12">
-                                                        <div
-                                                            class="flex justify-start items-center col-span-2 text-center font-semibold gap-x-4 text-sm">
-                                                            <label for="nama">Table Name</label>
+                                    <div id="popup-modal-edit" tabindex="-1"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-[40%] min-w-[35%] max-h-full">
+                                            <div class="relative bg-white rounded-lg shadow">
+                                                <button type="button"
+                                                    class="absolute top-3 end-2.5 text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-hide="popup-modal-edit">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                                <form action="{{ route('table.update', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="grid grid-cols-12 px-8 pt-16 pb-10">
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="name">Table Name</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="name" id="name"
+                                                                    class="w-full px-2 py-1 text-gray-900 rounded-lg focus:ring-0"
+                                                                    value="{{ $item->name }}">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-span-1 flex justify-center items-center">
-                                                            <span>:</span>
+
+                                                        <div class="grid grid-cols-12 col-span-12 pb-20">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="status">Status</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="grid grid-cols-3 col-span-9 py-2 gap-x-2">
+                                                                <div
+                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
+                                                                    <label for="empty-edit">Empty</label>
+                                                                    <input type="radio" name="status" id="empty-edit"
+                                                                        value="Empty" class="text-gray-500 focus:ring-0"
+                                                                        {{ $item->status == 'Empty' ? 'checked' : '' }}>
+                                                                </div>
+                                                                <div
+                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-red-200 border border-gray-500 rounded-lg gap-x-2">
+                                                                    <label for="broken-edit">Broken</label>
+                                                                    <input type="radio" name="status" id="broken-edit"
+                                                                        value="Broken" class="text-red-400 focus:ring-0"
+                                                                        {{ $item->status == 'Broken' ? 'checked' : '' }}>
+                                                                </div>
+                                                                <div
+                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-green-200 border border-gray-500 rounded-lg gap-x-2">
+                                                                    <label for="filled-edit">Filled</label>
+                                                                    <input type="radio" name="status" id="filled-edit"
+                                                                        value="Filled" class="text-green-400 focus:ring-0"
+                                                                        {{ $item->status == 'Filled' ? 'checked' : '' }}>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-span-9">
-                                                            <input type="text" name="nama" id="nama"
-                                                                class="w-full py-1 px-2 focus:ring-0 rounded-lg" placeholder="Table 1, Lt. 2">
-                                                        </div>
+
+                                                        <button type="submit"
+                                                            class="col-span-12 py-2 text-gray-100 bg-gray-800 rounded-lg">Done</button>
                                                     </div>
-
-                                                    <div class="col-span-12 grid grid-cols-12 pb-20">
-                                                        <div
-                                                            class="flex justify-start items-center col-span-2 text-center font-semibold gap-x-4 text-sm">
-                                                            <label for="nama">Status</label>
-                                                        </div>
-                                                        <div class="col-span-1 flex justify-center items-center">
-                                                            <span>:</span>
-                                                        </div>
-                                                        <div class="col-span-9 py-2 grid grid-cols-3 gap-x-2">
-                                                            <div
-                                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 bg-gray-200 gap-x-2 rounded-lg">
-                                                                <label for="empty">Empty</label>
-                                                                <input type="radio" name="status" id="empty"
-                                                                    class="text-gray-500 focus:ring-0">
-                                                            </div>
-                                                            <div
-                                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 bg-red-200 gap-x-2 rounded-lg">
-                                                                <label for="broken">Broken</label>
-                                                                <input type="radio" name="status" id="broken"
-                                                                    class="text-red-400 focus:ring-0">
-                                                            </div>
-                                                            <div
-                                                                class="flex py-1 px-2 justify-between items-center border border-gray-500 text-gray-900 bg-green-200 gap-x-2 rounded-lg">
-                                                                <label for="filled">Filled</label>
-                                                                <input type="radio" name="status" id="filled"
-                                                                    class="text-green-400 focus:ring-0">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <button type="submit"
-                                                        class="py-2 col-span-12 bg-gray-800 rounded-lg text-gray-100">Done</button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Button Hapus -->
-                            <a href="#" class="font-medium text-red-500"><i
-                                    class="fa-solid fa-trash-can px-1"></i>Hapus</a>
-                        </td>
-                    </tr>
+                                <!-- Button Hapus -->
+
+                                <form action="{{ route('table.destroy', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="font-medium text-red-500" onclick="return confirm('Yakin?')"><i
+                                            class="px-1 fa-solid fa-trash-can"></i>Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ['empty', 'filled', 'broken']);
+            $table->enum('status', ['Empty', 'Filled', 'Broken']);
             $table->timestamps();
         });
     }

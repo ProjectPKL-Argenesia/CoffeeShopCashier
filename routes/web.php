@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
     
     //table
     Route::get('/table', [TableController::class, 'index'])->name('table.index');
+    Route::post('/table/store', [TableController::class, 'store'])->name('table.store');
+    Route::patch('/table/{id}', [TableController::class, 'update'])->name('table.update');
+    Route::delete('/table/destroy{id}', [TableController::class, 'destroy'])->name('table.destroy');
     
     //menu
     Route::get('/menu-list', [MenuController::class, 'index'])->name('menu-list.index');
