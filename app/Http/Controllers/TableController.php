@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
@@ -11,7 +12,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        return view('pages.table.index', ["title" => "Table"]);
+        $dataTable = Table::all(); 
+        return view('pages.table.index', ["title" => "Table"], compact('dataTable'));
     }
 
     /**
@@ -19,7 +21,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +29,14 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'status' => 'required',
+        ]);
+
+        Table::create($validatedData);
+
+        return redirect()->to('/table')->with('success', 'Data anda berhasil disimpan.');
     }
 
     /**
@@ -49,16 +58,26 @@ class TableController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'status' => 'required',
+        ]);
+        $dataTable = Table::find($id);
+        $dataTable->update($validatedData);
+
+        return redirect()->to('/table')->with('success', 'Data anda berhasil diupdate.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $dataTable = Table::find($id);
+        $dataTable->delete();
+
+        return redirect()->to('/table')->with('success', 'Data anda berhasil dihapus.');
     }
 }
