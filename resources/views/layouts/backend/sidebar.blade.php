@@ -13,7 +13,7 @@
     aria-label="Sidebar">
     <div class="flex flex-col justify-between h-full px-6 py-4 gap-y-6 overflow-y-auto bg-[#1F2937]">
         <div>
-            <a href="{{ route('transaction.index') }}" class="flex items-center justify-center py-6 text-white gap-x-2">
+            <a href="#" class="flex items-center justify-center py-6 text-white gap-x-2">
                 <i class="fa-solid fa-mug-hot md:fa-sm lg:fa-2xl"></i>
                 <span class="font-semibold md:text-sm lg:text-xl whitespace-nowrap">Coffee Shop</span>
             </a>
@@ -33,14 +33,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('menu-list.index') }}"
+                    <a href="{{ route('menuList.index') }}"
                         class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'menu-list.index' ? 'bg-white text-gray-900' : ' text-white' }}">
                         <i class="fa-solid fa-burger md:fa-xs lg:fa-lg"></i>
                         <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Menu List</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('menuCategory.index') }}"
                         class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <span class="material-symbols-outlined text-xl">
                             widgets
@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('menuHistory.index') }}"
                         class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <span class="material-symbols-outlined md:text-xl lg:text-2xl">
                             manage_search
@@ -58,14 +58,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('report.index') }}"
                         class="flex items-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <i class="fa-solid fa-print md:fa-xs lg:fa-lg"></i>
                         <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Report</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('cashier.index') }}"
                         class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <span class="material-symbols-outlined md:text-xl lg:text-2xl">
                             group

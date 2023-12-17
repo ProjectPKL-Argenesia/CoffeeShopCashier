@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
 use Illuminate\Http\Request;
+use App\Models\MenuCategory;
 
-class TransactionController extends Controller
+class MenuCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        Menu::all();
-        return view('pages.transaction.index', ["title" => "Transaction"]);
+        $dataMenuCategory = MenuCategory::all();
+        return view('pages.menuCategory.index', ['title' => 'Menu Category'], compact('dataMenuCategory'));
     }
 
     /**

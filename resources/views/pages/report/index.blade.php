@@ -1,5 +1,5 @@
 @extends('layouts.backend.main')
 
 @section('content')
-    asd
+    <h1>Test</h1>
 @endsection

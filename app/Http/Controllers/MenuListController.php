@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class MenuListController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        Menu::all();
-        return view('pages.transaction.index', ["title" => "Transaction"]);
+        $dataMenu = Menu::all();
+        return view('pages.menuList.index', ["title" => "Menu List"], compact('dataMenu'));
     }
 
     /**

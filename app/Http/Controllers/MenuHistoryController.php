@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuHistory;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class MenuHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.menu-list.index', ["title" => "Menu List"]);
+        $dataMenuHistory = MenuHistory::all();
+        return view('pages.menuHistory.index', ['title' => 'Menu History'], compact('dataMenuHistory'));
     }
 
     /**
@@ -33,7 +35,7 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(MenuHistory $menuHistory)
     {
         //
     }
@@ -41,7 +43,7 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(MenuHistory $menuHistory)
     {
         //
     }
@@ -49,7 +51,7 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, MenuHistory $menuHistory)
     {
         //
     }
@@ -57,7 +59,7 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(MenuHistory $menuHistory)
     {
         //
     }
