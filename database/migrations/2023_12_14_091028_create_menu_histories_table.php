@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('menu_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->references('id')->on('menus');
+            $table->foreignId('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('menu_name');
+            $table->enum('type', ['Food', 'Drink']);
+            $table->string('image');
+            $table->decimal('price');
+            $table->integer('stock');
+            $table->decimal('tax');
             $table->timestamps();
         });
     }

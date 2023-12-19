@@ -84,30 +84,16 @@
         </div>
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div>
-                <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
-                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                    type="button">
-                    <span class="sr-only">Action button</span>
-                    Status Table
-                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <!-- Dropdown menu -->
-                <div id="dropdownAction" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                    <ul class="py-1 text-sm text-gray-700 aria-labelledby="dropdownActionButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Empty</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Filled</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Broken</a>
-                        </li>
-                    </ul>
+                <div class="">
+                    <select name="menu" id="menu"
+                        class="w-full p-2 text-xs 2xl:text-sm bg-gray-50 text-gray-500 border-none rounded-lg focus:ring-0">
+                        <option selected hidden>Menu Category</option>
+                        <option value="Menu 1">Menu 1</option>
+                        <option value="Menu 2">Menu 2</option>
+                        <option value="Menu 3">Menu 3</option>
+                        <option value="Menu 4">Menu 4</option>
+                        <option value="Menu 5">Menu 5</option>
+                    </select>
                 </div>
             </div>
             <label for="table-search" class="sr-only">Search</label>
@@ -116,7 +102,7 @@
                     <i class="pt-1 text-gray-500 fa-solid fa-search fa-md"></i>
                 </div>
                 <input type="search" id="table-search-users"
-                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-0"
                     placeholder="Search Table">
             </div>
         </div>
@@ -235,7 +221,8 @@
                                 <form action="{{ route('table.destroy', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-500" onclick="return confirm('Yakin?')"><i
+                                    <button type="submit" class="font-medium text-red-500"
+                                        onclick="return confirm('Yakin?')"><i
                                             class="px-1 fa-solid fa-trash-can"></i>Hapus</button>
                                 </form>
                             </td>

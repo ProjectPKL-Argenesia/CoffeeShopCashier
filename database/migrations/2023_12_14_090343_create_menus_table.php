@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('menu_name');
-            $table->string('price');
-            $table->string('qty');
-            $table->string('stock');
-            $table->string('tax');
+            $table->enum('type', ['Food', 'Drink']);
+            $table->string('image');
+            $table->decimal('price');
+            $table->integer('stock');
+            $table->decimal('tax');
             $table->timestamps();
         });
     }

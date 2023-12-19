@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name_menu');
-            $table->string('qty');
-            $table->string('price');
-            $table->string('tax');
-            $table->string('discount');
+            $table->string('menu_name');
+            $table->integer('qty');
+            $table->decimal('price');
+            $table->decimal('tax');
+            $table->decimal('discount');
             $table->timestamps();
         });
     }

@@ -1,6 +1,5 @@
 @extends('layouts.backend.main')
 
-
 @section('content')
     <section class="grid grid-cols-12">
         <div class="h-full col-span-9 bg-gray-200">
@@ -155,7 +154,7 @@
 
 
 
-            // initial varibalke
+            // initial variable
             let order = [];
             let initialDataCounter = 0;
             let counter = initialDataCounter;

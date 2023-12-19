@@ -10,4 +10,14 @@ class MenuCategory extends Model
     use HasFactory;
 
     protected $fillable = ['category_name', 'type'];
+
+    public function menu()
+    {
+        return $this->hasMany(Menu::class, 'menu_id');
+    }
+
+    public function menuHistory()
+    {
+        return $this->hasMany(MenuHistory::class, 'menu_history_id');
+    }
 }

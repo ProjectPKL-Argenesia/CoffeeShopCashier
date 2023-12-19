@@ -29,7 +29,14 @@ class MenuCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'category_name' => 'required|string|max:255',
+            'type' => 'required',
+        ]);
+
+        MenuCategory::create($validatedData);
+
+        return redirect()->to('/menuCategory')->with('success', 'Data anda berhasil disimpan.');
     }
 
     /**
@@ -51,9 +58,16 @@ class MenuCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'category_name' => 'required|string|max:255',
+            'type' => 'required',
+        ]);
+        $dataMenuCategory = MenuCategory::find($id);
+        $dataMenuCategory->update($validatedData);
+
+        return redirect()->to('/menuCategory')->with('success', 'Data anda berhasil diupdate.');
     }
 
     /**
@@ -61,6 +75,9 @@ class MenuCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dataMenuCategory = MenuCategory::find($id);
+        $dataMenuCategory->delete();
+
+        return redirect()->to('/menuCategory')->with('success', 'Data anda berhasil dihapus.');
     }
 }

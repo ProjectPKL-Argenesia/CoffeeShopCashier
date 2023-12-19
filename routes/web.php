@@ -21,15 +21,23 @@ use App\Http\Controllers\ReportController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    //default
+    Route::get('/', function () {
+        return view('pages.transaction.index', ["title" => "Transaction"]);
+    });
 
     //transaction
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
@@ -42,9 +50,15 @@ Route::middleware('auth')->group(function () {
 
     //menuList
     Route::get('/menuList', [MenuListController::class, 'index'])->name('menuList.index');
+    Route::post('/menuList/store', [MenuListController::class, 'store'])->name('menuList.store');
+    Route::patch('/menuList/{id}', [MenuListController::class, 'update'])->name('menuList.update');
+    Route::delete('/menuList/destroy{id}', [MenuListController::class, 'destroy'])->name('menuList.destroy');
 
     //menuCategory
     Route::get('/menuCategory', [MenuCategoryController::class, 'index'])->name('menuCategory.index');
+    Route::post('/menuCategory/store', [MenuCategoryController::class, 'store'])->name('menuCategory.store');
+    Route::patch('/menuCategory/{id}', [MenuCategoryController::class, 'update'])->name('menuCategory.update');
+    Route::delete('/menuCategory/destroy{id}', [MenuCategoryController::class, 'destroy'])->name('menuCategory.destroy');
 
     //menuHistory
     Route::get('/menuHistory', [MenuHistoryController::class, 'index'])->name('menuHistory.index');

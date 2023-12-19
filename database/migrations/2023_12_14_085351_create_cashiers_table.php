@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['Male', 'Female']);
             $table->timestamps();
         });
     }

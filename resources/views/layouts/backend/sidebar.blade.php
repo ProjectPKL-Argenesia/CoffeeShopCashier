@@ -34,14 +34,14 @@
                 </li>
                 <li>
                     <a href="{{ route('menuList.index') }}"
-                        class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'menu-list.index' ? 'bg-white text-gray-900' : ' text-white' }}">
+                        class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'menuList.index' ? 'bg-white text-gray-900' : ' text-white' }}">
                         <i class="fa-solid fa-burger md:fa-xs lg:fa-lg"></i>
                         <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Menu List</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('menuCategory.index') }}"
-                        class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
+                        class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'menuCategory.index' ? 'bg-white text-gray-900' : 'text-white' }}">
                         <span class="material-symbols-outlined text-xl">
                             widgets
                         </span>
@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <a href="{{ route('menuHistory.index') }}"
-                        class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
+                        class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'menuHistory.index' ? 'bg-white text-gray-900' : 'text-white' }}">
                         <span class="material-symbols-outlined md:text-xl lg:text-2xl">
                             manage_search
                         </span>
@@ -59,14 +59,14 @@
                 </li>
                 <li>
                     <a href="{{ route('report.index') }}"
-                        class="flex items-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
+                        class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'report.index' ? 'bg-white text-gray-900' : 'text-white' }}">
                         <i class="fa-solid fa-print md:fa-xs lg:fa-lg"></i>
                         <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Report</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('cashier.index') }}"
-                        class="flex items-center py-2 px-1 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
+                        class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'cashier.index' ? 'bg-white text-gray-900' : 'text-white' }}">
                         <span class="material-symbols-outlined md:text-xl lg:text-2xl">
                             group
                         </span>
