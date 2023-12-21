@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\MenuCategory;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -13,7 +15,9 @@ class TransactionController extends Controller
     public function index()
     {
         $dataMenu = Menu::all();
-        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu'));
+        $dataMenuCategory = MenuCategory::all();
+        $dataTable = Table::all();
+        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable'));
     }
 
     /**

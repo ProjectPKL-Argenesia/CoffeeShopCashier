@@ -10,6 +10,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\ReportController;
 use App\Models\Menu;
+use App\Models\MenuCategory;
+use App\Models\Table;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,9 @@ Route::middleware('auth')->group(function () {
     //default
     Route::get('/', function () {
         $dataMenu = Menu::all();
-        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu'));
+        $dataMenuCategory = MenuCategory::all();
+        $dataTable = Table::all();
+        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable'));
     });
 
     //transaction

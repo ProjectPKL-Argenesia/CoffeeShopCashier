@@ -1,12 +1,12 @@
 @extends('layouts.backend.main')
 
 @section('content')
-    <section class="bg-gray-300 h-screen p-10">
+    <section class="h-screen p-10 bg-gray-300">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Menu List</h1>
             <div>
                 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                    class="block text-gray-200 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2 text-center"
+                    class="block px-5 py-2 text-sm font-medium text-center text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-800"
                     type="button">
                     + Add Menu
                 </button>
@@ -27,11 +27,11 @@
                             </button>
                             <form action="{{ route('menuList.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="grid grid-cols-12 gap-x-2 pt-16 pb-10 px-8">
-                                    <div class="flex flex-col gap-y-2 justify-center items-center col-span-3">
+                                <div class="grid grid-cols-12 px-8 pt-16 pb-10 gap-x-2">
+                                    <div class="flex flex-col items-center justify-center col-span-3 gap-y-2">
                                         <div
                                             class="grid grid-cols-1 place-items-center border border-gray-800 border-dashed rounded-lg w-[150px] h-[150px]">
-                                            <img class="w-full h-full img-preview rounded-lg">
+                                            <img class="w-full h-full rounded-lg img-preview">
                                         </div>
                                         <div class="flex justify-center">
                                             <input type="file" name="image" id="image" onchange="previewImage()"
@@ -40,53 +40,53 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-9 grid grid-cols-1 gap-y-6">
-                                        <div class="col-span-1 grid grid-cols-12 gap-2">
-                                            <div class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                    <div class="grid grid-cols-1 col-span-9 gap-y-6">
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                 <label for="menu_name" class="whitespace-nowrap">Menu Name</label>
                                             </div>
-                                            <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                 <span>:</span>
                                             </div>
                                             <div class="col-span-9">
                                                 <input type="text" name="menu_name" id="menu_name" required
-                                                    class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                     placeholder="ex : Espresso">
                                             </div>
                                         </div>
-                                        <div class="col-span-1 grid grid-cols-12 gap-2">
-                                            <div class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                 <label for="type" class="whitespace-nowrap">Menu Type</label>
                                             </div>
-                                            <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                 <span>:</span>
                                             </div>
-                                            <div class="flex items-center gap-x-2 col-span-9">
+                                            <div class="flex items-center col-span-9 gap-x-2">
                                                 <div
-                                                    class="flex items-center justify-between px-2 gap-x-4 py-1 text-xs 2xl:text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                                    class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="food">Food</label>
                                                     <input type="radio" name="type" id="food" value="Food"
                                                         required class="text-gray-500 focus:ring-0">
                                                 </div>
                                                 <div
-                                                    class="flex items-center justify-between px-2 gap-x-4 py-1 text-xs 2xl:text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                                    class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="drink">Drink</label>
                                                     <input type="radio" name="type" id="drink" value="Drink"
                                                         required class="text-gray-500 focus:ring-0">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-span-1 grid grid-cols-12 gap-2">
-                                            <div class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                 <label for="menu_category_id" class="whitespace-nowrap">Menu
                                                     Category</label>
                                             </div>
-                                            <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                 <span>:</span>
                                             </div>
                                             <div class="col-span-9">
                                                 <select name="menu_category_id" id="menu_category_id" required
-                                                    class="w-full px-2 py-1 bg-gray-200 rounded-lg text-xs 2xl:text-sm focus:ring-0">
+                                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
                                                     <option selected hidden>Menu Category</option>
                                                     @foreach ($dataMenuCategory as $item)
                                                         <option value="{{ $item->id }}">{{ $item->category_name }}
@@ -95,36 +95,36 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-span-1 grid grid-cols-12 gap-2">
-                                            <div class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                 <label for="price" class="whitespace-nowrap">Price</label>
                                             </div>
-                                            <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                 <span>:</span>
                                             </div>
                                             <div class="col-span-9">
                                                 <input type="text" name="price" id="price" required
-                                                    class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                     placeholder="8000">
                                             </div>
                                         </div>
-                                        <div class="col-span-1 grid grid-cols-12 gap-2">
-                                            <div class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                 <label for="tax" class="whitespace-nowrap">Tax</label>
                                             </div>
-                                            <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                 <span>:</span>
                                             </div>
                                             <div class="col-span-9">
                                                 <input type="text" name="tax" id="tax" required
-                                                    class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                     placeholder="0.11">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pt-20 col-span-12">
+                                    <div class="col-span-12 pt-20">
                                         <button type="submit"
-                                            class="py-2 w-full bg-gray-800 rounded-lg text-gray-100">Done</button>
+                                            class="w-full py-2 text-gray-100 bg-gray-800 rounded-lg">Done</button>
                                     </div>
                                 </div>
                             </form>
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div
-            class="flex items-center gap-x-2 justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 md:text-xs lg:text-sm">
+            class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0 md:text-xs lg:text-sm">
             <div
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                 <label for="food-filter" class="text-black/70">Food</label>
@@ -152,24 +152,23 @@
                 <select name="menu" id="menu"
                     class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
                     <option selected hidden>Menu Category</option>
-                    <option value="Menu 1">Menu 1</option>
-                    <option value="Menu 2">Menu 2</option>
-                    <option value="Menu 3">Menu 3</option>
-                    <option value="Menu 4">Menu 4</option>
-                    <option value="Menu 5">Menu 5</option>
+                    @foreach ($dataMenuCategory as $item)
+                        <option value="{{ $item->id }}">{{ $item->category_name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
-                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="fa-solid fa-search fa-md text-gray-500 pt-1"></i>
+                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                    <i class="pt-1 text-gray-500 fa-solid fa-search fa-md"></i>
                 </div>
                 <input type="search" id="table-search-users"
-                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-0"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-0"
                     placeholder="Search Menu">
             </div>
         </div>
-        <div class="grid grid-cols-3 xl:grid-cols-4 gap-3 place-items-center">
+        <div class="grid grid-cols-3 gap-3 xl:grid-cols-4 place-items-center">
             @foreach ($dataMenu as $item)
                 <div
                     class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
@@ -178,18 +177,19 @@
                         <img src="{{ asset('storage/' . $item->image) }}" class="object-cover" alt="gambar">
                     </div>
                     <div class="grid items-center grid-cols-2">
-                        <div class="flex flex-col capitalize text-sm">
+                        <div class="flex flex-col text-sm capitalize">
                             <h2 class="font-semibold">{{ $item->menu_name }}</h2>
                             <span>Rp {{ number_format($item->price, 0, ',', '.') }}</span>
                         </div>
-                        <div class="flex justify-end items-center pr-3">
-                            <div class="flex justify-center items-center gap-x-3">
+                        <div class="flex items-center justify-end pr-3">
+                            <div class="flex items-center justify-center gap-x-3">
                                 <!-- Button Edit -->
                                 <div>
-                                    <button data-modal-target="popup-modal-edit-{{ $item->id }}" data-modal-toggle="popup-modal-edit-{{ $item->id }}"
-                                        class="block text-yellow-400 font-medium text-sm whitespace-nowrap px-1 text-center"
+                                    <button data-modal-target="popup-modal-edit-{{ $item->id }}"
+                                        data-modal-toggle="popup-modal-edit-{{ $item->id }}"
+                                        class="block px-1 text-sm font-medium text-center text-yellow-400 whitespace-nowrap"
                                         type="button">
-                                        <i class="fa-solid fa-file-signature px-1"></i>Edit
+                                        <i class="px-1 fa-solid fa-file-signature"></i>Edit
                                     </button>
 
                                     <div id="popup-modal-edit-{{ $item->id }}" tabindex="-1"
@@ -213,12 +213,12 @@
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <div class="grid grid-cols-12 gap-x-2 pt-16 pb-10 px-8">
+                                                    <div class="grid grid-cols-12 px-8 pt-16 pb-10 gap-x-2">
                                                         <div
-                                                            class="flex flex-col gap-y-2 justify-center items-center col-span-3">
+                                                            class="flex flex-col items-center justify-center col-span-3 gap-y-2">
                                                             <div
                                                                 class="grid grid-cols-1 place-items-center border border-gray-800 border-dashed rounded-lg w-[150px] h-[150px]">
-                                                                <img class="w-full h-full img-preview rounded-lg"
+                                                                <img class="w-full h-full rounded-lg img-preview"
                                                                     src="{{ asset('storage/' . $item->image) }}">
                                                             </div>
                                                             <div class="flex justify-center">
@@ -228,35 +228,35 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-span-9 grid grid-cols-1 gap-y-6">
-                                                            <div class="col-span-1 grid grid-cols-12 gap-2">
+                                                        <div class="grid grid-cols-1 col-span-9 gap-y-6">
+                                                            <div class="grid grid-cols-12 col-span-1 gap-2">
                                                                 <div
-                                                                    class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                                                    class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                                     <label for="menu_name" class="whitespace-nowrap">Menu
                                                                         Name</label>
                                                                 </div>
-                                                                <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                                                <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="col-span-9">
                                                                     <input type="text" name="menu_name" id="menu_name"
                                                                         value="{{ $item->menu_name }}" required
-                                                                        class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                                        class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                                         placeholder="ex : Espresso">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-span-1 grid grid-cols-12 gap-2">
+                                                            <div class="grid grid-cols-12 col-span-1 gap-2">
                                                                 <div
-                                                                    class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                                                    class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                                     <label for="type" class="whitespace-nowrap">Menu
                                                                         Type</label>
                                                                 </div>
-                                                                <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                                                <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                                     <span>:</span>
                                                                 </div>
-                                                                <div class="flex items-center gap-x-2 col-span-9">
+                                                                <div class="flex items-center col-span-9 gap-x-2">
                                                                     <div
-                                                                        class="flex items-center justify-between px-2 gap-x-4 py-1 text-xs 2xl:text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                                                        class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                                         <label for="food">Food</label>
                                                                         <input type="radio" name="type"
                                                                             id="food" value="Food" required
@@ -264,7 +264,7 @@
                                                                             {{ $item->type == 'Food' ? 'checked' : '' }}>
                                                                     </div>
                                                                     <div
-                                                                        class="flex items-center justify-between px-2 gap-x-4 py-1 text-xs 2xl:text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                                                        class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                                         <label for="drink">Drink</label>
                                                                         <input type="radio" name="type"
                                                                             id="drink" value="Drink" required
@@ -273,20 +273,20 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-span-1 grid grid-cols-12 gap-2">
+                                                            <div class="grid grid-cols-12 col-span-1 gap-2">
                                                                 <div
-                                                                    class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                                                    class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                                     <label for="menu_category_id"
                                                                         class="whitespace-nowrap">Menu
                                                                         Category</label>
                                                                 </div>
-                                                                <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                                                <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="col-span-9">
                                                                     <select name="menu_category_id" id="menu_category_id"
                                                                         required
-                                                                        class="w-full px-2 py-1 bg-gray-200 rounded-lg text-xs 2xl:text-sm focus:ring-0">
+                                                                        class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
                                                                         <option selected hidden>Menu Category</option>
                                                                         @foreach ($dataMenuCategory as $itemMenuCategory)
                                                                             <option value="{{ $itemMenuCategory->id }}"
@@ -297,42 +297,42 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-span-1 grid grid-cols-12 gap-2">
+                                                            <div class="grid grid-cols-12 col-span-1 gap-2">
                                                                 <div
-                                                                    class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                                                    class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                                     <label for="price"
                                                                         class="whitespace-nowrap">Price</label>
                                                                 </div>
-                                                                <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                                                <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="col-span-9">
                                                                     <input type="text" name="price" id="price"
                                                                         value="{{ $item->price }}" required
-                                                                        class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                                        class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                                         placeholder="8000">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-span-1 grid grid-cols-12 gap-2">
+                                                            <div class="grid grid-cols-12 col-span-1 gap-2">
                                                                 <div
-                                                                    class="col-span-2 font-semibold gap-x-4 text-xs 2xl:text-sm text-start">
+                                                                    class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
                                                                     <label for="tax"
                                                                         class="whitespace-nowrap">Tax</label>
                                                                 </div>
-                                                                <div class="col-span-1 text-center text-xs 2xl:text-sm">
+                                                                <div class="col-span-1 text-xs text-center 2xl:text-sm">
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="col-span-9">
                                                                     <input type="text" name="tax" id="tax"
                                                                         value="{{ $item->tax }}" required
-                                                                        class="w-full px-2 py-1 text-xs 2xl:text-sm rounded-lg focus:ring-0 bg-gray-200"
+                                                                        class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
                                                                         placeholder="0.11">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="pt-20 col-span-12">
+                                                        <div class="col-span-12 pt-20">
                                                             <button type="submit"
-                                                                class="py-2 w-full bg-gray-800 rounded-lg text-gray-100">Done</button>
+                                                                class="w-full py-2 text-gray-100 bg-gray-800 rounded-lg">Done</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -346,8 +346,8 @@
                                     <form action="{{ route('menuHistory.destroy', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="font-medium text-sm whitespace-nowrap text-red-500"><i
-                                                class="fa-solid fa-trash-can px-1"></i>Hapus</button>
+                                        <button class="text-sm font-medium text-red-500 whitespace-nowrap"><i
+                                                class="px-1 fa-solid fa-trash-can"></i>Hapus</button>
                                     </form>
                                 </div>
                             </div>

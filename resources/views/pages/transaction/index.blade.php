@@ -25,11 +25,10 @@
                         <select name="menu" id="menu"
                             class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
                             <option selected hidden>Menu Category</option>
-                            <option value="Menu 1">Menu 1</option>
-                            <option value="Menu 2">Menu 2</option>
-                            <option value="Menu 3">Menu 3</option>
-                            <option value="Menu 4">Menu 4</option>
-                            <option value="Menu 5">Menu 5</option>
+                            @foreach ($dataMenuCategory as $item)
+                                <option value="{{ $item->id }}">{{ $item->category_name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -55,7 +54,7 @@
                         <div class="grid grid-cols-2 justify-items-stretch">
                             <div class="flex flex-col capitalize ">
                                 <h2 class="font-semibold">{{ $item->menu_name }}</h2>
-                                <span>{{ $item->price }}</span>
+                                <span class="harga-menu">{{ $item->price }}</span>
                             </div>
                             <div class="grid items-center justify-items-end">
                                 <button
@@ -73,6 +72,21 @@
                 <button class="z-40 right-2 top-2" id="clearContent">
                     <img src="{{ asset('assets/images/clear.svg') }}" alt="clear" class="">
                 </button>
+            </div>
+            <div class="flex items-center justify-between p-4">
+                <div class="">
+                    <select name="menu_category_id" id="menu_category_id" required
+                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
+                        <option selected hidden>Table</option>
+                        @foreach ($dataTable as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <p id="tanggal" class="text-sm"></p>
+                </div>
             </div>
             <div id="containerOrder"
                 class="h-screen w-full max-h-[500px] overflow-y-auto mt-3 border-l border-gray-300 px-3 py-10">
@@ -302,5 +316,23 @@
             }
 
         });
+
+
+
+
+
+        //Script Tanggal
+        var today = new Date();
+
+        var namaBulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        var dd = today.getDate();
+        var mm = namaBulan[today.getMonth()];
+        var yyyy = today.getFullYear();
+
+        document.getElementById('tanggal').innerHTML = dd + ' ' + mm + ' ' + yyyy;
     </script>
 @endsection
