@@ -9,6 +9,7 @@ use App\Http\Controllers\MenuHistoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\ReportController;
+use App\Models\Menu;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,8 @@ Route::middleware('auth')->group(function () {
 
     //default
     Route::get('/', function () {
-        return view('pages.transaction.index', ["title" => "Transaction"]);
+        $dataMenu = Menu::all();
+        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu'));
     });
 
     //transaction
@@ -62,6 +64,7 @@ Route::middleware('auth')->group(function () {
 
     //menuHistory
     Route::get('/menuHistory', [MenuHistoryController::class, 'index'])->name('menuHistory.index');
+    Route::delete('/menuHistory/destroy{id}', [MenuHistoryController::class, 'destroy'])->name('menuHistory.destroy');
 
     //report
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');

@@ -12,8 +12,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        Menu::all();
-        return view('pages.transaction.index', ["title" => "Transaction"]);
+        $dataMenu = Menu::all();
+        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu'));
     }
 
     /**

@@ -11,7 +11,7 @@ class Menu extends Model
 
     protected $fillable = ['menu_category_id', 'type', 'menu_name', 'price', 'image', 'stock', 'tax'];
 
-    public function menuCategory()
+    public function menu_category()
     {
         return $this->belongsTo(MenuCategory::class, 'menu_category_id');
     }

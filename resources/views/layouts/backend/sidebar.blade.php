@@ -75,15 +75,17 @@
                 </li>
             </ul>
         </div>
-
-        <div>
-            <li class="font-medium">
-                <a href="#"
-                    class="flex items-center justify-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
-                    <i class="fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>
-                    <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Log out</span>
-                </a>
-            </li>
-        </div>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <div>
+                <li class="font-medium">
+                    <a href="#"
+                        class="flex items-center justify-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
+                        <i class="fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>
+                        <button type="submit" class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Log out</button>
+                    </a>
+                </li>
+            </div>
+        </form>
     </div>
 </aside>

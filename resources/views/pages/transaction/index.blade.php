@@ -45,91 +45,55 @@
                 </div>
             </div>
             <div class="grid grid-cols-3 gap-3 px-5 place-items-center">
-
-                <div
-                    class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
+                @foreach ($dataMenu as $item)
                     <div
-                        class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                        <img src="{{ asset('/assets/images/background.jpg') }}" class=" object-cover" alt="gambar">
-                    </div>
-                    <div class="grid justify-items-stretch grid-cols-2">
-                        <div class="flex flex-col capitalize ">
-                            <h2 class="font-semibold">Coffee</h2>
-                            <span>6500</span>
+                        class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
+                        <div
+                            class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
+                            <img src="{{ asset('storage/' . $item->image) }}" class="object-cover " alt="gambar">
                         </div>
-                        <div class="grid justify-items-end items-center">
-                            <button
-                                class="order-button px-3 py-2 bg-gray-200 rounded-md font-medium text-gray-800">Order</button>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
-                    <div
-                        class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                        <img src="https://i0.wp.com/umsu.ac.id/berita/wp-content/uploads/2023/08/nanas-kandungan-dan-manfaat.jpg?fit=1200%2C675&ssl=1-"
-                            class=" object-cover" alt="gambar">
-                    </div>
-                    <div class="grid justify-items-stretch grid-cols-2">
-                        <div class="flex flex-col capitalize ">
-                            <h2 class="font-semibold">nanas</h2>
-                            <span>6500</span>
-                        </div>
-                        <div class="grid justify-items-end items-center">
-                            <button
-                                class="order-button px-3 py-2 bg-gray-200 rounded-md font-medium text-gray-800">Order</button>
+                        <div class="grid grid-cols-2 justify-items-stretch">
+                            <div class="flex flex-col capitalize ">
+                                <h2 class="font-semibold">{{ $item->menu_name }}</h2>
+                                <span>{{ $item->price }}</span>
+                            </div>
+                            <div class="grid items-center justify-items-end">
+                                <button
+                                    class="px-3 py-2 font-medium text-gray-800 bg-gray-200 rounded-md order-button">Order</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
-                    <div
-                        class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1539&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            class=" object-cover" alt="gambar">
-                    </div>
-                    <div class="grid justify-items-stretch grid-cols-2">
-                        <div class="flex flex-col capitalize ">
-                            <h2 class="font-semibold">pisang</h2>
-                            <span>6500</span>
-                        </div>
-                        <div class="grid justify-items-end items-center">
-                            <button
-                                class="order-button px-3 py-2 bg-gray-200 rounded-md font-medium text-gray-800">Order</button>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
 
-        <div class="w-full h-full bg-white col-span-3">
-            <div class="flex justify-between items-center p-4">
+        <div class="w-full h-full col-span-3 bg-white">
+            <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
-                <button class=" right-2 top-2 z-40" id="clearContent">
+                <button class="z-40 right-2 top-2" id="clearContent">
                     <img src="{{ asset('assets/images/clear.svg') }}" alt="clear" class="">
                 </button>
             </div>
-            <div id="containerOrder" class="h-screen w-full max-h-[500px] overflow-y-auto mt-3 border-l border-gray-300 px-3 py-10">
+            <div id="containerOrder"
+                class="h-screen w-full max-h-[500px] overflow-y-auto mt-3 border-l border-gray-300 px-3 py-10">
 
             </div>
-            <div class="flex flex-col gap-y-2 p-10">
-                <div
-                    class=" min-h-[180px] w-full border p-4 rounded-lg border-gray-300 z-50 grid grid-cols-1 gap-y-3">
-                    <div class="flex justify-between items-center">
+            <div class="flex flex-col p-10 gap-y-2">
+                <div class=" min-h-[180px] w-full border p-4 rounded-lg border-gray-300 z-50 grid grid-cols-1 gap-y-3">
+                    <div class="flex items-center justify-between">
                         <p>Sub Total</p>
                         <p id="sub-total">Rp. 0</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex items-center justify-between">
                         <p>Tax</p>
                         <p id="tax">Rp. 0</p>
                     </div>
-                    <div class="flex justify-between items-center border-t-4 border-gray-300 mt-0">
+                    <div class="flex items-center justify-between mt-0 border-t-4 border-gray-300">
                         <p>Total</p>
                         <p id="total-harga">Rp. 0</p>
                     </div>
                 </div>
-                <div class="flex justify-between bg-gray-400 rounded-lg items-center font-semibold p-4">
+                <div class="flex items-center justify-between p-4 font-semibold bg-gray-400 rounded-lg">
                     <p class="">Change</p>
                     <p id="change">Rp. 0</p>
                 </div>
@@ -280,18 +244,18 @@
                 $.map(order, function(item, index) {
 
                     $('#containerOrder').append(`
-                        <div  class="grid justify-items-stretch grid-cols-3 my-5 ">
+                        <div  class="grid grid-cols-3 my-5 justify-items-stretch ">
                         <div class="flex flex-col capitalize ">
                             <h2 class="font-semibold">${item.name}</h2>
                             <span>${item.price}</span>
                         </div>
                         <div class="grid grid-cols-3 justify-items-center min-w-[150px] items-center">
-                            <button class="button-kurang px-2 rounded-md py-1 border border-gray-300">-</button>
-                            <div id="counter" class=" py-1 px-3 border border-gray-300 bg-gray-200 font-semibold rounded-md ">${item.count}</div>
-                            <button  class="button-tambah px-2 rounded-md py-1 border border-gray-300 cursor-pointer">+</button>
+                            <button class="px-2 py-1 border border-gray-300 rounded-md button-kurang">-</button>
+                            <div id="counter" class="px-3 py-1 font-semibold bg-gray-200 border border-gray-300 rounded-md ">${item.count}</div>
+                            <button  class="px-2 py-1 border border-gray-300 rounded-md cursor-pointer button-tambah">+</button>
                         </div>
                         <div class=" flex justify-end items-center max-w-[50px] justify-self-end">
-                            <button data-name="${item.name}" class="button-hapus px-3 bg-gray-300 py-2 text-gray-700 font-semibold rounded-md">
+                            <button data-name="${item.name}" class="px-3 py-2 font-semibold text-gray-700 bg-gray-300 rounded-md button-hapus">
                                 <i class="fa-solid fa-trash-can fa-lg"></i>
                             </button>
                         </div>

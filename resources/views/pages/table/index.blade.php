@@ -86,7 +86,7 @@
             <div>
                 <div class="">
                     <select name="menu" id="menu"
-                        class="w-full p-2 text-xs 2xl:text-sm bg-gray-50 text-gray-500 border-none rounded-lg focus:ring-0">
+                        class="w-full p-2 text-xs text-gray-500 border-none rounded-lg 2xl:text-sm bg-gray-50 focus:ring-0">
                         <option selected hidden>Menu Category</option>
                         <option value="Menu 1">Menu 1</option>
                         <option value="Menu 2">Menu 2</option>
@@ -134,18 +134,18 @@
 
                                 <!-- Button Edit -->
                                 <div>
-                                    <button data-modal-target="popup-modal-edit" data-modal-toggle="popup-modal-edit"
+                                    <button data-modal-target="popup-modal-edit-{{ $item->id }}" data-modal-toggle="popup-modal-edit-{{ $item->id }}"
                                         class="block px-1 text-sm font-medium text-center text-yellow-400" type="button">
                                         <i class="px-1 fa-solid fa-file-signature"></i>Edit
                                     </button>
 
-                                    <div id="popup-modal-edit" tabindex="-1"
+                                    <div id="popup-modal-edit-{{ $item->id }}" tabindex="-1"
                                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative p-4 w-full max-w-[40%] min-w-[35%] max-h-full">
                                             <div class="relative bg-white rounded-lg shadow">
                                                 <button type="button"
                                                     class="absolute top-3 end-2.5 text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="popup-modal-edit">
+                                                    data-modal-hide="popup-modal-edit-{{ $item->id }}">
                                                     <svg class="w-3 h-3" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 14">

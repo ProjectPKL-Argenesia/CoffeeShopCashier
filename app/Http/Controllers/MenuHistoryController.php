@@ -35,7 +35,7 @@ class MenuHistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MenuHistory $menuHistory)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +43,7 @@ class MenuHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MenuHistory $menuHistory)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class MenuHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MenuHistory $menuHistory)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,8 +59,11 @@ class MenuHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MenuHistory $menuHistory)
+    public function destroy(string $id)
     {
-        //
+        $dataMenuHistory = MenuHistory::find($id);
+        $dataMenuHistory->delete();
+
+        return redirect()->to('/menuHistory')->with('success', 'Data anda berhasil dihapus.');
     }
 }
