@@ -141,11 +141,11 @@
                 <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
             </div>
 
-            <div
+            <button onclick=""
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                 <label for="drink-filter">Drink</label>
                 <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
-            </div>
+            </button>
 
             <div
                 class="flex justify-center items-center border border-gray-300 text-gray-500 gap-x-2 rounded-lg md:w-[150px] lg:w-[200px]">
