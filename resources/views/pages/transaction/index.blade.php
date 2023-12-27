@@ -8,16 +8,16 @@
                     <h1 class="text-3xl font-bold text-black/80">Cashier</h1>
                 </div>
                 <div class="flex items-center justify-end gap-x-2 md:text-xs lg:text-sm">
-                    <div
+                    <div id="foodType"
                         class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                         <label for="food" class="text-black/70">Food</label>
-                        <input type="radio" name="food-drink" id="food" class="text-gray-500 focus:ring-white">
+                        <input type="radio" name="type" id="food" class="text-gray-500 focus:ring-white">
                     </div>
 
-                    <div
+                    <div id="drinkType"
                         class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                         <label for="drink">Drink</label>
-                        <input type="radio" name="food-drink" id="drink" class="text-gray-500 focus:ring-white">
+                        <input type="radio" name="type" id="drink" class="text-gray-500 focus:ring-white">
                     </div>
 
                     <div
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div id="containerOrder"
-                class="h-screen w-full max-h-[500px] overflow-y-auto mt-3 border-l border-gray-300 px-3 py-10">
+                class="h-screen w-full max-h-[500px] overflow-y-auto mt-3 px-3 py-10">
 
             </div>
             <div class="flex flex-col p-10 gap-y-2">
@@ -334,5 +334,25 @@
         var yyyy = today.getFullYear();
 
         document.getElementById('tanggal').innerHTML = dd + ' ' + mm + ' ' + yyyy;
+
+
+        //filter radio button
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("foodType");
+            const radioElement = document.getElementById("food");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("drinkType");
+            const radioElement = document.getElementById("drink");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
     </script>
 @endsection

@@ -75,6 +75,9 @@ Route::middleware('auth')->group(function () {
 
     //cashier
     Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+    Route::post('/cashier/store', [CashierController::class, 'store'])->name('cashier.store');
+    Route::patch('/cashier/{id}', [CashierController::class, 'update'])->name('cashier.update');
+    Route::delete('/cashier/destroy{id}', [CashierController::class, 'destroy'])->name('cashier.destroy');
 });
 
 require __DIR__ . '/auth.php';

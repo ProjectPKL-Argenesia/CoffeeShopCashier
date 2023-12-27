@@ -80,14 +80,14 @@
                                 </label>
                             </div>
 
-                            <div class="flex items-center justify-between text-xs">
+                            {{-- <div class="flex items-center justify-between text-xs">
                                 <p class="text-black/70">kamu belum memilki akun ?</p>
                                 @if (Route::has('register'))
                                     <a class="py-2 px-3 md:px-5 bg-white text-[#000000] border rounded-md shadow-md hover:scale-105 duration-300"
                                         href="{{ route('register') }}">Daftar
                                     </a>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </form>

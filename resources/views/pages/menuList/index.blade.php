@@ -62,13 +62,13 @@
                                                 <span>:</span>
                                             </div>
                                             <div class="flex items-center col-span-9 gap-x-2">
-                                                <div
+                                                <div id="foodType"
                                                     class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="food">Food</label>
                                                     <input type="radio" name="type" id="food" value="Food"
                                                         required class="text-gray-500 focus:ring-0">
                                                 </div>
-                                                <div
+                                                <div id="drinkType"
                                                     class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="drink">Drink</label>
                                                     <input type="radio" name="type" id="drink" value="Drink"
@@ -135,13 +135,13 @@
         </div>
         <div
             class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0 md:text-xs lg:text-sm">
-            <div
+            <div id="foodType-Filter"
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                 <label for="food-filter" class="text-black/70">Food</label>
                 <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
             </div>
 
-            <div
+            <div id="drinkType-Filter"
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                 <label for="drink-filter">Drink</label>
                 <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
@@ -255,19 +255,23 @@
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="flex items-center col-span-9 gap-x-2">
-                                                                    <div
+                                                                    <div id="foodType-Edit-{{ $item->id }}"
                                                                         class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
-                                                                        <label for="food">Food</label>
+                                                                        <label
+                                                                            for="food-edit-{{ $item->id }}">Food</label>
                                                                         <input type="radio" name="type"
-                                                                            id="food" value="Food" required
+                                                                            id="food-edit-{{ $item->id }}"
+                                                                            value="Food" required
                                                                             class="text-gray-500 focus:ring-0"
                                                                             {{ $item->type == 'Food' ? 'checked' : '' }}>
                                                                     </div>
-                                                                    <div
+                                                                    <div id="drinkType-Edit-{{ $item->id }}"
                                                                         class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
-                                                                        <label for="drink">Drink</label>
+                                                                        <label
+                                                                            for="drink-edit-{{ $item->id }}">Drink</label>
                                                                         <input type="radio" name="type"
-                                                                            id="drink" value="Drink" required
+                                                                            id="drink-edit-{{ $item->id }}"
+                                                                            value="Drink" required
                                                                             class="text-gray-500 focus:ring-0"
                                                                             {{ $item->type == 'Drink' ? 'checked' : '' }}>
                                                                     </div>
@@ -354,36 +358,97 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    //Preview Image
+                    function previewImage() {
+                        const image = document.querySelector('#image');
+                        const imgPreview = document.querySelector('.img-preview');
+
+                        imgPreview.style.display = 'block';
+
+                        const oFReader = new FileReader();
+                        oFReader.readAsDataURL(image.files[0]);
+
+                        oFReader.onload = function(oFREvent) {
+                            imgPreview.src = oFREvent.target.result;
+                        }
+                    }
+
+                    function previewImage2() {
+                        const image2 = document.querySelector('#image2');
+                        const imgPreview2 = document.querySelector('.img-preview2');
+
+                        imgPreview2.style.display = 'block';
+
+                        const oFReader = new FileReader();
+                        oFReader.readAsDataURL(image2.files[0]);
+
+                        oFReader.onload = function(oFREvent) {
+                            imgPreview2.src = oFREvent.target.result;
+                        }
+                    }
+
+
+                    //add radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("foodType");
+                        const radioElement = document.getElementById("food");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("drinkType");
+                        const radioElement = document.getElementById("drink");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+
+                    //filter radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("foodType-Filter");
+                        const radioElement = document.getElementById("food-filter");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("drinkType-Filter");
+                        const radioElement = document.getElementById("drink-filter");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+
+                    //edit radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("foodType-Edit-{{ $item->id }}");
+                        const radioElement = document.getElementById("food-edit-{{ $item->id }}");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("drinkType-Edit-{{ $item->id }}");
+                        const radioElement = document.getElementById("drink-edit-{{ $item->id }}");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+                </script>
             @endforeach
         </div>
     </section>
-    <script>
-        function previewImage() {
-            const image = document.querySelector('#image');
-            const imgPreview = document.querySelector('.img-preview');
-
-            imgPreview.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            }
-        }
-
-        function previewImage2() {
-            const image2 = document.querySelector('#image2');
-            const imgPreview2 = document.querySelector('.img-preview2');
-
-            imgPreview2.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image2.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview2.src = oFREvent.target.result;
-            }
-        }
-    </script>
 @endsection

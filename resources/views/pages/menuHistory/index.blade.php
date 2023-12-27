@@ -7,13 +7,13 @@
         </div>
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div class="flex gap-x-2">
-                <div
+                <div id="foodType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="food-filter" class="text-black/70">Food</label>
                     <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
                 </div>
 
-                <div
+                <div id="drinkType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="drink-filter">Drink</label>
                     <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
@@ -26,7 +26,7 @@
                 </div>
                 <input type="search" id="table-search-users"
                     class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Search Category">
+                    placeholder="Search Menu">
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -239,4 +239,24 @@
             </table>
         </div>
     </section>
+    <script>
+        //filter radio button
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("foodType-Filter");
+            const radioElement = document.getElementById("food-filter");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("drinkType-Filter");
+            const radioElement = document.getElementById("drink-filter");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+    </script>
 @endsection
