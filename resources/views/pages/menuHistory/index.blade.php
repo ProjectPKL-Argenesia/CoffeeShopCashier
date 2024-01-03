@@ -10,14 +10,34 @@
                 <div id="foodType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="food-filter" class="text-black/70">Food</label>
-                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                        value="Food">
                 </div>
 
                 <div id="drinkType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="drink-filter">Drink</label>
-                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                        value="Drink">
                 </div>
+            </div>
+            <div
+                class="flex justify-center items-center border border-gray-300 text-gray-500 gap-x-2 rounded-lg md:w-[150px] lg:w-[200px]">
+                <select name="menu-filter" id="menu-filter"
+                    class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
+                    <option selected hidden>Menu Category</option>
+                    <option value="Show All">Show All</option>
+                    @foreach ($dataMenuCategory as $item)
+                        <option data-type="{{ $item->type }}" value="{{ $item->id }}">{{ $item->category_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div id="date-Filter" class="flex items-center justify-center text-gray-500 border-none rounded-lg">
+                <input type="date" name="date_payment" id="date-filter"
+                    class="p-1.5 bg-white text-gray-500 rounded-lg focus:ring-0 border-none">
+                <button id="filter-btn"
+                    class="px-4 py-2 ml-2 font-bold text-white bg-gray-400 rounded-lg hover:bg-gray-500">Filter</button>
             </div>
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
@@ -30,7 +50,7 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -48,6 +68,7 @@
                         <th class="px-6 py-4">
                             Date
                         </th>
+                        <th></th>
                         <th class="px-6 py-4">
                             Action
                         </th>
@@ -55,12 +76,13 @@
                 </thead>
                 <tbody>
                     @foreach ($dataMenuHistory as $item)
-                        <tr class="bg-white border-b">
+                        <tr data-category-id="{{ $item->menu_category->id }}" class="bg-white border-b menu-item">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $item->menu_name }}</td>
-                            <td class="px-6 py-4">{{ $item->type }}</td>
+                            <td class="px-6 py-4 type-cell">{{ $item->type }}</td>
                             <td class="px-6 py-4">{{ $item->menu_category->category_name }}</td>
                             <td class="px-6 py-4">{{ $item->created_at }}</td>
+                            <td class="px-6 py-4 text-sky-500">Created by {{ $item->nama }}</td>
                             <td class="flex px-6 py-4">
 
                                 <!-- Button Info -->
@@ -119,14 +141,16 @@
                                                                     <label for="food">Food</label>
                                                                     <input type="radio" name="type" id="food"
                                                                         value="Food" class="text-gray-500 focus:ring-0"
-                                                                        {{ $item->type == 'Food' ? 'checked' : '' }} readonly disabled>
+                                                                        {{ $item->type == 'Food' ? 'checked' : '' }}
+                                                                        readonly disabled>
                                                                 </div>
                                                                 <div
                                                                     class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
                                                                     <label for="drink">Drink</label>
                                                                     <input type="radio" name="type" id="drink"
                                                                         value="Drink" class="text-gray-500 focus:ring-0"
-                                                                        {{ $item->type == 'Drink' ? 'checked' : '' }} readonly disabled>
+                                                                        {{ $item->type == 'Drink' ? 'checked' : '' }}
+                                                                        readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -242,20 +266,179 @@
     <script>
         //filter radio button
         document.addEventListener("DOMContentLoaded", function() {
-            const divElement = document.getElementById("foodType-Filter");
-            const radioElement = document.getElementById("food-filter");
+            const divFood = document.getElementById("foodType-Filter");
+            const radioFood = document.getElementById("food-filter");
 
-            divElement.addEventListener("click", function() {
-                radioElement.checked = true;
+            divFood.addEventListener("click", function() {
+                radioFood.checked = true;
+
+                radioFood.dispatchEvent(new Event('change'));
             });
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            const divElement = document.getElementById("drinkType-Filter");
-            const radioElement = document.getElementById("drink-filter");
+            const divDrink = document.getElementById("drinkType-Filter");
+            const radioDrink = document.getElementById("drink-filter");
 
-            divElement.addEventListener("click", function() {
-                radioElement.checked = true;
+            divDrink.addEventListener("click", function() {
+                radioDrink.checked = true;
+
+                radioDrink.dispatchEvent(new Event('change'));
+            });
+        });
+
+
+        //filter menu radio button
+        document.getElementById('food-filter').addEventListener('change', function() {
+            const selectedType = this.value;
+            const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+            tableRows.forEach(row => {
+                const menuType = row.querySelector('.type-cell');
+
+                if (selectedType === 'Type Table') {
+                    row.style.display = 'table-row';
+                } else {
+                    if (menuType.textContent === selectedType) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display =
+                            'none';
+                    }
+                }
+
+            });
+        });
+
+        document.getElementById('drink-filter').addEventListener('change', function() {
+            const selectedType = this.value;
+            const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+            tableRows.forEach(row => {
+                const menuType = row.querySelector('.type-cell');
+
+                if (selectedType === 'Type Table') {
+                    row.style.display = 'table-row';
+                } else {
+                    if (menuType.textContent === selectedType) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display =
+                            'none';
+                    }
+                }
+
+            });
+        });
+
+        //filter menu
+        document.getElementById('menu-filter').addEventListener('change', function() {
+            const selectedCategoryId = this.value;
+            const menuItems = document.querySelectorAll(
+                '.menu-item');
+
+            menuItems.forEach(function(menuItem) {
+                if (selectedCategoryId === 'Show All' || menuItem.dataset.categoryId ===
+                    selectedCategoryId) {
+                    menuItem.style.display = 'table-row';
+                } else {
+                    menuItem.style.display = 'none';
+                }
+            });
+        });
+
+
+
+        document.querySelectorAll('div[id$="-Filter"]').forEach(function(div) {
+            const radioBtn = div.querySelector('input[type="radio"]');
+            if (radioBtn) {
+                div.addEventListener('click', function() {
+                    radioBtn.checked = true;
+                    radioBtn.dispatchEvent(new Event('change'));
+                });
+            }
+        });
+
+        document.querySelectorAll('input[name="type"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                const selectedType = this.id.split('-')[0];
+                const menuOptions = document.querySelectorAll('#menu-filter option');
+                menuOptions.forEach(function(option) {
+                    const optionType = option.textContent.trim();
+                    if (optionType === 'Show All' || (selectedType === 'food' && option.dataset
+                            .type === 'Food') || (selectedType === 'drink' && option.dataset
+                            .type === 'Drink')) {
+                        option.style.display =
+                            'table-row';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+
+
+        //filter menu radio button
+        document.getElementById('food-filter').addEventListener('change', function() {
+            const selectedType = this.value;
+            const contentMenu = document.querySelectorAll('.menu-item');
+
+            contentMenu.forEach(row => {
+                const menuType = row.querySelector('.type-cell');
+
+                if (selectedType === 'Type Table') {
+                    row.style.display = 'table-row';
+                } else {
+                    if (menuType.textContent === selectedType) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display =
+                            'none';
+                    }
+                }
+
+            });
+        });
+
+        document.getElementById('drink-filter').addEventListener('change', function() {
+            const selectedType = this.value;
+            const contentMenu = document.querySelectorAll('.menu-item');
+
+            contentMenu.forEach(row => {
+                const menuType = row.querySelector('.type-cell');
+
+                if (selectedType === 'Type Table') {
+                    row.style.display = 'table-row';
+                } else {
+                    if (menuType.textContent === selectedType) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display =
+                            'none';
+                    }
+                }
+
+            });
+        });
+
+
+        document.getElementById('filter-btn').addEventListener('click', function() {
+            const dateFilter = document.getElementById('date-filter').value;
+            const tableRows = document.querySelectorAll('#tableData tr');
+
+            tableRows.forEach(function(row, index) {
+                if (index !== 0) { // Melewati baris header tabel
+                    const rowData = row.getElementsByTagName('td');
+                    const rowDate = rowData[4].innerText.substr(0,
+                    10); // Ambil hanya bagian tanggal dari kolom datetime
+
+                    if (rowDate === dateFilter) {
+                        row.style.display = ''; // Tampilkan baris yang cocok dengan filter
+                    } else {
+                        row.style.display = 'none'; // Sembunyikan baris yang tidak cocok dengan filter
+                    }
+                }
             });
         });
     </script>

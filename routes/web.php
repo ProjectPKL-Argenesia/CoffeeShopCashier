@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     //transaction
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 
     //table
     Route::get('/table', [TableController::class, 'index'])->name('table.index');

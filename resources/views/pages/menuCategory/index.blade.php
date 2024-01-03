@@ -79,13 +79,15 @@
                 <div id="foodType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="food-filter" class="text-black/70">Food</label>
-                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                        value="Food">
                 </div>
 
                 <div id="drinkType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="drink-filter">Drink</label>
-                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                        value="Drink">
                 </div>
             </div>
             <label for="table-search" class="sr-only">Search</label>
@@ -99,7 +101,7 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -118,10 +120,10 @@
                 </thead>
                 <tbody>
                     @foreach ($dataMenuCategory as $item)
-                        <tr class="bg-white border-b">
+                        <tr id="data-menu-category" class="bg-white border-b">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 type-cell">{{ $item->type }}</td>
                             <td class="px-6 py-4">{{ $item->category_name }}</td>
-                            <td class="px-6 py-4">{{ $item->type }}</td>
                             <td class="flex px-6 py-4">
 
                                 <!-- Button Edit -->
@@ -243,22 +245,27 @@
 
                             //filter radio button
                             document.addEventListener("DOMContentLoaded", function() {
-                                const divElement = document.getElementById("foodType-Filter");
-                                const radioElement = document.getElementById("food-filter");
+                                const divFood = document.getElementById("foodType-Filter");
+                                const radioFood = document.getElementById("food-filter");
 
-                                divElement.addEventListener("click", function() {
-                                    radioElement.checked = true;
+                                divFood.addEventListener("click", function() {
+                                    radioFood.checked = true;
+
+                                    radioFood.dispatchEvent(new Event('change'));
                                 });
                             });
 
                             document.addEventListener("DOMContentLoaded", function() {
-                                const divElement = document.getElementById("drinkType-Filter");
-                                const radioElement = document.getElementById("drink-filter");
+                                const divDrink = document.getElementById("drinkType-Filter");
+                                const radioDrink = document.getElementById("drink-filter");
 
-                                divElement.addEventListener("click", function() {
-                                    radioElement.checked = true;
+                                divDrink.addEventListener("click", function() {
+                                    radioDrink.checked = true;
+
+                                    radioDrink.dispatchEvent(new Event('change'));
                                 });
                             });
+
 
 
                             //edit radio button
@@ -277,6 +284,50 @@
 
                                 divElement.addEventListener("click", function() {
                                     radioElement.checked = true;
+                                });
+                            });
+
+
+                            //filter menu radio button
+                            document.getElementById('food-filter').addEventListener('change', function() {
+                                const selectedType = this.value;
+                                const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+                                tableRows.forEach(row => {
+                                    const menuType = row.querySelector('.type-cell');
+
+                                    if (selectedType === 'Type Table') {
+                                        row.style.display = 'table-row';
+                                    } else {
+                                        if (menuType.textContent === selectedType) {
+                                            row.style.display = 'table-row';
+                                        } else {
+                                            row.style.display =
+                                                'none';
+                                        }
+                                    }
+
+                                });
+                            });
+
+                            document.getElementById('drink-filter').addEventListener('change', function() {
+                                const selectedType = this.value;
+                                const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+                                tableRows.forEach(row => {
+                                    const menuType = row.querySelector('.type-cell');
+
+                                    if (selectedType === 'Type Table') {
+                                        row.style.display = 'table-row';
+                                    } else {
+                                        if (menuType.textContent === selectedType) {
+                                            row.style.display = 'table-row';
+                                        } else {
+                                            row.style.display =
+                                                'none';
+                                        }
+                                    }
+
                                 });
                             });
                         </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuHistory;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class ReportController extends Controller
     public function index()
     {
         $dataPayment = Payment::all();
-        return view('pages.report.index', ['title' => 'report'], compact('dataPayment'));
+        $dataMenuHistory = MenuHistory::all();
+        return view('pages.report.index', ['title' => 'report'], compact('dataPayment', 'dataMenuHistory'));
     }
 
     /**

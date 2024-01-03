@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuCategory;
 use App\Models\MenuHistory;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class MenuHistoryController extends Controller
     public function index()
     {
         $dataMenuHistory = MenuHistory::all();
-        return view('pages.menuHistory.index', ['title' => 'Menu History'], compact('dataMenuHistory'));
+        $dataMenuCategory = MenuCategory::all();
+        return view('pages.menuHistory.index', ['title' => 'Menu History'], compact('dataMenuHistory', 'dataMenuCategory'));
     }
 
     /**

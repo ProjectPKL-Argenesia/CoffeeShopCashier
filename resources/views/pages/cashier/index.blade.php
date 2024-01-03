@@ -106,9 +106,10 @@
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div>
                 <div class="">
-                    <select name="menu" id="menu"
+                    <select name="gender-filter" id="gender-filter"
                         class="w-full p-2 text-xs text-gray-500 border-none rounded-lg 2xl:text-sm bg-gray-50 focus:ring-0">
                         <option selected hidden>Gender</option>
+                        <option value="Show All">Show All</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
@@ -125,7 +126,7 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -151,7 +152,7 @@
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $item->name }}</td>
                             <td class="px-6 py-4">{{ $item->user->email }}</td>
-                            <td class="px-6 py-4">{{ $item->gender }}</td>
+                            <td class="px-6 py-4 gender-cell">{{ $item->gender }}</td>
                             <td class="flex px-6 py-4">
 
                                 <!-- Button Edit -->
@@ -316,6 +317,31 @@
 
                                 divElement.addEventListener("click", function() {
                                     radioElement.checked = true;
+                                });
+                            });
+
+
+                            //filter gender
+                            document.getElementById('gender-filter').addEventListener('change', function() {
+                                const selectedStatus = this.value;
+                                const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+                                tableRows.forEach(row => {
+                                    const statusCell = row.querySelector('.gender-cell');
+
+                                    if (selectedStatus === 'Status Table') {
+                                        row.style.display = 'table-row';
+                                    } else if (selectedStatus === 'Show All') {
+                                        row.style.display = 'table-row';
+                                    } else {
+                                        if (statusCell.textContent === selectedStatus) {
+                                            row.style.display = 'table-row';
+                                        } else {
+                                            row.style.display =
+                                                'none';
+                                        }
+                                    }
+
                                 });
                             });
                         </script>
