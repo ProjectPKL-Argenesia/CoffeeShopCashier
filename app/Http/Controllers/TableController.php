@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Table;
+use App\Models\MenuCategory;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
@@ -13,7 +14,8 @@ class TableController extends Controller
     public function index()
     {
         $dataTable = Table::all(); 
-        return view('pages.table.index', ["title" => "Table"], compact('dataTable'));
+        $dataMenuCategory = MenuCategory::all(); 
+        return view('pages.table.index', ["title" => "Table"], compact('dataTable', 'dataMenuCategory'));
     }
 
     /**

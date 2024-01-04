@@ -52,19 +52,19 @@
                                             <span>:</span>
                                         </div>
                                         <div class="grid grid-cols-3 col-span-9 py-2 gap-x-2">
-                                            <div
+                                            <div id="emptyTable"
                                                 class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="empty">Empty</label>
                                                 <input type="radio" name="status" id="empty" value="Empty"
                                                     class="text-gray-500 focus:ring-0">
                                             </div>
-                                            <div
+                                            <div id="brokenTable"
                                                 class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-red-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="broken">Broken</label>
                                                 <input type="radio" name="status" id="broken" value="Broken"
                                                     class="text-red-400 focus:ring-0">
                                             </div>
-                                            <div
+                                            <div id="filledTable"
                                                 class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-green-200 border border-gray-500 rounded-lg gap-x-2">
                                                 <label for="filled">Filled</label>
                                                 <input type="radio" name="status" id="filled" value="Filled"
@@ -85,14 +85,13 @@
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div>
                 <div class="">
-                    <select name="menu" id="menu"
+                    <select name="status_table" id="status_table"
                         class="w-full p-2 text-xs text-gray-500 border-none rounded-lg 2xl:text-sm bg-gray-50 focus:ring-0">
-                        <option selected hidden>Menu Category</option>
-                        <option value="Menu 1">Menu 1</option>
-                        <option value="Menu 2">Menu 2</option>
-                        <option value="Menu 3">Menu 3</option>
-                        <option value="Menu 4">Menu 4</option>
-                        <option value="Menu 5">Menu 5</option>
+                        <option selected hidden>Status Table</option>
+                        <option value="Show All">Show All</option>
+                        <option value="Empty">Empty</option>
+                        <option value="Broken">Broken</option>
+                        <option value="Filled">Filled</option>
                     </select>
                 </div>
             </div>
@@ -107,7 +106,7 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -127,17 +126,15 @@
                 <tbody>
                     @foreach ($dataTable as $item)
                         @if ($item->status == 'Empty')
-                            <tr class="border-b bg-gray-100">
+                            <tr class="bg-gray-100">
                             @elseif ($item->status == 'Broken')
-                            <tr class="border-b bg-red-100">
+                            <tr class="bg-red-100">
                             @elseif ($item->status == 'Filled')
-                            <tr class="border-b bg-green-100">
+                            <tr class="bg-green-100">
                         @endif
-
-                        <td class="px-6
-                            py-4">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <td class="px-6 py-4">{{ $item->name }}</td>
-                        <td class="px-6 py-4">{{ $item->status }}</td>
+                        <td class="px-6 py-4 status-cell">{{ $item->status }}</td>
                         <td class="flex px-6 py-4">
 
                             <!-- Button Edit -->
@@ -192,21 +189,21 @@
                                                             <span>:</span>
                                                         </div>
                                                         <div class="grid grid-cols-3 col-span-9 py-2 gap-x-2">
-                                                            <div
+                                                            <div id="emptyTable-Edit"
                                                                 class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
                                                                 <label for="empty-edit">Empty</label>
                                                                 <input type="radio" name="status" id="empty-edit"
                                                                     value="Empty" class="text-gray-500 focus:ring-0"
                                                                     {{ $item->status == 'Empty' ? 'checked' : '' }}>
                                                             </div>
-                                                            <div
+                                                            <div id="brokenTable-Edit"
                                                                 class="flex items-center justify-between px-2 py-1 text-gray-900 bg-red-200 border border-gray-500 rounded-lg gap-x-2">
                                                                 <label for="broken-edit">Broken</label>
                                                                 <input type="radio" name="status" id="broken-edit"
                                                                     value="Broken" class="text-red-400 focus:ring-0"
                                                                     {{ $item->status == 'Broken' ? 'checked' : '' }}>
                                                             </div>
-                                                            <div
+                                                            <div id="filledTable-Edit"
                                                                 class="flex items-center justify-between px-2 py-1 text-gray-900 bg-green-200 border border-gray-500 rounded-lg gap-x-2">
                                                                 <label for="filled-edit">Filled</label>
                                                                 <input type="radio" name="status" id="filled-edit"
@@ -241,4 +238,88 @@
             </table>
         </div>
     </section>
+
+    <script>
+        //add radio button
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("emptyTable");
+            const radioElement = document.getElementById("empty");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("brokenTable");
+            const radioElement = document.getElementById("broken");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("filledTable");
+            const radioElement = document.getElementById("filled");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+
+        //edit radio button
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("emptyTable-Edit");
+            const radioElement = document.getElementById("empty-edit");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("brokenTable-Edit");
+            const radioElement = document.getElementById("broken-edit");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const divElement = document.getElementById("filledTable-Edit");
+            const radioElement = document.getElementById("filled-edit");
+
+            divElement.addEventListener("click", function() {
+                radioElement.checked = true;
+            });
+        });
+
+
+        //filter status table
+        document.getElementById('status_table').addEventListener('change', function() {
+            const selectedStatus = this.value;
+            const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+            tableRows.forEach(row => {
+                const statusCell = row.querySelector('.status-cell');
+
+                if (selectedStatus === 'Status Table') {
+                    row.style.display = 'table-row';
+                } else if (selectedStatus === 'Show All') {
+                    row.style.display = 'table-row';
+                } else {
+                    if (statusCell.textContent === selectedStatus) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display =
+                            'none';
+                    }
+                }
+
+            });
+        });
+    </script>
 @endsection

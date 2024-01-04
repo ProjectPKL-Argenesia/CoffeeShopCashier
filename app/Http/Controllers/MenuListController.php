@@ -40,6 +40,7 @@ class MenuListController extends Controller
             'image' => 'required',
             'price' => 'required',
             'tax' => 'required',
+            'nama' => 'required',
         ]);
         
         if ($request->file('image')) {
@@ -64,6 +65,7 @@ class MenuListController extends Controller
             'stock' => 0,
             'tax' => $validatedData['tax'],
             'image' => $validatedData['image'],
+            'nama' => $validatedData['nama'],
         ]);
         
         return redirect()->to('/menuList')->with('success', 'Data anda berhasil disimpan.');

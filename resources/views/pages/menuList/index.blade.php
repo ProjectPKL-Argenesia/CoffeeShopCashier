@@ -62,13 +62,13 @@
                                                 <span>:</span>
                                             </div>
                                             <div class="flex items-center col-span-9 gap-x-2">
-                                                <div
+                                                <div id="foodType"
                                                     class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="food">Food</label>
                                                     <input type="radio" name="type" id="food" value="Food"
                                                         required class="text-gray-500 focus:ring-0">
                                                 </div>
-                                                <div
+                                                <div id="drinkType"
                                                     class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
                                                     <label for="drink">Drink</label>
                                                     <input type="radio" name="type" id="drink" value="Drink"
@@ -121,6 +121,19 @@
                                                     placeholder="0.11">
                                             </div>
                                         </div>
+                                        <div class="grid grid-cols-12 col-span-1 gap-2">
+                                            <div class="col-span-2 text-xs font-semibold gap-x-4 2xl:text-sm text-start">
+                                                <label for="nama" class="whitespace-nowrap">Created by</label>
+                                            </div>
+                                            <div class="col-span-1 text-xs text-center 2xl:text-sm">
+                                                <span>:</span>
+                                            </div>
+                                            <div class="col-span-9">
+                                                <input type="text" name="nama" id="nama" required
+                                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0"
+                                                    placeholder="Luthfi">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-span-12 pt-20">
                                         <button type="submit"
@@ -135,29 +148,34 @@
         </div>
         <div
             class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0 md:text-xs lg:text-sm">
-            <div
+            <div id="foodType-Filter"
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
-                <label for="food-filter" class="text-black/70">Food</label>
-                <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
+                <label class="text-black/70">Food</label>
+                <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                    value="Food">
             </div>
 
-            <button onclick=""
+            <div id="drinkType-Filter"
                 class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
-                <label for="drink-filter">Drink</label>
-                <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
-            </button>
+                <label class="text-black/70">Drink</label>
+                <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                    value="Drink">
+            </div>
 
             <div
                 class="flex justify-center items-center border border-gray-300 text-gray-500 gap-x-2 rounded-lg md:w-[150px] lg:w-[200px]">
-                <select name="menu" id="menu"
+                <select name="menu-filter" id="menu-filter"
                     class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
                     <option selected hidden>Menu Category</option>
+                    <option value="Show All">Show All</option>
                     @foreach ($dataMenuCategory as $item)
-                        <option value="{{ $item->id }}">{{ $item->category_name }}
+                        <option data-type="{{ $item->type }}" value="{{ $item->id }}">{{ $item->category_name }}
                         </option>
                     @endforeach
                 </select>
             </div>
+
+
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
@@ -170,8 +188,8 @@
         </div>
         <div class="grid grid-cols-3 gap-3 xl:grid-cols-4 place-items-center">
             @foreach ($dataMenu as $item)
-                <div
-                    class="flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                <div data-category-id="{{ $item->menu_category->id }}"
+                    class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
                     <div
                         class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
                         <img src="{{ asset('storage/' . $item->image) }}" class="object-cover" alt="gambar">
@@ -218,12 +236,12 @@
                                                             class="flex flex-col items-center justify-center col-span-3 gap-y-2">
                                                             <div
                                                                 class="grid grid-cols-1 place-items-center border border-gray-800 border-dashed rounded-lg w-[150px] h-[150px]">
-                                                                <img class="w-full h-full rounded-lg img-preview"
+                                                                <img class="w-full h-full rounded-lg img-preview2"
                                                                     src="{{ asset('storage/' . $item->image) }}">
                                                             </div>
                                                             <div class="flex justify-center">
-                                                                <input type="file" name="image" id="image"
-                                                                    onchange="previewImage()" required
+                                                                <input type="file" name="image" id="image2"
+                                                                    onchange="previewImage2()" required
                                                                     class="block w-[150px] text-xs file:text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-200 focus:outline-none">
                                                             </div>
                                                         </div>
@@ -255,19 +273,24 @@
                                                                     <span>:</span>
                                                                 </div>
                                                                 <div class="flex items-center col-span-9 gap-x-2">
-                                                                    <div
+                                                                    <p class="hidden type-cell">{{ $item->type }}</p>
+                                                                    <div id="foodType-Edit-{{ $item->id }}"
                                                                         class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
-                                                                        <label for="food">Food</label>
+                                                                        <label
+                                                                            for="food-edit-{{ $item->id }}">Food</label>
                                                                         <input type="radio" name="type"
-                                                                            id="food" value="Food" required
+                                                                            id="food-edit-{{ $item->id }}"
+                                                                            value="Food" required
                                                                             class="text-gray-500 focus:ring-0"
                                                                             {{ $item->type == 'Food' ? 'checked' : '' }}>
                                                                     </div>
-                                                                    <div
+                                                                    <div id="drinkType-Edit-{{ $item->id }}"
                                                                         class="flex items-center justify-between px-2 py-1 text-xs text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4 2xl:text-sm">
-                                                                        <label for="drink">Drink</label>
+                                                                        <label
+                                                                            for="drink-edit-{{ $item->id }}">Drink</label>
                                                                         <input type="radio" name="type"
-                                                                            id="drink" value="Drink" required
+                                                                            id="drink-edit-{{ $item->id }}"
+                                                                            value="Drink" required
                                                                             class="text-gray-500 focus:ring-0"
                                                                             {{ $item->type == 'Drink' ? 'checked' : '' }}>
                                                                     </div>
@@ -290,6 +313,7 @@
                                                                         <option selected hidden>Menu Category</option>
                                                                         @foreach ($dataMenuCategory as $itemMenuCategory)
                                                                             <option value="{{ $itemMenuCategory->id }}"
+                                                                                class="menu-cell"
                                                                                 {{ $item->menu_category_id == $itemMenuCategory->id ? 'selected' : '' }}>
                                                                                 {{ $itemMenuCategory->category_name }}
                                                                             </option>
@@ -343,10 +367,11 @@
                                 <div>
                                     <!-- Button Hapus -->
 
-                                    <form action="{{ route('menuHistory.destroy', $item->id) }}" method="POST">
+                                    <form action="{{ route('menuList.destroy', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="text-sm font-medium text-red-500 whitespace-nowrap"><i
+                                        <button class="text-sm font-medium text-red-500 whitespace-nowrap"
+                                            onclick="return confirm('Yakin?')"><i
                                                 class="px-1 fa-solid fa-trash-can"></i>Hapus</button>
                                     </form>
                                 </div>
@@ -354,36 +379,193 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    //Preview Image
+                    function previewImage() {
+                        const image = document.querySelector('#image');
+                        const imgPreview = document.querySelector('.img-preview');
+
+                        imgPreview.style.display = 'block';
+
+                        const oFReader = new FileReader();
+                        oFReader.readAsDataURL(image.files[0]);
+
+                        oFReader.onload = function(oFREvent) {
+                            imgPreview.src = oFREvent.target.result;
+                        }
+                    }
+
+                    function previewImage2() {
+                        const image2 = document.querySelector('#image2');
+                        const imgPreview2 = document.querySelector('.img-preview2');
+
+                        imgPreview2.style.display = 'block';
+
+                        const oFReader = new FileReader();
+                        oFReader.readAsDataURL(image2.files[0]);
+
+                        oFReader.onload = function(oFREvent) {
+                            imgPreview2.src = oFREvent.target.result;
+                        }
+                    }
+
+
+                    //add radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("foodType");
+                        const radioElement = document.getElementById("food");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("drinkType");
+                        const radioElement = document.getElementById("drink");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+
+                    //filter radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divFood = document.getElementById("foodType-Filter");
+                        const radioFood = document.getElementById("food-filter");
+
+                        divFood.addEventListener("click", function() {
+                            radioFood.checked = true;
+
+                            radioFood.dispatchEvent(new Event('change'));
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divDrink = document.getElementById("drinkType-Filter");
+                        const radioDrink = document.getElementById("drink-filter");
+
+                        divDrink.addEventListener("click", function() {
+                            radioDrink.checked = true;
+
+                            radioDrink.dispatchEvent(new Event('change'));
+                        });
+                    });
+
+
+                    //edit radio button
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("foodType-Edit-{{ $item->id }}");
+                        const radioElement = document.getElementById("food-edit-{{ $item->id }}");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const divElement = document.getElementById("drinkType-Edit-{{ $item->id }}");
+                        const radioElement = document.getElementById("drink-edit-{{ $item->id }}");
+
+                        divElement.addEventListener("click", function() {
+                            radioElement.checked = true;
+                        });
+                    });
+
+
+                    //filter menu
+                    document.getElementById('menu-filter').addEventListener('change', function() {
+                        const selectedCategoryId = this.value;
+                        const menuItems = document.querySelectorAll(
+                            '.menu-item');
+
+                        menuItems.forEach(function(menuItem) {
+                            if (selectedCategoryId === 'Show All' || menuItem.dataset.categoryId ===
+                                selectedCategoryId) {
+                                menuItem.style.display = 'flex';
+                            } else {
+                                menuItem.style.display = 'none';
+                            }
+                        });
+                    });
+
+
+
+                    document.querySelectorAll('div[id$="-Filter"]').forEach(function(div) {
+                        const radioBtn = div.querySelector('input[type="radio"]');
+                        if (radioBtn) {
+                            div.addEventListener('click', function() {
+                                radioBtn.checked = true;
+                                radioBtn.dispatchEvent(new Event('change'));
+                            });
+                        }
+                    });
+
+                    document.querySelectorAll('input[name="type"]').forEach(function(radio) {
+                        radio.addEventListener('change', function() {
+                            const selectedType = this.id.split('-')[0];
+                            const menuOptions = document.querySelectorAll('#menu-filter option');
+                            menuOptions.forEach(function(option) {
+                                const optionType = option.textContent.trim();
+                                if (optionType === 'Show All' || (selectedType === 'food' && option.dataset
+                                        .type === 'Food') || (selectedType === 'drink' && option.dataset
+                                        .type === 'Drink')) {
+                                    option.style.display =
+                                        'block';
+                                } else {
+                                    option.style.display = 'none';
+                                }
+                            });
+                        });
+                    });
+
+
+
+                    //filter menu radio button
+                    document.getElementById('food-filter').addEventListener('change', function() {
+                        const selectedType = this.value;
+                        const contentMenu = document.querySelectorAll('.menu-item');
+
+                        contentMenu.forEach(row => {
+                            const menuType = row.querySelector('.type-cell');
+
+                            if (selectedType === 'Type Table') {
+                                row.style.display = 'flex';
+                            } else {
+                                if (menuType.textContent === selectedType) {
+                                    row.style.display = 'flex';
+                                } else {
+                                    row.style.display =
+                                        'none';
+                                }
+                            }
+
+                        });
+                    });
+
+                    document.getElementById('drink-filter').addEventListener('change', function() {
+                        const selectedType = this.value;
+                        const contentMenu = document.querySelectorAll('.menu-item');
+
+                        contentMenu.forEach(row => {
+                            const menuType = row.querySelector('.type-cell');
+
+                            if (selectedType === 'Type Table') {
+                                row.style.display = 'flex';
+                            } else {
+                                if (menuType.textContent === selectedType) {
+                                    row.style.display = 'flex';
+                                } else {
+                                    row.style.display =
+                                        'none';
+                                }
+                            }
+
+                        });
+                    });
+                </script>
             @endforeach
         </div>
     </section>
-    <script>
-        function previewImage() {
-            const image = document.querySelector('#image');
-            const imgPreview = document.querySelector('.img-preview');
-
-            imgPreview.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            }
-        }
-
-        function previewImage2() {
-            const image2 = document.querySelector('#image2');
-            const imgPreview2 = document.querySelector('.img-preview2');
-
-            imgPreview2.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image2.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview2.src = oFREvent.target.result;
-            }
-        }
-    </script>
 @endsection

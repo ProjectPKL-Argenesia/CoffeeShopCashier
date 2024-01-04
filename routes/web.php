@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     //transaction
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 
     //table
     Route::get('/table', [TableController::class, 'index'])->name('table.index');
@@ -75,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
     //cashier
     Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');
+    Route::post('/cashier/store', [CashierController::class, 'store'])->name('cashier.store');
+    Route::patch('/cashier/{id}', [CashierController::class, 'update'])->name('cashier.update');
+    Route::delete('/cashier/destroy{id}', [CashierController::class, 'destroy'])->name('cashier.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -27,7 +27,7 @@
                             </button>
                             <form action="{{ route('menuCategory.store') }}" method="POST">
                                 @csrf
-                                <div class="grid grid-cols-12 gap-y-2 px-8 pt-16 pb-10">
+                                <div class="grid grid-cols-12 px-8 pt-16 pb-10 gap-y-2">
                                     <div class="grid grid-cols-12 col-span-12">
                                         <div
                                             class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
@@ -37,14 +37,14 @@
                                             <span>:</span>
                                         </div>
                                         <div class="flex col-span-9 py-2 gap-x-2">
-                                            <div
-                                                class="flex items-center justify-between px-2 gap-x-4 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                            <div id="foodType"
+                                                class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4">
                                                 <label for="food">Food</label>
                                                 <input type="radio" name="type" id="food" value="Food"
                                                     class="text-gray-500 focus:ring-0">
                                             </div>
-                                            <div
-                                                class="flex items-center justify-between px-2 gap-x-4 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
+                                            <div id="drinkType"
+                                                class="flex items-center justify-between px-2 py-1 text-sm text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4">
                                                 <label for="drink">Drink</label>
                                                 <input type="radio" name="type" id="drink" value="Drink"
                                                     class="text-gray-500 focus:ring-0">
@@ -61,10 +61,9 @@
                                         </div>
                                         <div class="col-span-9">
                                             <input type="text" name="category_name" id="category_name"
-                                                class="w-full px-2 py-1 rounded-lg focus:ring-0"
-                                                placeholder="ex : Coffee">
+                                                class="w-full px-2 py-1 rounded-lg focus:ring-0" placeholder="ex : Coffee">
                                         </div>
-                                    </div>  
+                                    </div>
 
                                     <button type="submit"
                                         class="col-span-12 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
@@ -77,16 +76,18 @@
         </div>
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
             <div class="flex gap-x-2">
-                <div
+                <div id="foodType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="food-filter" class="text-black/70">Food</label>
-                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                        value="Food">
                 </div>
 
-                <div
+                <div id="drinkType-Filter"
                     class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
                     <label for="drink-filter">Drink</label>
-                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white">
+                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                        value="Drink">
                 </div>
             </div>
             <label for="table-search" class="sr-only">Search</label>
@@ -100,7 +101,7 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
@@ -119,15 +120,16 @@
                 </thead>
                 <tbody>
                     @foreach ($dataMenuCategory as $item)
-                        <tr class="bg-white border-b">
+                        <tr id="data-menu-category" class="bg-white border-b">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 type-cell">{{ $item->type }}</td>
                             <td class="px-6 py-4">{{ $item->category_name }}</td>
-                            <td class="px-6 py-4">{{ $item->type }}</td>
                             <td class="flex px-6 py-4">
 
                                 <!-- Button Edit -->
                                 <div>
-                                    <button data-modal-target="popup-modal-edit-{{ $item->id }}" data-modal-toggle="popup-modal-edit-{{ $item->id }}"
+                                    <button data-modal-target="popup-modal-edit-{{ $item->id }}"
+                                        data-modal-toggle="popup-modal-edit-{{ $item->id }}"
                                         class="block px-1 text-sm font-medium text-center text-yellow-400" type="button">
                                         <i class="px-1 fa-solid fa-file-signature"></i>Edit
                                     </button>
@@ -148,10 +150,11 @@
                                                     </svg>
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
-                                                <form action="{{ route('menuCategory.update', $item->id) }}" method="POST">
+                                                <form action="{{ route('menuCategory.update', $item->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <div class="grid grid-cols-12 gap-y-2 px-8 pt-16 pb-10">
+                                                    <div class="grid grid-cols-12 px-8 pt-16 pb-10 gap-y-2">
                                                         <div class="grid grid-cols-12 col-span-12">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
@@ -161,17 +164,21 @@
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="flex col-span-9 py-2 gap-x-2">
-                                                                <div
-                                                                    class="flex items-center justify-between px-2 py-1 gap-x-4 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg">
-                                                                    <label for="food-edit">Food</label>
-                                                                    <input type="radio" name="type" id="food-edit"
-                                                                        value="Food" class="text-gray-500 focus:ring-0"
+                                                                <div id="foodType-Edit-{{ $item->id }}"
+                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4">
+                                                                    <label
+                                                                        for="food-edit-{{ $item->id }}">Food</label>
+                                                                    <input type="radio" name="type"
+                                                                        id="food-edit-{{ $item->id }}" value="Food"
+                                                                        class="text-gray-500 focus:ring-0"
                                                                         {{ $item->type == 'Food' ? 'checked' : '' }}>
                                                                 </div>
-                                                                <div
+                                                                <div id="drinkType-Edit-{{ $item->id }}"
                                                                     class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
-                                                                    <label for="drink-edit">Drink</label>
-                                                                    <input type="radio" name="type" id="drink-edit"
+                                                                    <label
+                                                                        for="drink-edit-{{ $item->id }}">Drink</label>
+                                                                    <input type="radio" name="type"
+                                                                        id="drink-edit-{{ $item->id }}"
                                                                         value="Drink" class="text-gray-500 focus:ring-0"
                                                                         {{ $item->type == 'Drink' ? 'checked' : '' }}>
                                                                 </div>
@@ -181,13 +188,15 @@
                                                         <div class="grid grid-cols-12 col-span-12 pb-20">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="category_name" class="whitespace-nowrap">Menu Category</label>
+                                                                <label for="category_name" class="whitespace-nowrap">Menu
+                                                                    Category</label>
                                                             </div>
                                                             <div class="flex items-center justify-center col-span-1">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="category_name" id="category_name"
+                                                                <input type="text" name="category_name"
+                                                                    id="category_name"
                                                                     class="w-full px-2 py-1 text-gray-900 rounded-lg focus:ring-0"
                                                                     value="{{ $item->category_name }}">
                                                             </div>
@@ -213,6 +222,115 @@
                                 </form>
                             </td>
                         </tr>
+                        <script>
+                            //add radio button
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divElement = document.getElementById("foodType");
+                                const radioElement = document.getElementById("food");
+
+                                divElement.addEventListener("click", function() {
+                                    radioElement.checked = true;
+                                });
+                            });
+
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divElement = document.getElementById("drinkType");
+                                const radioElement = document.getElementById("drink");
+
+                                divElement.addEventListener("click", function() {
+                                    radioElement.checked = true;
+                                });
+                            });
+
+
+                            //filter radio button
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divFood = document.getElementById("foodType-Filter");
+                                const radioFood = document.getElementById("food-filter");
+
+                                divFood.addEventListener("click", function() {
+                                    radioFood.checked = true;
+
+                                    radioFood.dispatchEvent(new Event('change'));
+                                });
+                            });
+
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divDrink = document.getElementById("drinkType-Filter");
+                                const radioDrink = document.getElementById("drink-filter");
+
+                                divDrink.addEventListener("click", function() {
+                                    radioDrink.checked = true;
+
+                                    radioDrink.dispatchEvent(new Event('change'));
+                                });
+                            });
+
+
+
+                            //edit radio button
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divElement = document.getElementById("foodType-Edit-{{ $item->id }}");
+                                const radioElement = document.getElementById("food-edit-{{ $item->id }}");
+
+                                divElement.addEventListener("click", function() {
+                                    radioElement.checked = true;
+                                });
+                            });
+
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const divElement = document.getElementById("drinkType-Edit-{{ $item->id }}");
+                                const radioElement = document.getElementById("drink-edit-{{ $item->id }}");
+
+                                divElement.addEventListener("click", function() {
+                                    radioElement.checked = true;
+                                });
+                            });
+
+
+                            //filter menu radio button
+                            document.getElementById('food-filter').addEventListener('change', function() {
+                                const selectedType = this.value;
+                                const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+                                tableRows.forEach(row => {
+                                    const menuType = row.querySelector('.type-cell');
+
+                                    if (selectedType === 'Type Table') {
+                                        row.style.display = 'table-row';
+                                    } else {
+                                        if (menuType.textContent === selectedType) {
+                                            row.style.display = 'table-row';
+                                        } else {
+                                            row.style.display =
+                                                'none';
+                                        }
+                                    }
+
+                                });
+                            });
+
+                            document.getElementById('drink-filter').addEventListener('change', function() {
+                                const selectedType = this.value;
+                                const tableRows = document.querySelectorAll('#tableData tbody tr');
+
+                                tableRows.forEach(row => {
+                                    const menuType = row.querySelector('.type-cell');
+
+                                    if (selectedType === 'Type Table') {
+                                        row.style.display = 'table-row';
+                                    } else {
+                                        if (menuType.textContent === selectedType) {
+                                            row.style.display = 'table-row';
+                                        } else {
+                                            row.style.display =
+                                                'none';
+                                        }
+                                    }
+
+                                });
+                            });
+                        </script>
                     @endforeach
                 </tbody>
             </table>

@@ -9,5 +9,10 @@ class Cashier extends Model
 {
     use HasFactory;
 
-    protected $filllable = ['user_id', 'name', 'gender'];
+    protected $fillable = ['user_id', 'name', 'gender'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->integer('stock');
             $table->decimal('tax');
+            $table->string('nama');
             $table->timestamps();
         });
     }
