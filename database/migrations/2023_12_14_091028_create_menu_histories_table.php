@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->decimal('tax');
             $table->string('nama');
+            $table->enum('status', ['create', 'edit', 'restock']);
             $table->timestamps();
         });
     }

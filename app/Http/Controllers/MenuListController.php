@@ -32,7 +32,7 @@ class MenuListController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {    
+    {
         $validatedData = $request->validate([
             'menu_category_id' => 'required',
             'menu_name' => 'required',
@@ -42,10 +42,10 @@ class MenuListController extends Controller
             'tax' => 'required',
             'nama' => 'required',
         ]);
-        
+
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('image-post');
-        }         
+        }
 
         Menu::create([
             'menu_name' => $validatedData['menu_name'],
@@ -66,8 +66,9 @@ class MenuListController extends Controller
             'tax' => $validatedData['tax'],
             'image' => $validatedData['image'],
             'nama' => $validatedData['nama'],
+            'status' => 'create',
         ]);
-        
+
         return redirect()->to('/menuList')->with('success', 'Data anda berhasil disimpan.');
     }
 
@@ -92,6 +93,34 @@ class MenuListController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'menu_category_id' => 'required',
+            'menu_name' => 'required',
+            'type' => 'required',
+            'image' => 'required',
+            'price' => 'required',
+            'tax' => 'required',
+            'nama' => 'required',
+            'stock' => 'required',
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('image-post');
+        }
+
+        MenuHistory::create([
+            'menu_name' => $validatedData['menu_name'],
+            'type' => $validatedData['type'],
+            'menu_category_id' => $validatedData['menu_category_id'],
+            'price' => $validatedData['price'],
+            'tax' => $validatedData['tax'],
+            'image' => $validatedData['image'],
+            'nama' => $validatedData['nama'],
+            'status' => 'edit',
+            'stock' => $validatedData['stock'],
+        ]);
+
+
         $dataMenu = Menu::find($id);
         $dataMenu->update([
             'menu_category_id' => $request->menu_category_id,
@@ -111,6 +140,31 @@ class MenuListController extends Controller
 
         return redirect()->to('/menuList')->with('success', 'Data anda berhasil diupdate.');
     }
+
+
+    public function restock(Request $request, $id)
+    {
+        $dataMenu = Menu::find($id);
+
+        $dataMenu->update([
+            'stock' => $request->stock,
+        ]);
+
+        MenuHistory::create([
+            'menu_category_id' => $dataMenu->menu_category_id,
+            'type' => $dataMenu->type,
+            'menu_name' => $dataMenu->menu_name,
+            'price' => $dataMenu->price,
+            'image' => $dataMenu->image,
+            'stock' => $request->stock,
+            'tax' => $dataMenu->tax,
+            'nama' => $request->nama,
+            'status' => 'restock',
+        ]);
+
+        return redirect()->to('/menuList')->with('success', 'Data anda berhasil diupdate.');
+    }
+
 
     /**
      * Remove the specified resource from storage.
