@@ -57,8 +57,8 @@
                                     class="w-full rounded-md focus:outline-none focus:ring-0">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
-{{-- 
-                            <div class="grid grid-cols-1">
+
+                            {{-- <div class="grid grid-cols-1">
                                 <label class="text-base text-black/80" for="password">Password</label>
                                 <input type="password" name="password" id="password" required
                                     autocomplete="new-password" placeholder="********"
@@ -73,12 +73,12 @@
                                     autocomplete="new-password" placeholder="********"
                                     class="w-full rounded-md focus:outline-none focus:ring-0">
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                            </div> --}}
+                            </div>
 
                             <div class="grid grid-cols-1">
                                 <button type="submit"
                                     class="bg-[#1F2937] w-full rounded-md text-white py-2 hover:scale-105 hover:bg-gray-900 transition-all duration-300">Daftar</button>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="flex items-center justify-between text-xs">
                                 <p class="text-gray-800">kamu sudah punya akun ?</p>
