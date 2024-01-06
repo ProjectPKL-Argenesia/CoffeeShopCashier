@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/cashier/store', [CashierController::class, 'store'])->name('cashier.store');
     Route::patch('/cashier/{id}', [CashierController::class, 'update'])->name('cashier.update');
     Route::delete('/cashier/destroy{id}', [CashierController::class, 'destroy'])->name('cashier.destroy');
+
+    //restock
+    Route::patch('/menuList/restock/{id}', [MenuListController::class, 'restock'])->name('menuList.restock');
 });
 
 require __DIR__ . '/auth.php';

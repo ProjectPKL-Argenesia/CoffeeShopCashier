@@ -9,7 +9,7 @@ class MenuHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['menu_category_id', 'type', 'menu_name', 'price', 'image', 'stock', 'tax', 'nama'];
+    protected $fillable = ['menu_category_id', 'type', 'menu_name', 'price', 'image', 'stock', 'tax', 'nama', 'status'];
 
     public function menu_category()
     {

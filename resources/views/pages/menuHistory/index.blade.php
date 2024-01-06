@@ -82,7 +82,15 @@
                             <td class="px-6 py-4 type-cell">{{ $item->type }}</td>
                             <td class="px-6 py-4">{{ $item->menu_category->category_name }}</td>
                             <td class="px-6 py-4">{{ $item->created_at }}</td>
-                            <td class="px-6 py-4 text-sky-500">Created by {{ $item->nama }}</td>
+                            @if ($item->status == 'create')
+                                <td class="px-6 py-4 text-sky-500">Created by {{ $item->nama }}</td>
+                            @endif
+                            @if ($item->status == 'edit')
+                                <td class="px-6 py-4 text-sky-500">Edited by {{ $item->nama }}</td>
+                            @endif
+                            @if ($item->status == 'restock')
+                                <td class="px-6 py-4 text-sky-500">Restock by {{ $item->nama }}</td>
+                            @endif
                             <td class="flex px-6 py-4">
 
                                 <!-- Button Info -->
@@ -431,7 +439,7 @@
                 if (index !== 0) { // Melewati baris header tabel
                     const rowData = row.getElementsByTagName('td');
                     const rowDate = rowData[4].innerText.substr(0,
-                    10); // Ambil hanya bagian tanggal dari kolom datetime
+                        10); // Ambil hanya bagian tanggal dari kolom datetime
 
                     if (rowDate === dateFilter) {
                         row.style.display = ''; // Tampilkan baris yang cocok dengan filter
