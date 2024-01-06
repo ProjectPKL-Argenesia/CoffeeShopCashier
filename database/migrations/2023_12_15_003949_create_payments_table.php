@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('store_id')->references('id')->on('stores');
             $table->foreignId('cashier_id')->references('id')->on('cashiers');
             $table->foreignId('order_id')->references('id')->on('orders');
-            $table->datetimes('date_payment');
+            // $table->datetimes('date_payment');
+            // $table->datetimes('date_payment');
             $table->integer('total_price');
             $table->enum('type_payment', ['cash', 'debit']);
             $table->integer('discount');

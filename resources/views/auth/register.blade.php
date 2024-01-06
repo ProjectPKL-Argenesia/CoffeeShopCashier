@@ -29,15 +29,6 @@
                     <p class="text-black/80 text-[15px]">Hello | Silahkan pilih role anda.</p>
                 </div>
 
-                <div class="flex gap-x-2 justify-center items-start">
-                    <div>
-                        <button class="px-3 py-2 bg-blue-500 rounded-lg">Store</button>
-                    </div>
-                    <div>
-                        <button class="px-3 py-2 bg-blue-500 rounded-lg">Cashier</button>
-                    </div>
-                </div>
-
                 <form action="{{ route('register') }}" method="POST">
                     <div>
                         @csrf
@@ -89,6 +80,63 @@
                                 @endif
                             </div> --}}
                         </div>
+                        <button type="submit">page</button>
+
+                    </div>
+                </form>
+                <div class="flex gap-x-2 justify-center items-start">
+                    <div>
+                        <button class="px-3 py-2 bg-blue-500 rounded-lg" onclick="showRegistStore()">Store</button>
+                    </div>
+                    <div>
+                        <button class="px-3 py-2 bg-blue-500 rounded-lg" onclick="showRegistCashier()">Cashier</button>
+                    </div>
+                </div>
+                <form action="" method="POST" for="registStore" id="registStore" class="hidden">
+                    <div>
+                        @csrf
+                        <div class="grid items-start w-full grid-cols-1 gap-y-3">
+                            <div class="grid grid-cols-1">
+                                <label class="text-base text-black/80 " for="name">Username Store</label>
+                                <input type="text" name="name" id="name" required autofocus
+                                    autocomplete="name" placeholder="Masukkan username"
+                                    class="w-full rounded-md focus:outline-none focus:ring-0">
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            </div>
+
+                            <div class="grid grid-cols-1">
+                                <label class="text-base text-black/80" for="email">Email</label>
+                                <input type="email" name="email" id="email" required autocomplete="username"
+                                    placeholder="contoh@gmail.com"
+                                    class="w-full rounded-md focus:outline-none focus:ring-0">
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            </div>
+                            <button type="submit">store</button>
+                        </div>
+                    </div>
+                </form>
+                <form action="" method="POST" for="registCashier" id="registCashier" class="hidden">
+                    <div>
+                        @csrf
+                        <div class="grid items-start w-full grid-cols-1 gap-y-3">
+                            <div class="grid grid-cols-1">
+                                <label class="text-base text-black/80 " for="name">Username Cashier</label>
+                                <input type="text" name="name" id="name" required autofocus
+                                    autocomplete="name" placeholder="Masukkan username"
+                                    class="w-full rounded-md focus:outline-none focus:ring-0">
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            </div>
+
+                            <div class="grid grid-cols-1">
+                                <label class="text-base text-black/80" for="email">Email</label>
+                                <input type="email" name="email" id="email" required autocomplete="username"
+                                    placeholder="contoh@gmail.com"
+                                    class="w-full rounded-md focus:outline-none focus:ring-0">
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            </div>
+                            <button type="submit">cashier</button>
+
+                        </div>
                     </div>
                 </form>
             </div>
@@ -97,6 +145,52 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function showRegistStore() {
+            var registStore = document.getElementById("registStore");
+            var registCashier = document.getElementById("registCashier");
+
+            // Memeriksa apakah kelasnya tersembunyi (hidden)
+            if (registStore.classList.contains("hidden")) {
+                // Jika tersembunyi, tampilkan dan sembunyikan form lainnya
+                registStore.classList.remove("hidden");
+                registStore.style.display = "block";
+
+                // Sembunyikan form lain jika sedang terbuka
+                if (!registCashier.classList.contains("hidden")) {
+                    registCashier.classList.add("hidden");
+                    registCashier.style.display = "none";
+                }
+            } else {
+                // Jika tidak tersembunyi, sembunyikan form
+                registStore.classList.add("hidden");
+                registStore.style.display = "none";
+            }
+        }
+
+        function showRegistCashier() {
+            var registStore = document.getElementById("registStore");
+            var registCashier = document.getElementById("registCashier");
+
+            // Memeriksa apakah kelasnya tersembunyi (hidden)
+            if (registCashier.classList.contains("hidden")) {
+                // Jika tersembunyi, tampilkan dan sembunyikan form lainnya
+                registCashier.classList.remove("hidden");
+                registCashier.style.display = "block";
+
+                // Sembunyikan form lain jika sedang terbuka
+                if (!registStore.classList.contains("hidden")) {
+                    registStore.classList.add("hidden");
+                    registStore.style.display = "none";
+                }
+            } else {
+                // Jika tidak tersembunyi, sembunyikan form
+                registCashier.classList.add("hidden");
+                registCashier.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
