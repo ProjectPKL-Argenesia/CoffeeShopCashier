@@ -9,5 +9,5 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name_menu', 'qty', 'price', 'tax', 'discount'];
+    protected $fillable = ['menu_name', 'qty', 'price', 'tax', 'discount'];
 }

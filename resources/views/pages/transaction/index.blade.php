@@ -83,7 +83,8 @@
             </div>
         </div>
 
-        <form class="w-full h-full col-span-3 bg-white" action="">
+        <form class="w-full h-full col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
+            @csrf
             <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
                 <button class="z-40 right-2 top-2" id="clearContent">
@@ -112,20 +113,21 @@
                 <div class=" min-h-[180px] w-full border p-4 rounded-lg border-gray-300 z-50 grid grid-cols-1 gap-y-3">
                     <div class="flex items-center justify-between">
                         <p>Sub Total</p>
-                        <p id="sub-total">Rp. 0</p>
+                        <p id="sub-total">0</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <p>Tax</p>
-                        <p id="tax">Rp. 0</p>
+                        {{-- <p id="tax">0</p> --}}
+                        <input name="tax" id="tax" value="0" class="text-end" readonly>
                     </div>
                     <div class="flex items-center justify-between mt-0 border-t-4 border-gray-300">
                         <p>Total</p>
-                        <p id="total-harga">Rp. 0</p>
+                        <p id="total-harga">0</p>
                     </div>
                 </div>
                 <div class="flex items-center justify-between p-4 font-semibold bg-gray-400 rounded-lg">
-                    <p class="">Change</p>
-                    <p id="change">Rp. 0</p>
+                    <button type="submit" class="">Change</button>
+                    <p id="change">0</p>
                 </div>
             </div>
         </form>
@@ -185,11 +187,11 @@
             $('#containerOrder').on('click', '.button-tambah', function(e) {
                 e.preventDefault();
                 let element = this.parentElement.parentElement.children[0].children;
-                let counter = this.parentElement.children[1]
-                $(counter).html(parseInt(counter.textContent) + 1);
-                ubahCounter('tambah', element)
-
-
+                let counter = this.parentElement.children[1];
+                $(counter).val(parseInt($(counter).val()) + 1);
+                let counterValue = $(counter).val();
+                console.info(counterValue); 
+                ubahCounter('tambah', element);
             });
 
 
@@ -197,19 +199,19 @@
                 e.preventDefault();
                 let element = this.parentElement.parentElement.children[0].children;
                 let counter = this.parentElement.children[1]
-                $(counter).html(parseInt(counter.textContent) - 1);
+                $(counter).val(parseInt($(counter).val()) - 1); 
+                let counterValue = $(counter).val();
 
                 ubahCounter('kurang', element)
-
-                if (counter.textContent <= 0) {
+                
+                if (counterValue <= 0) {
                     let newVariabel = order;
-                    let keyChar = element[0].textContent;
+                    let keyChar = element[0].value;
                     let newData = [...newVariabel.filter((item) => item.name != keyChar)];
                     order = newData;
                     return generatePesanan();
                 }
-            });
-
+            })
 
 
 
@@ -272,9 +274,9 @@
                 let pajak = (sum * PAJAK);
                 let totalDibayar = sum + pajak;
 
-                $("#sub-total").html(`Rp. ${sum}`);
-                $("#tax").html(`Rp. ${pajak}`);
-                $("#total-harga").html(`Rp. ${totalDibayar}`);
+                $("#sub-total").html(`${sum}`);
+                $("#tax").val(`${pajak}`);
+                $("#total-harga").html(`${totalDibayar}`);
                 $("#change").html(`Rp. ${totalDibayar}`);
 
 
@@ -282,30 +284,31 @@
                 $.map(order, function(item, index) {
                     $('#containerOrder').append(`
                     <div class="grid grid-cols-3 my-5 justify-items-stretch ">
-                    <div class="flex flex-col capitalize ">
-                        <h2 class="font-semibold">${item.name}</h2>
-                        <span>${item.price}</span>
-                    </div>
-                    <div class="grid grid-cols-3 justify-items-center min-w-[150px] items-center">
-                        <button class="px-2 py-1 border border-gray-300 rounded-md button-kurang">-</button>
-                        <div id="counter" class="px-3 py-1 font-semibold bg-gray-200 border border-gray-300 rounded-md ">${item.count}</div>
-                        <button  class="px-2 py-1 border border-gray-300 rounded-md cursor-pointer button-tambah">+</button>
-                    </div>
-                    <div class=" flex justify-end items-center max-w-[50px] justify-self-end">
-                        <button data-name="${item.name}" class="px-3 py-2 font-semibold text-gray-700 bg-gray-300 rounded-md button-hapus">
-                            <i class="fa-solid fa-trash-can fa-lg"></i>
-                        </button>
-                    </div>
-                </div> 
+                        <div class="flex flex-col capitalize ">
+                            <input name="menu_name" class="font-semibold border-none" value="${item.name}">
+                            <input name"price" class="border-none" value="${item.price}">
+                        </div>
+                        <div class="grid grid-cols-3 justify-items-center min-w-[150px] items-center">
+                            <button class="px-2 py-1 border border-gray-300 rounded-md button-kurang">-</button>
+                            <input name="qty" id="counter" class="w-full px-3 py-1 font-semibold text-center bg-gray-200 border border-gray-300 rounded-md " value="${item.count}">
+                            <button class="px-2 py-1 border border-gray-300 rounded-md cursor-pointer button-tambah">+</button>
+                        </div>
+                        <div class=" flex justify-end items-center max-w-[50px] justify-self-end">
+                            <button data-name="${item.name}" class="px-3 py-2 font-semibold text-gray-700 bg-gray-300 rounded-md button-hapus">
+                                <i class="fa-solid fa-trash-can fa-lg"></i>
+                            </button>
+                        </div>
+                    </div> 
                 `);
                 });
+
 
             }
 
 
             function ubahCounter(param, element) {
-                const name = element[0].textContent;
-                const price = parseInt(element[1].textContent);
+                const name = element[0].value;
+                const price = parseInt(element[1].value);
                 let getIndex = order.findIndex((item) => item.name == name);
 
                 let cloneOrder = order;

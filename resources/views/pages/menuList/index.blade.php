@@ -1,6 +1,23 @@
 @extends('layouts.backend.main')
 
 @section('content')
+    <script>
+        //Preview Image
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'flex';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
+
     <section class="h-screen p-10 bg-gray-300">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Menu List</h1>
@@ -317,7 +334,7 @@
                                                             </div>
                                                             <div class="flex justify-center">
                                                                 <input type="file" name="image" id="image2"
-                                                                    onchange="previewImage2()" required
+                                                                    onchange="previewImage2()" 
                                                                     class="block w-[150px] text-xs file:text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-200 focus:outline-none">
                                                             </div>
                                                         </div>
@@ -494,7 +511,7 @@
                         const image = document.querySelector('#image');
                         const imgPreview = document.querySelector('.img-preview');
 
-                        imgPreview.style.display = 'block';
+                        imgPreview.style.display = 'flex';
 
                         const oFReader = new FileReader();
                         oFReader.readAsDataURL(image.files[0]);
@@ -508,7 +525,7 @@
                         const image2 = document.querySelector('#image2');
                         const imgPreview2 = document.querySelector('.img-preview2');
 
-                        imgPreview2.style.display = 'block';
+                        imgPreview2.style.display = 'flex';
 
                         const oFReader = new FileReader();
                         oFReader.readAsDataURL(image2.files[0]);

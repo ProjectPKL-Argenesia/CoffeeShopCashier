@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('menu_name');
             $table->enum('type', ['Food', 'Drink']);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->decimal('price');
             $table->integer('stock');
             $table->decimal('tax');

@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('store_id')->references('id')->on('stores');
-            $table->foreignId('cashier_id')->references('id')->on('cashiers');
-            $table->foreignId('order_id')->references('id')->on('orders');
-            // $table->datetimes('date_payment');
-            // $table->datetimes('date_payment');
+            $table->foreignId('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('cashier_id')->references('id')->on('cashiers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
+            $table->dateTime('date_payment');
             $table->integer('total_price');
             $table->enum('type_payment', ['cash', 'debit']);
             $table->integer('discount');

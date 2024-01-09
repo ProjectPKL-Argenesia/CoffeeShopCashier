@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\MenuCategory;
+use App\Models\OrderDetail;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,18 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        OrderDetail::create([
+            'menu_name' => $request->menu_name,
+            'price' => $request->price,
+            'qty' => $request->qty,
+            'tax' => $request->tax,
+            'discount' => 0,
+        ]);
+
+
+        return redirect()->to('/transaction')->with('success', 'Data anda berhasil disimpan.');
+
     }
 
     /**
