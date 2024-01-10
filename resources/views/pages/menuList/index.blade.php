@@ -217,12 +217,12 @@
                             <span>Rp {{ number_format($item->price, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex items-center justify-end">
-                            <div class="flex items-center justify-center">
+                            <div class="grid grid-cols-2 gap-1 justify-items-center">
                                 <!-- Button Restock -->
-                                <div>
+                                <div class="col-span-2">
                                     <button data-modal-target="popup-modal-restock-{{ $item->id }}"
                                         data-modal-toggle="popup-modal-restock-{{ $item->id }}"
-                                        class="block px-1 text-xs font-medium text-center text-blue-500 2xl:text-sm whitespace-nowrap"
+                                        class="block text-xs font-medium text-center text-blue-500 2xl:text-sm whitespace-nowrap"
                                         type="button">
                                         <i class="px-1 fa-solid fa-file-signature"></i>Restock
                                     </button>
@@ -293,12 +293,11 @@
                                     </div>
                                 </div>
 
-
                                 <!-- Button Edit -->
-                                <div>
+                                <div class="col-start-1">
                                     <button data-modal-target="popup-modal-edit-{{ $item->id }}"
                                         data-modal-toggle="popup-modal-edit-{{ $item->id }}"
-                                        class="block px-1 text-xs font-medium text-center text-yellow-400 2xl:text-sm whitespace-nowrap"
+                                        class="block text-xs font-medium text-center text-yellow-400 2xl:text-sm whitespace-nowrap"
                                         type="button">
                                         <i class="px-1 fa-solid fa-file-signature"></i>Edit
                                     </button>
@@ -334,7 +333,7 @@
                                                             </div>
                                                             <div class="flex justify-center">
                                                                 <input type="file" name="image" id="image2"
-                                                                    onchange="previewImage2()" 
+                                                                    onchange="previewImage2()"
                                                                     class="block w-[150px] text-xs file:text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-200 focus:outline-none">
                                                             </div>
                                                         </div>
@@ -490,10 +489,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <!-- Button Hapus -->
 
-                                    <form action="{{ route('menuList.destroy', $item->id) }}" method="POST">
+                                <!-- Button Hapus -->
+                                <div>
+                                    <form action="{{ route('menuList.destroy', $item->id) }}" method="POST"
+                                        class="-my-0.5">
                                         @csrf
                                         @method('DELETE')
                                         <button class="text-xs font-medium text-red-500 2xl:text-sm whitespace-nowrap"

@@ -35,6 +35,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+
         OrderDetail::create([
             'menu_name' => $request->menu_name,
             'price' => $request->price,
@@ -45,7 +46,6 @@ class TransactionController extends Controller
 
 
         return redirect()->to('/transaction')->with('success', 'Data anda berhasil disimpan.');
-
     }
 
     /**

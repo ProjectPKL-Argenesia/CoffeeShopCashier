@@ -190,7 +190,7 @@
                 let counter = this.parentElement.children[1];
                 $(counter).val(parseInt($(counter).val()) + 1);
                 let counterValue = $(counter).val();
-                console.info(counterValue); 
+                console.info(counterValue);
                 ubahCounter('tambah', element);
             });
 
@@ -199,11 +199,11 @@
                 e.preventDefault();
                 let element = this.parentElement.parentElement.children[0].children;
                 let counter = this.parentElement.children[1]
-                $(counter).val(parseInt($(counter).val()) - 1); 
+                $(counter).val(parseInt($(counter).val()) - 1);
                 let counterValue = $(counter).val();
 
                 ubahCounter('kurang', element)
-                
+
                 if (counterValue <= 0) {
                     let newVariabel = order;
                     let keyChar = element[0].value;
@@ -286,7 +286,9 @@
                     <div class="grid grid-cols-3 my-5 justify-items-stretch ">
                         <div class="flex flex-col capitalize ">
                             <input name="menu_name" class="font-semibold border-none" value="${item.name}">
-                            <input name"price" class="border-none" value="${item.price}">
+                            <input name="price" class="border-none" value="${item.price}">
+                            
+      
                         </div>
                         <div class="grid grid-cols-3 justify-items-center min-w-[150px] items-center">
                             <button class="px-2 py-1 border border-gray-300 rounded-md button-kurang">-</button>
@@ -309,6 +311,7 @@
             function ubahCounter(param, element) {
                 const name = element[0].value;
                 const price = parseInt(element[1].value);
+                console.info(price);
                 let getIndex = order.findIndex((item) => item.name == name);
 
                 let cloneOrder = order;

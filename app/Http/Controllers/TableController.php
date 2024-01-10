@@ -13,8 +13,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        $dataTable = Table::all(); 
-        $dataMenuCategory = MenuCategory::all(); 
+        $dataTable = Table::orderBy('status', 'asc')->get();
+        $dataMenuCategory = MenuCategory::all();
         return view('pages.table.index', ["title" => "Table"], compact('dataTable', 'dataMenuCategory'));
     }
 
@@ -23,7 +23,6 @@ class TableController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
