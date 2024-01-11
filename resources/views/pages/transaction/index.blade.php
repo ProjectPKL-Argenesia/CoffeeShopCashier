@@ -49,36 +49,38 @@
             </div>
             <div class="grid grid-cols-3 gap-3 px-5 place-items-center">
                 @foreach ($dataMenu as $item)
-                    <div data-category-id="{{ $item->menu_category->id }}"
-                        class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
-                        <div
-                            class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                            <img src="{{ asset('storage/' . $item->image) }}" class="object-cover " alt="gambar">
-                        </div>
-                        <p class="hidden type-cell">{{ $item->type }}</p>
-                        <div class="hidden">
-                            <select name="menu_category_id" id="menu_category_id" required
-                                class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
-                                <option selected hidden>Menu Category</option>
-                                @foreach ($dataMenuCategory as $itemMenuCategory)
-                                    <option value="{{ $itemMenuCategory->id }}" class="menu-cell"
-                                        {{ $item->menu_category_id == $itemMenuCategory->id ? 'selected' : '' }}>
-                                        {{ $itemMenuCategory->category_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-2 justify-items-stretch">
-                            <div class="flex flex-col capitalize ">
-                                <h2 class="font-semibold">{{ $item->menu_name }}</h2>
-                                <span class="harga-menu">{{ $item->price }}</span>
+                    @if ($item->stock >= 1)
+                        <div data-category-id="{{ $item->menu_category->id }}"
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px] 2xl:max-h-[250px]">
+                            <div
+                                class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="object-cover " alt="gambar">
                             </div>
-                            <div class="grid items-center justify-items-end">
-                                <button
-                                    class="px-3 py-2 font-medium text-gray-800 bg-gray-200 rounded-md order-button">Order</button>
+                            <p class="hidden type-cell">{{ $item->type }}</p>
+                            <div class="hidden">
+                                <select name="menu_category_id" id="menu_category_id" required
+                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
+                                    <option selected hidden>Menu Category</option>
+                                    @foreach ($dataMenuCategory as $itemMenuCategory)
+                                        <option value="{{ $itemMenuCategory->id }}" class="menu-cell"
+                                            {{ $item->menu_category_id == $itemMenuCategory->id ? 'selected' : '' }}>
+                                            {{ $itemMenuCategory->category_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
+                            <form class="grid grid-cols-2 justify-items-stretch">
+                                <div class="flex flex-col capitalize ">
+                                    <input name="menu_name" class="font-semibold" value="{{ $item->menu_name }}">
+                                    <input name="price" class="harga-menu" value="{{ $item->price }}">
+                                </div>
+                                <div class="grid items-center justify-items-end">
+                                    <button
+                                        class="px-3 py-2 font-medium text-gray-800 bg-gray-200 rounded-md order-button">Order</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -160,9 +162,10 @@
 
             // order button click 2x clixk
             $('.order-button').click(function(e) {
+                e.preventDefault();
                 let element = this.parentElement.parentElement.children[0].children;
-                const name = element[0].textContent;
-                const price = parseInt(element[1].textContent);
+                const name = element[0].value;
+                const price = parseInt(element[1].value);
 
                 let newData = {
                     name,

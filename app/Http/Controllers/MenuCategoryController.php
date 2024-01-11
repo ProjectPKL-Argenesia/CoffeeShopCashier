@@ -34,6 +34,13 @@ class MenuCategoryController extends Controller
             'type' => 'required',
         ]);
 
+        $existingMenuCategory = MenuCategory::where('category_name', $validatedData['category_name'])
+        ->first();
+
+        if ($existingMenuCategory) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
+
         MenuCategory::create($validatedData);
 
         return redirect()->to('/menuCategory')->with('success', 'Data anda berhasil disimpan.');

@@ -40,6 +40,13 @@ class CashierController extends Controller
             'gender' => 'required',
         ]);
         
+        $existingCashier = Cashier::where('name', $validatedData['name'])
+        ->first();
+
+        if ($existingCashier) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
+
         $dataUser = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],

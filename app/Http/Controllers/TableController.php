@@ -35,6 +35,13 @@ class TableController extends Controller
             'status' => 'required',
         ]);
 
+        $existingTable = Table::where('name', $validatedData['name'])
+            ->first();
+
+        if ($existingTable) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
+        
         Table::create($validatedData);
 
         return redirect()->to('/table')->with('success', 'Data anda berhasil disimpan.');

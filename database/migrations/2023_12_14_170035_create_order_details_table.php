@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('menu_name');
             $table->integer('qty');
-            $table->decimal('price')->nullable();
+            $table->decimal('price');
             $table->decimal('tax');
             $table->decimal('discount');
             $table->timestamps();

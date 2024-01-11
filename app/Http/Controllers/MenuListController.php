@@ -39,9 +39,17 @@ class MenuListController extends Controller
             'type' => 'required',
             'image' => 'required',
             'price' => 'required',
+            'stock' => 'required',
             'tax' => 'required',
             'nama' => 'required',
         ]);
+
+        $existingMenu = Menu::where('menu_name', $validatedData['menu_name'])
+            ->first();
+
+        if ($existingMenu) {
+            return redirect()->back()->with('error', 'Data sudah ada.');
+        }
 
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('image-post');
@@ -52,7 +60,7 @@ class MenuListController extends Controller
             'type' => $validatedData['type'],
             'menu_category_id' => $validatedData['menu_category_id'],
             'price' => $validatedData['price'],
-            'stock' => 0,
+            'stock' => $validatedData['stock'],
             'tax' => $validatedData['tax'],
             'image' => $validatedData['image'],
         ]);
@@ -62,15 +70,16 @@ class MenuListController extends Controller
             'type' => $validatedData['type'],
             'menu_category_id' => $validatedData['menu_category_id'],
             'price' => $validatedData['price'],
-            'stock' => 0,
+            'stock' => $validatedData['stock'],
             'tax' => $validatedData['tax'],
             'image' => $validatedData['image'],
             'nama' => $validatedData['nama'],
             'status' => 'create',
         ]);
 
-        return redirect()->to('/menuList')->with('success', 'Data anda berhasil disimpan.');
+        return redirect()->to('/menuList')->with('success', 'Data berhasil disimpan.');
     }
+
 
     /**
      * Display the specified resource.
