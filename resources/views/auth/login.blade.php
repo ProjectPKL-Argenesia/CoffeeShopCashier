@@ -94,7 +94,7 @@
             </div>
 
             <div class="hidden w-full h-full bg-white md:block">
-                <img src="{{ asset('assets/images/background.jpg') }}" alt="gambar" class="w-full h-full ">
+                <img src="{{ asset('assets/images/background.png') }}" alt="gambar" class="object-cover w-full h-full">
             </div>
         </div>
     </section>

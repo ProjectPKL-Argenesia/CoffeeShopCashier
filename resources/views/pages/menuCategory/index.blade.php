@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="col-span-9">
                                             <input type="text" name="category_name" id="category_name"
-                                                class="w-full px-2 py-1 rounded-lg focus:ring-0" placeholder="ex : Coffee">
+                                                class="w-full px-2 py-1 rounded-lg focus:ring-0" placeholder="ex : Coffee" required>
                                         </div>
                                     </div>
 
