@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('table_id')->references('id')->on('tables')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('order_detail_id')->references('id')->on('order_details')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('no_receipt');
             $table->timestamps();
         });

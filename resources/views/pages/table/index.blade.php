@@ -1,7 +1,7 @@
 @extends('layouts.backend.main')
 
 @section('content')
-    <section class="p-10 bg-gray-300">
+    <section class="min-h-screen p-10 bg-gray-300">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Table</h1>
             <div>

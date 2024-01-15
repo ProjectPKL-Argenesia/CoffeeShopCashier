@@ -23,7 +23,7 @@
     <section class="grid w-full h-screen bg-gray-100 place-items-center">
         <div
             class="bg-white rounded-2xl shadow-2xl w-[90vw] lg:w-[80vw] xl:w-[65vw] 2xl:w-[60vw] h-[500px] md:h-[460px] xl:h-[500px] 2xl:h-[600px] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-            <div class="flex w-full h-full justify-around flex-col gap-y-5 px-10 py-4 bg-white">
+            <div class="flex flex-col justify-around w-full h-full px-10 py-4 bg-white gap-y-5">
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold text-black capitalize">Selamat Datang !</h1>
                     <p class="text-black/80 text-[15px]">Hello | Silahkan pilih role anda.</p>
@@ -84,7 +84,7 @@
 
                     </div>
                 </form>
-                <div class="flex gap-x-2 justify-center items-start">
+                <div class="flex items-start justify-center gap-x-2">
                     <div>
                         <button class="px-3 py-2 bg-blue-500 rounded-lg" onclick="showRegistStore()">Store</button>
                     </div>
@@ -141,7 +141,7 @@
                 </form>
             </div>
             <div class="hidden w-full h-full bg-white md:block">
-                <img src="{{ asset('assets/images/background.jpg') }}" alt="gambar" class="w-full h-full ">
+                <img src="{{ asset('assets/images/background.png') }}" alt="gambar" class="w-full h-full ">
             </div>
         </div>
     </section>

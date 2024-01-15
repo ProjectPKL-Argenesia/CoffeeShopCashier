@@ -59,7 +59,7 @@
                             <div class="grid grid-cols-2 justify-items-stretch">
                                 <div class="flex flex-col capitalize ">
                                     <p class="font-semibold">{{ $item->menu_name }}</p>
-                                    <p class="text-sm text-slate-500 mb-2">Stock: {{ $item->stock }}</p>
+                                    <p class="mb-2 text-sm text-slate-500">Stock: {{ $item->stock }}</p>
                                     <p class="harga-menu">Rp. {{ $item->price }}</p>
                                 </div>
                                 <div class="grid items-center justify-items-end">
@@ -112,8 +112,8 @@
                     </div>
                 </div>
                 <div class="flex items-center justify-between p-4 font-semibold bg-gray-400 rounded-lg">
-                    <button type="submit" class="">Change</button>
-                    <p id="change">0</p>
+                    <button type="submit" class="">Charge</button>
+                    <p id="">Rp. </p>
                 </div>
             </div>
         </form>
@@ -154,7 +154,7 @@
             cart_item = JSON.parse(cart_session) || [];
 
             if (!cart_item || cart_item.length === 0) {
-                $("#containerOrder").html('<p class="text-md text-slate-500 font-italic text-center mt-5 italic">Keranjang Orderan Masih Kosong...</p>');
+                $("#containerOrder").html('<p class="mt-5 italic text-center text-md text-slate-500 font-italic">Keranjang Orderan Masih Kosong...</p>');
                 $("#sub-total").html(sub_total);
                 $("#tax").html(tax);
                 $("#total-harga").html(total);

@@ -86,10 +86,18 @@
                     <div
                         class="flex items-center justify-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <i class="fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>
-                        <button type="submit" class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Log out</button>
+                        <button id="button-logout" type="submit"
+                            class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Log out</button>
                     </div>
                 </li>
             </div>
         </form>
+        <script>
+            $(document).ready(function() {
+                $("#button-logout").on("click", function() {
+                    sessionStorage.clear();
+                });
+            });
+        </script>
     </div>
 </aside>
