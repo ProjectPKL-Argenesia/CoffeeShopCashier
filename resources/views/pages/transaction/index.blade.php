@@ -2,8 +2,8 @@
 
 @section('content')
     <section class="grid grid-cols-12">
-        <div class="h-full col-span-9 bg-gray-200">
-            <div class="px-5 py-10 bg-gray-200">
+        <div class="h-full col-span-9 bg-gray-200 px-10">
+            <div class="py-10 bg-gray-200">
                 <div class="flex items-start justify-start pb-10">
                     <h1 class="text-3xl font-bold text-black/80">Cashier</h1>
                 </div>
@@ -47,11 +47,11 @@
                     </form>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-3 px-5 place-items-center">
+            <div class="grid grid-cols-3 gap-y-5 gap-x-5">
                 @foreach ($dataMenu as $item)
                     @if ($item->stock >= 1)
                         <div data-category-id="{{ $item->menu_category->id }}"
-                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[175px] 2xl:w-[310px]">
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-full min-h-[175px]">
                             <div
                                 class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
                                 <img src="{{ asset('storage/' . $item->image) }}" class="object-cover " alt="gambar">
@@ -95,13 +95,12 @@
                 </button>
             </div>
             <div class="flex items-center justify-between p-4">
-                <div class="">
-                    <select name="menu_category_id" id="menu_category_id" required
+                <div>
+                    <select name="table_id" id="table_id" required onchange="handleTableChange()"
                         class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
                         <option selected hidden>Table</option>
                         @foreach ($dataTable as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}
-                            </option>
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -121,14 +120,18 @@
                         <p>Tax</p>
                         <p>Rp. <span id="tax"></span></p>
                     </div>
-                    <div class="flex items-center justify-between mt-0 border-t-4 border-gray-300">
+                    <div class="flex items-center justify-between mt-0 border-t-4 border-gray-300 font-bold text-lg">
                         <p>Total</p>
                         <p>Rp. <span id="total-harga"></span></p>
                     </div>
                 </div>
-                <button type="submit" class="text-white text-center p-4 font-semibold bg-green-500 rounded-lg w-full">
+                <button data-modal-target="popup-modal-charge" data-modal-toggle="popup-modal-charge" type="button"
+                    onclick="chargeItem()" class="text-white text-center p-4 font-semibold bg-green-500 rounded-lg w-full">
                     <span>Charge</span>
                 </button>
+
+                @include('pages.transaction.charge')
+
             </div>
         </form>
 
@@ -136,6 +139,8 @@
 
     <script>
         let cart_item = [];
+
+        let order_info = [];
 
         refreshCart();
 
@@ -174,6 +179,8 @@
                 $("#tax").html(tax);
                 $("#total-harga").html(total);
                 return;
+
+                order_info = {};
             }
 
             $("#containerOrder").html('');
@@ -193,6 +200,12 @@
             tax = (10 / 100) * sub_total;
 
             total = sub_total + tax;
+
+            order_info = {
+                sub_total: sub_total,
+                tax: tax,
+                total: total
+            };
 
             $("#sub-total").html(sub_total.toLocaleString('id-ID'));
             $("#tax").html(tax.toLocaleString('id-ID'));
@@ -267,6 +280,61 @@
             refreshCart();
         }
 
+        // menangani table
+        function handleTableChange() {
+            var selectedElement = document.getElementById('table_id');
+            var selectedTableId = selectedElement.value;
+            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
+
+            // Tampilkan nama dan nilai yang dipilih di console
+            console.log('Selected Table ID:', selectedTableId);
+            console.log('Selected Table Name:', selectedTableName);
+        }
+
+        // charge item
+        function chargeItem() {
+            // table
+            var selectedElement = document.getElementById('table_id');
+            var selectedTableId = selectedElement.value;
+            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
+
+            document.getElementById('table_name').innerText = selectedTableName;
+
+            // order detail
+            var detailOrder = document.getElementById("detailOrder");
+
+            for (let i = 0; i < cart_item.length; i++) {
+                // const id = cart_item[i].id;
+                const menu_name = cart_item[i].menu_name;
+                const price = cart_item[i].price;
+                const qty = cart_item[i].qty;
+
+                var menu = `
+                    <div class="flex gap-x-5">
+                        <span>${menu_name}</span>
+                        <span>Rp. ${price}</span>
+                        <span>${qty}</span>
+                    </div>
+                `;
+
+                detailOrder.innerHTML += menu;
+            }
+
+            // sub total
+            let sub_total = order_info.sub_total;
+            document.getElementById('subTotal').innerText = sub_total;
+
+            // tax
+            let tax = order_info.tax;
+            document.getElementById('pajak').innerText = tax;
+
+            // total
+            let total = order_info.total;
+            document.getElementById('total').innerText = total;
+
+            console.log(tax);
+        }
+
         //Script Tanggal
         var today = new Date();
 
@@ -279,7 +347,9 @@
         var mm = namaBulan[today.getMonth()];
         var yyyy = today.getFullYear();
 
-        document.getElementById('tanggal').innerHTML = dd + ' ' + mm + ' ' + yyyy;
+        let date = dd + ' ' + mm + ' ' + yyyy;
+
+        document.getElementById('tanggal').innerHTML = date;
 
 
         //filter radio button
@@ -398,3 +468,28 @@
         });
     </script>
 @endsection
+
+
+{{-- charge item
+        function chargeItem() {
+            var selectedElement = document.getElementById('table_id');
+            var selectedTableId = selectedElement.value;
+            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
+            var menuNames = cart_item.map(item => item.menu_name);
+            var prices = cart_item.map(item => item.price);
+
+
+            // Pastikan bahwa nilai yang dipilih tidak kosong (hidden option)
+            if (selectedTableId !== '') {
+                cart_item.push('Table_id = ' + selectedTableId);
+
+                console.log(prices);
+
+                document.getElementById('table_name').innerText = selectedTableName;
+                document.getElementById('menu_name').innerText = menuNames;
+                document.getElementById('price').innerText = prices;
+            } else {
+                // Handle jika tidak ada table yang dipilih
+                console.log('Please select a table before charging.');
+            }
+        } --}}
