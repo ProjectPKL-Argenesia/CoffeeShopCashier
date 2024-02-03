@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
         $adminUser->assignRole("admin");
-        
+
+        $this->call(TableSeeder::class);
+        $this->call(MenuCategorySeeder::class);
+        $this->call(MenuSeeder::class);
+        $this->call(MenuHistorySeeder::class);
     }
 }

@@ -29,8 +29,8 @@
                     <p class="text-black/80 text-[15px]">Hello | Silahkan masukan data anda</p>
                 </div>
                 <form action="{{ route('login') }}" method="POST">
+                    @csrf
                     <div>
-                        @csrf
                         <div class="grid items-start w-full grid-cols-1 gap-y-4">
                             <div class="grid grid-cols-1">
                                 <label class="text-base text-black/80" for="email">Email</label>
@@ -94,7 +94,8 @@
             </div>
 
             <div class="hidden w-full h-full bg-white md:block">
-                <img src="{{ asset('assets/images/background.png') }}" alt="gambar" class="object-cover w-full h-full">
+                <img src="{{ asset('assets/images/background.png') }}" alt="gambar"
+                    class="object-cover w-full h-full">
             </div>
         </div>
     </section>

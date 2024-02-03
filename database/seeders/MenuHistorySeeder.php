@@ -1,0 +1,88 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\MenuHistory;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class MenuHistorySeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $menu_histories =
+            [
+                [
+                    'menu_category_id' => '1',
+                    'menu_name' => 'Bakwan',
+                    'type' => 'Food',
+                    'image' => 'bakwan.png',
+                    'price' => '1000',
+                    'stock' => '50',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ],
+                [
+                    'menu_category_id' => '2',
+                    'menu_name' => 'Ayam Geprek',
+                    'type' => 'Food',
+                    'image' => 'image-post/geprek.png',
+                    'price' => '24000',
+                    'stock' => '30',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ],
+                [
+                    'menu_category_id' => '3',
+                    'menu_name' => 'Pudding',
+                    'type' => 'Food',
+                    'image' => 'image-post/pudding.png',
+                    'price' => '10000',
+                    'stock' => '45',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ],
+                [
+                    'menu_category_id' => '4',
+                    'menu_name' => 'Coffee',
+                    'type' => 'Drink',
+                    'image' => 'image-post/coffee.png',
+                    'price' => '10000',
+                    'stock' => '70',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ],
+                [
+                    'menu_category_id' => '5',
+                    'menu_name' => 'Iced Tea',
+                    'type' => 'Drink',
+                    'image' => 'image-post/iced_tea.png',
+                    'price' => '5000',
+                    'stock' => '40',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ],
+                [
+                    'menu_category_id' => '6',
+                    'menu_name' => 'Oreo Milkshake',
+                    'type' => 'Drink',
+                    'image' => 'image-post/oreo_milkshake.png',
+                    'price' => '12000',
+                    'stock' => '30',
+                    'tax' => '0.11',
+                    'nama' => 'Seeder',
+                    'status' => 'create'
+                ]
+            ];
+
+        MenuHistory::insert($menu_histories);
+    }
+}
