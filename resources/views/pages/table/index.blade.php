@@ -10,7 +10,7 @@
                     + Add Table
                 </button>
 
-                @include('pages.table.add_table')
+                @include('pages.table.add')
 
             </div>
         </div>
