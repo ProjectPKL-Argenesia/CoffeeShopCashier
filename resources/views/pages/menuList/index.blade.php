@@ -77,7 +77,7 @@
                     class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
                     <div
                         class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
-                        <img src="{{ asset('storage/' . $item->image) }}" class="object-cover" alt="gambar">
+                        <img src="{{ asset('storage/' . $item->image) }}" class="object-contain" alt="gambar">
                     </div>
                     <div class="grid items-center grid-cols-2">
                         <div class="flex flex-col text-xs capitalize 2xl:text-sm">

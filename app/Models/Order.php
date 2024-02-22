@@ -9,5 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['table_id', 'order_detail_id'];
+    protected $fillable = ['table_id','no_receipt'];
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class, 'table_id');
+    }
 }

@@ -10,4 +10,9 @@ class Table extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'status'];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'order_id');
+    }
 }

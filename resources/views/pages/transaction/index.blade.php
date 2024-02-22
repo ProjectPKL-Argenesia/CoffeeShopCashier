@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="grid grid-cols-12">
-        <div class="h-full col-span-9 bg-gray-200 px-10">
+        <div class="h-full col-span-9 px-10 bg-gray-200">
             <div class="py-10 bg-gray-200">
                 <div class="flex items-start justify-start pb-10">
                     <h1 class="text-3xl font-bold text-black/80">Cashier</h1>
@@ -54,7 +54,7 @@
                             class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-full min-h-[175px]">
                             <div
                                 class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                                <img src="{{ asset('storage/' . $item->image) }}" class="object-cover " alt="gambar">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="object-contain " alt="gambar">
                             </div>
                             <p class="hidden type-cell">{{ $item->type }}</p>
                             <div class="hidden">
@@ -100,7 +100,9 @@
                         class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
                         <option selected hidden>Table</option>
                         @foreach ($dataTable as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @if ($item->status == 'Empty')
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -120,13 +122,14 @@
                         <p>Tax</p>
                         <p>Rp. <span id="tax"></span></p>
                     </div>
-                    <div class="flex items-center justify-between mt-0 border-t-4 border-gray-300 font-bold text-lg">
+                    <div class="flex items-center justify-between mt-0 text-lg font-bold border-t-4 border-gray-300">
                         <p>Total</p>
                         <p>Rp. <span id="total-harga"></span></p>
                     </div>
                 </div>
-                <button data-modal-target="popup-modal-charge" data-modal-toggle="popup-modal-charge" type="button"
-                    onclick="chargeItem()" class="text-white text-center p-4 font-semibold bg-green-500 rounded-lg w-full">
+                <button id="buttonCharge" data-modal-target="popup-modal-charge" disabled
+                    data-modal-toggle="popup-modal-charge" type="button" onclick="chargeItem()"
+                    class="w-full p-4 font-semibold text-center text-white bg-green-500 rounded-lg cursor-pointer">
                     <span>Charge</span>
                 </button>
 
@@ -183,8 +186,27 @@
                 order_info = {};
             }
 
+            let cartItemExist = cart_item.length > 0 && cart_item[0].table_id;
+            let selectedTableId;
+            if (cartItemExist) {
+                selectedTableId = cart_item[0].table_id;
+                sessionStorage.setItem('selected_table_id', selectedTableId);
+            } else {
+                selectedTableId = sessionStorage.getItem('selected_table_id');
+            }
+
+            let tableSelect = document.getElementById("table_id");
+            for (let i = 0; i < tableSelect.options.length; i++) {
+                if (tableSelect.options[i].value === selectedTableId) {
+                    tableSelect.options[i].selected = true;
+                    break;
+                }
+            }
+
+
             $("#containerOrder").html('');
             cart_item.forEach((menu) => {
+                menu.table_id = selectedTableId;
                 $("#containerOrder").append(
                     template_item_html
                     .replaceAll("!menu_id!", menu.id)
@@ -210,9 +232,29 @@
             $("#sub-total").html(sub_total.toLocaleString('id-ID'));
             $("#tax").html(tax.toLocaleString('id-ID'));
             $("#total-harga").html(total.toLocaleString('id-ID'));
+
+            checkChargeButtonStatus();
+        }
+
+
+        function handleTableChange() {
+            var selectedTableId = document.getElementById('table_id').value;
+            sessionStorage.setItem('selected_table_id', selectedTableId);
+            updateTableIdInOrderItems(selectedTableId);
+            refreshCart();
+            checkChargeButtonStatus();
+        }
+
+        function updateTableIdInOrderItems(tableId) {
+            cart_item.forEach((item) => {
+                item.table_id = tableId;
+            });
+            sessionStorage.setItem("cart_item", JSON.stringify(cart_item));
         }
 
         function addOrderCart(item) {
+            var selectedTableId = sessionStorage.getItem('selected_table_id');
+            item.table_id = selectedTableId;
             if (sessionStorage.getItem("cart_item")) {
                 cart_item = JSON.parse(sessionStorage.getItem("cart_item"));
                 if (cart_item.some(menu => menu.id === item.id)) {
@@ -235,7 +277,45 @@
         function clearContent() {
             cart_item = [];
             sessionStorage.removeItem("cart_item");
+            sessionStorage.removeItem("selected_table_id");
             refreshCart();
+            $("#table_id").val("Table");
+            checkChargeButtonStatus();
+        }
+
+        function checkChargeButtonStatus() {
+            let tableSelect = document.getElementById("table_id");
+            let chargeButton = document.getElementById("buttonCharge");
+
+            if (tableSelect.value !== "Table" && cart_item.length > 0) {
+                chargeButton.removeAttribute("disabled");
+            } else {
+                chargeButton.setAttribute("disabled", "disabled");
+            }
+        }
+
+        function simpannButtonClick() {
+
+            const requestData = {
+                cart_item: cart_item,
+                order_info: order_info
+            };
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '{{ route('transaction.store') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(requestData),
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function() {
+
+                    location.reload();
+                    clearContent();
+
+                },
+            });
         }
 
         function deleteOrderCart(menu_id) {
@@ -280,17 +360,6 @@
             refreshCart();
         }
 
-        // menangani table
-        function handleTableChange() {
-            var selectedElement = document.getElementById('table_id');
-            var selectedTableId = selectedElement.value;
-            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
-
-            // Tampilkan nama dan nilai yang dipilih di console
-            console.log('Selected Table ID:', selectedTableId);
-            console.log('Selected Table Name:', selectedTableName);
-        }
-
         // charge item
         function chargeItem() {
             // table
@@ -331,8 +400,6 @@
             // total
             let total = order_info.total;
             document.getElementById('total').innerText = total;
-
-            console.log(tax);
         }
 
         //Script Tanggal
@@ -465,31 +532,8 @@
                 }
 
             });
+
+
         });
     </script>
 @endsection
-
-
-{{-- charge item
-        function chargeItem() {
-            var selectedElement = document.getElementById('table_id');
-            var selectedTableId = selectedElement.value;
-            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
-            var menuNames = cart_item.map(item => item.menu_name);
-            var prices = cart_item.map(item => item.price);
-
-
-            // Pastikan bahwa nilai yang dipilih tidak kosong (hidden option)
-            if (selectedTableId !== '') {
-                cart_item.push('Table_id = ' + selectedTableId);
-
-                console.log(prices);
-
-                document.getElementById('table_name').innerText = selectedTableName;
-                document.getElementById('menu_name').innerText = menuNames;
-                document.getElementById('price').innerText = prices;
-            } else {
-                // Handle jika tidak ada table yang dipilih
-                console.log('Please select a table before charging.');
-            }
-        } --}}

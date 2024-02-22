@@ -18,7 +18,7 @@
                     <div class="flex flex-col items-center justify-center col-span-3 gap-y-2">
                         <div
                             class="grid grid-cols-1 place-items-center border border-gray-800 border-dashed rounded-lg w-[150px] h-[150px]">
-                            <img class="w-[150px] h-[150px] object-cover rounded-lg img-preview">
+                            <img class="object-contain rounded-lg img-preview">
                         </div>
                         <div class="flex justify-center">
                             <input type="file" name="image" id="image" onchange="previewImage()" required

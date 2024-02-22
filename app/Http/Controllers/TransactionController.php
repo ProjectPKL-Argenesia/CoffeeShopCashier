@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\MenuCategory;
+use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Table;
 use Illuminate\Http\Request;
@@ -35,17 +36,36 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        // $data = order::first();
+        // $data->no_receipt = $data->no_receipt + 1;
 
-        OrderDetail::create([
-            'menu_name' => $request->menu_name,
-            'price' => $request->price,
-            'qty' => $request->qty,
-            'tax' => $request->tax,
-            'discount' => 0,
+        $currentNoReceipt = Order::max('no_receipt');
+        $newNoReceipt = $currentNoReceipt + 1;
+        $requestData = json_decode($request->getContent(), true);
+        $cartItems = $requestData['cart_item'];
+        $tableId = $cartItems[0]['table_id'];
+
+        $dataOrder = Order::create([
+            'table_id' => $tableId,
+            'no_receipt' => $newNoReceipt,
         ]);
 
+        foreach ($cartItems as $item) {
+            OrderDetail::create([
+                'menu_name' => $item['menu_name'],
+                'order_id' => $dataOrder->id,
+                'qty' => $item['qty'],
+                'price' => $item['price'],
+                'tax' => $item['tax'],
+                'discount' => 0,
+            ]);
+        }
 
-        return redirect()->to('/transaction')->with('success', 'Data anda berhasil disimpan.');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order created successfully',
+
+        ], 200); // 201 Created status code
     }
 
     /**

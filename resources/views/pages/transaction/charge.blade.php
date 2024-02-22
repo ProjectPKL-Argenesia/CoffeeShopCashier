@@ -12,16 +12,16 @@
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
-            <form action="{{ route('transaction.store') }}" method="POST">
-                @csrf
+            {{-- <form id="chargeForm" action="{{ route('transaction.store') }}" method="POST">
+                @csrf --}}
                 <div class="grid grid-cols-12 px-8 pt-16 pb-10">
 
                     {{-- table name --}}
                     <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 justify-self-start text-sm font-semibold text-center gap-x-4">
+                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
                             <label for="name" class="whitespace-nowrap">Table Name</label>
                         </div>
-                        <div class="justify-self-center col-span-1">
+                        <div class="col-span-1 justify-self-center">
                             <span>:</span>
                         </div>
                         <div class="col-span-9">
@@ -31,10 +31,10 @@
 
                     {{-- order detail --}}
                     <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 justify-self-start text-sm font-semibold text-center gap-x-4">
+                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
                             <label for="orderDetail" class="whitespace-nowrap">Order Detail</label>
                         </div>
-                        <div class="justify-self-center col-span-1">
+                        <div class="col-span-1 justify-self-center">
                             <span>:</span>
                         </div>
                         <div id="detailOrder" class="col-span-9">
@@ -43,10 +43,10 @@
 
                     {{-- sub total --}}
                     <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 justify-self-start text-sm font-semibold text-center gap-x-4">
+                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
                             <label for="subTotal" class="whitespace-nowrap">Sub Total</label>
                         </div>
-                        <div class="justify-self-center col-span-1">
+                        <div class="col-span-1 justify-self-center">
                             <span>:</span>
                         </div>
                         <div class="col-span-9">
@@ -56,10 +56,10 @@
 
                     {{-- tax --}}
                     <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 justify-self-start text-sm font-semibold text-center gap-x-4">
+                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
                             <label for="tax" class="whitespace-nowrap">Tax</label>
                         </div>
-                        <div class="justify-self-center col-span-1">
+                        <div class="col-span-1 justify-self-center">
                             <span>:</span>
                         </div>
                         <div class="col-span-9">
@@ -69,20 +69,21 @@
 
                     {{-- total --}}
                     <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 justify-self-start text-sm font-semibold text-center gap-x-4">
+                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
                             <label for="name" class="whitespace-nowrap">Total</label>
                         </div>
-                        <div class="justify-self-center col-span-1">
+                        <div class="col-span-1 justify-self-center">
                             <span>:</span>
                         </div>
                         <div class="col-span-9">
                             <span id="total"></span>
                         </div>
                     </div>
-                    <button type="submit"
-                        class="col-span-12 mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
+                    <a href="#" id="simpannButton" onclick="simpannButtonClick()" class="col-span-12 py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
+                    {{-- <button type="submit"
+                        class="col-span-12 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button> --}}
                 </div>
-            </form>
+            {{-- </form> --}}
         </div>
     </div>
 </div>
