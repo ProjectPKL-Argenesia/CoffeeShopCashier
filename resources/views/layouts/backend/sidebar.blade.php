@@ -82,7 +82,7 @@
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <div>
-                <li class="font-medium">
+                <li class="font-medium list-none">
                     <div
                         class="flex items-center justify-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
                         <i class="fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>

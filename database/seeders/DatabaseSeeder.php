@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Cashier;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -33,9 +36,27 @@ class DatabaseSeeder extends Seeder
         ]);
         $adminUser->assignRole("admin");
 
+        $cashierUser = User::create([
+            'name' => 'Cashier',
+            'email' => 'cashier@cashier.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'remember_token' => Str::random(10),
+        ]);
+        $cashierUser->assignRole("cashier");
+
+        Store::create([
+            'user_id' => '1',
+            'name' => 'Capuds',
+            'address' => 'Kuranji',
+            'phone_number' => '081365851330'
+        ]);
+
+        $this->call(CashierSeeder::class);
         $this->call(TableSeeder::class);
         $this->call(MenuCategorySeeder::class);
         $this->call(MenuSeeder::class);
         $this->call(MenuHistorySeeder::class);
+        // $this->call(PaymentSeeder::class);
     }
 }

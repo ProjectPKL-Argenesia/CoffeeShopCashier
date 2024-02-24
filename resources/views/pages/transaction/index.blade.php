@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <form class="w-full h-full col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
+        <form class="w-full h-screen col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
             @csrf
             <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
@@ -310,11 +310,9 @@
                 const qty = cart_item[i].qty;
 
                 var menu = `
-                    <div class="flex gap-x-5">
-                        <span>${menu_name}</span>
-                        <span>Rp. ${price}</span>
-                        <span>${qty}</span>
-                    </div>
+                    <span class="justify-self-start">${menu_name}</span>
+                    <span class="justify-self-center">Rp. ${price}</span>
+                    <span class="justify-self-end">x ${qty}</span>
                 `;
 
                 detailOrder.innerHTML += menu;
@@ -333,6 +331,7 @@
             document.getElementById('total').innerText = total;
 
             console.log(tax);
+            console.log(order_info);
         }
 
         //Script Tanggal

@@ -10,4 +10,9 @@ class Store extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'name', 'address', 'phone_number'];
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class, 'payemnt_id');
+    }
 }
