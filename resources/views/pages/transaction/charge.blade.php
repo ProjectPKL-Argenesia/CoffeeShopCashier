@@ -12,78 +12,83 @@
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
-            {{-- <form id="chargeForm" action="{{ route('transaction.store') }}" method="POST">
-                @csrf --}}
-                <div class="grid grid-cols-12 px-8 pt-16 pb-10">
 
-                    {{-- table name --}}
-                    <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
-                            <label for="name" class="whitespace-nowrap">Table Name</label>
-                        </div>
-                        <div class="col-span-1 justify-self-center">
-                            <span>:</span>
-                        </div>
-                        <div class="col-span-9">
-                            <span id="table_name"></span>
-                        </div>
+
+            <form action="{{ route('transaction.store') }}" method="POST">
+                @csrf
+
+                <div class="grid grid-rowa-1 px-8 pt-16 pb-10">
+                    <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
+                        <span>Transaciton Order</span>
+                        <span id="table_name"></span>
                     </div>
-
-                    {{-- order detail --}}
-                    <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
-                            <label for="orderDetail" class="whitespace-nowrap">Order Detail</label>
-                        </div>
-                        <div class="col-span-1 justify-self-center">
-                            <span>:</span>
-                        </div>
-                        <div id="detailOrder" class="col-span-9">
-                        </div>
+                    <div id="detailOrder" class="grid grid-cols-3 mb-5">
+                        <span class="font-semibold justify-self-start">Menu</span>
+                        <span class="font-semibold justify-self-center">Price</span>
+                        <span class="font-semibold justify-self-end">Qty</span>
                     </div>
-
-                    {{-- sub total --}}
-                    <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
-                            <label for="subTotal" class="whitespace-nowrap">Sub Total</label>
-                        </div>
-                        <div class="col-span-1 justify-self-center">
-                            <span>:</span>
-                        </div>
-                        <div class="col-span-9">
+                    <div class="flex justify-between">
+                        <span>Sub Total</span>
+                        <div class="flex">
+                            <span>Rp.</span>
                             <span id="subTotal"></span>
                         </div>
                     </div>
-
-                    {{-- tax --}}
-                    <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
-                            <label for="tax" class="whitespace-nowrap">Tax</label>
-                        </div>
-                        <div class="col-span-1 justify-self-center">
-                            <span>:</span>
-                        </div>
-                        <div class="col-span-9">
+                    <div class="flex justify-between mb-2">
+                        <span>Tax</span>
+                        <div>
+                            <span>Rp.</span>
                             <span id="pajak"></span>
                         </div>
                     </div>
-
-                    {{-- total --}}
-                    <div class="grid grid-cols-12 col-span-12">
-                        <div class="col-span-2 text-sm font-semibold text-center justify-self-start gap-x-4">
-                            <label for="name" class="whitespace-nowrap">Total</label>
-                        </div>
-                        <div class="col-span-1 justify-self-center">
-                            <span>:</span>
-                        </div>
-                        <div class="col-span-9">
-                            <span id="total"></span>
+                    <div class="flex justify-between border-t border-gray-600 pt-2 font-semibold text-xl mb-3">
+                        <span>Total</span>
+                        <span id="total"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Pays</span>
+                        <div class="flex items-center">
+                            <span>Rp.</span>
+                            <input type="number" id="amountPaid" class="border-none w-fit h-1 focus:ring-0"
+                                placeholder="...">
                         </div>
                     </div>
-                    <a href="#" id="simpannButton" onclick="simpannButtonClick()" class="col-span-12 py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
+                    <div class="flex justify-between font-semibold text-xl">
+                        <span>Change / Retutrn</span>
+                        <span id="change"></span>
+                    </div>
+                    {{-- <button type="submit" class="mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button> --}}
+                    <a href="#" id="simpannButton" onclick="simpannButtonClick()"
+                        class="col-span-12 py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
                     {{-- <button type="submit"
                         class="col-span-12 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button> --}}
                 </div>
-            {{-- </form> --}}
+                {{-- </form> --}}
         </div>
     </div>
 </div>
+
+<script>
+    // Ambil elemen total dan input jumlah yang dibayarkan
+    const totalElement = document.getElementById('total');
+    const amountPaidInput = document.getElementById('amountPaid');
+    const changeElement = document.getElementById('change');
+
+    // Tambahkan event listener untuk memantau perubahan pada input jumlah yang dibayarkan
+    amountPaidInput.addEventListener('input', calculateChange);
+
+    // Fungsi untuk menghitung kembalian
+    function calculateChange() {
+        const total = parseFloat(totalElement.textContent);
+        const amountPaid = parseFloat(amountPaidInput.value);
+
+        // Pastikan kedua nilai adalah angka yang valid
+        if (!isNaN(total) && !isNaN(amountPaid)) {
+            const change = amountPaid - total;
+            // Tampilkan kembalian dengan format mata uang (misal: Rp. 10,000)
+            changeElement.textContent = `Rp. ${change.toFixed(2)}`;
+        } else {
+            changeElement.textContent = ''; // Atur ke kosong jika input tidak valid
+        }
+    }
+</script>
