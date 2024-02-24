@@ -6,7 +6,7 @@
             <h1 class="text-3xl font-bold text-black/80">Report</h1>
         </div>
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
-            <div id="" class="flex justify-center items-center border-none text-gray-500 bg-white rounded-lg">
+            <div id="" class="flex items-center justify-center text-gray-500 bg-white border-none rounded-lg">
                 <input type="date" name="date_payment" id=""
                     class="p-1.5 text-gray-500 rounded-lg focus:ring-0 border-none">
             </div>
@@ -42,7 +42,17 @@
                     @foreach ($dataPayment as $item)
                         <tr class="bg-white border-b">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
-                            <td class="px-6 py-4">{{ $item->order->no_receipt }}</td>
+                            <td class="px-6 py-4">
+                                @foreach ($item->order->orderDetails as $orderDetail)
+                                    <li>
+                                        Menu Name: {{ $orderDetail->menu_name }} -
+                                        Qty: {{ $orderDetail->qty }} -
+                                        Price: {{ $orderDetail->price }} -
+                                        Tax: {{ $orderDetail->tax }} -
+                                        Discount: {{ $orderDetail->discount }}
+                                    </li>
+                                @endforeach
+                            </td>
                             <td class="px-6 py-4">{{ $item->date_payment }}</td>
                             <td class="flex px-6 py-4">
 
@@ -75,8 +85,93 @@
                                                         <div class="grid grid-cols-12 col-span-12">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="name" class="whitespace-nowrap">Name
+                                                                    Store</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="name" id="name" readonly
+                                                                    disabled
+                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                    value="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="address" class="whitespace-nowrap">Address
+                                                                    Store</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="address" id="address" readonly
+                                                                    disabled
+                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                    value="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="no_receipt" class="whitespace-nowrap">UID
+                                                                    Transaction</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="no_receipt" id="no_receipt"
+                                                                    readonly disabled
+                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                    value="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
                                                                 <label for="name"
-                                                                    class="whitespace-nowrap">Name Store</label>
+                                                                    class="whitespace-nowrap">Table</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="name" id="name" readonly
+                                                                    disabled
+                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                    value="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="date_payment" class="whitespace-nowrap">Time
+                                                                    Transaction</label>
+                                                            </div>
+                                                            <div class="flex items-center justify-center col-span-1">
+                                                                <span>:</span>
+                                                            </div>
+                                                            <div class="col-span-9">
+                                                                <input type="text" name="date_payment"
+                                                                    id="date_payment" readonly disabled
+                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                    value="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="grid grid-cols-12 col-span-12">
+                                                            <div
+                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                <label for="name" class="whitespace-nowrap">Cashier
+                                                                    Name</label>
                                                             </div>
                                                             <div class="flex items-center justify-center col-span-1">
                                                                 <span>:</span>
@@ -92,42 +187,8 @@
                                                         <div class="grid grid-cols-12 col-span-12">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="address"
-                                                                    class="whitespace-nowrap">Address Store</label>
-                                                            </div>
-                                                            <div class="flex items-center justify-center col-span-1">
-                                                                <span>:</span>
-                                                            </div>
-                                                            <div class="col-span-9">
-                                                                <input type="text" name="address" id="address"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="grid grid-cols-12 col-span-12">
-                                                            <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="no_receipt"
-                                                                    class="whitespace-nowrap">UID Transaction</label>
-                                                            </div>
-                                                            <div class="flex items-center justify-center col-span-1">
-                                                                <span>:</span>
-                                                            </div>
-                                                            <div class="col-span-9">
-                                                                <input type="text" name="no_receipt" id="no_receipt"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="grid grid-cols-12 col-span-12">
-                                                            <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="name"
-                                                                    class="whitespace-nowrap">Table</label>
+                                                                <label for="name" class="whitespace-nowrap">Detail
+                                                                    Product</label>
                                                             </div>
                                                             <div class="flex items-center justify-center col-span-1">
                                                                 <span>:</span>
@@ -139,63 +200,12 @@
                                                                     value="">
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="grid grid-cols-12 col-span-12">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="date_payment"
-                                                                    class="whitespace-nowrap">Time Transaction</label>
-                                                            </div>
-                                                            <div class="flex items-center justify-center col-span-1">
-                                                                <span>:</span>
-                                                            </div>
-                                                            <div class="col-span-9">
-                                                                <input type="text" name="date_payment" id="date_payment"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="grid grid-cols-12 col-span-12">
-                                                            <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="name"
-                                                                    class="whitespace-nowrap">Cashier Name</label>
-                                                            </div>
-                                                            <div class="flex items-center justify-center col-span-1">
-                                                                <span>:</span>
-                                                            </div>
-                                                            <div class="col-span-9">
-                                                                <input type="text" name="name" id="name"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="grid grid-cols-12 col-span-12">
-                                                            <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="name"
-                                                                    class="whitespace-nowrap">Detail Product</label>
-                                                            </div>
-                                                            <div class="flex items-center justify-center col-span-1">
-                                                                <span>:</span>
-                                                            </div>
-                                                            <div class="col-span-9">
-                                                                <input type="text" name="name" id="name"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="grid grid-cols-12 col-span-12">
-                                                            <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="sub_total"
-                                                                    class="whitespace-nowrap">Sub Total</label>
+                                                                <label for="sub_total" class="whitespace-nowrap">Sub
+                                                                    Total</label>
                                                             </div>
                                                             <div class="flex items-center justify-center col-span-1">
                                                                 <span>:</span>
@@ -224,7 +234,7 @@
                                                             </div>
                                                         </div>
 
-                                                        
+
                                                         <div class="grid grid-cols-12 col-span-12">
                                                             <div
                                                                 class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">

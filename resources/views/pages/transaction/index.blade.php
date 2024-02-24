@@ -72,7 +72,7 @@
                             <div class="grid grid-cols-2 justify-items-stretch">
                                 <div class="flex flex-col capitalize ">
                                     <p class="font-semibold">{{ $item->menu_name }}</p>
-                                    <p class="mb-2 text-sm text-slate-500">Stock: {{ $item->stock }}</p>
+                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock: {{ $item->stock }}</p>
                                     <p class="harga-menu">Rp. {{ $item->price }}</p>
                                 </div>
                                 <div class="grid items-center justify-items-end">
