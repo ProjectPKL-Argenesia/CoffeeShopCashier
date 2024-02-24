@@ -20,4 +20,10 @@ class Payment extends Model
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
+    
+
+    public function cashier()
+    {
+        return $this->belongsTo(Cashier::class, 'cashier_id');
+    }
 }

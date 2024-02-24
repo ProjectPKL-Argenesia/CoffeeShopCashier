@@ -49,27 +49,21 @@ class TransactionController extends Controller
         $tableId = $cartItems[0]['table_id'];
         $total = $orderInfo['total'];
 
-        $user_id = Auth::id();
-        $user = User::find($user_id);
-        $store = Store::where('user_id', $user_id)->first();
-        $store_id = $store->id;
-        // dd($store->id);
-
         $dataOrder = Order::create([
             'table_id' => $tableId,
             'no_receipt' => $newNoReceipt,
         ]);
 
-        // $user_id = Auth::id();
-        // $user = User::find($user_id);
-        $user = Auth::user();
+        // dd($user);
         $userAdmin = User::where('name', 'Admin')->first();
         $userIdAdmin = $userAdmin->id;
         
         $cashier_id = null;
-
+        
+        $user = Auth::user();
         if ($user->hasRole('cashier')) {
-            $cashier_id = $user->id;
+            $cashier_id = $user->cashier->id;
+            // dd($cashier_id);
         }
 
         $store = Store::where('user_id', $userIdAdmin)->first();
@@ -84,29 +78,6 @@ class TransactionController extends Controller
             'discount' => 0,
         ]);
         
-        
-        // if ($user->name === 'Admin') {
-        //     $store = Store::where('user_id', $user_id)->first();
-        //     // dd($store);
-
-        //     if ($store) {
-        //         $store_id = $store->id;
-        //         Payment::create([
-        //             'store_id' => $store_id,
-        //             'cashier_id' => $user_id,
-        //             'order_id' => $dataOrder->id,
-        //             'date_payment' => now(),
-        //             'total_price' => $total,
-        //             'type_payment' => 'cash',
-        //             'discount' => 0,
-        //         ]);
-        //     } else {
-        //         dd("No store associated with the user");
-        //     }
-        // } else {
-        //     dd("User is not an admin");
-        // }
-
         foreach ($cartItems as $item) {
             $menu = Menu::find($item['id']);
 
