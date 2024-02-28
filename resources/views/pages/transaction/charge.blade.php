@@ -13,57 +13,49 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-
-            <form action="{{ route('transaction.store') }}" method="POST">
-                @csrf
-
-                <div class="grid grid-rowa-1 px-8 pt-16 pb-10">
-                    <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
-                        <span>Transaciton Order</span>
-                        <span id="table_name"></span>
-                    </div>
-                    <div id="detailOrder" class="grid grid-cols-3 mb-5">
-                        <span class="font-semibold justify-self-start">Menu</span>
-                        <span class="font-semibold justify-self-center">Price</span>
-                        <span class="font-semibold justify-self-end">Qty</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>Sub Total</span>
-                        <div class="flex">
-                            <span>Rp.</span>
-                            <span id="subTotal"></span>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span>Tax</span>
-                        <div>
-                            <span>Rp.</span>
-                            <span id="pajak"></span>
-                        </div>
-                    </div>
-                    <div class="flex justify-between border-t border-gray-600 pt-2 font-semibold text-xl mb-3">
-                        <span>Total</span>
-                        <span id="total"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>Pays</span>
-                        <div class="flex items-center">
-                            <span>Rp.</span>
-                            <input type="number" id="amountPaid" class="border-none w-fit h-1 focus:ring-0"
-                                placeholder="...">
-                        </div>
-                    </div>
-                    <div class="flex justify-between font-semibold text-xl">
-                        <span>Change / Retutrn</span>
-                        <span id="change"></span>
-                    </div>
-                    {{-- <button type="submit" class="mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button> --}}
-                    <a href="#" id="simpannButton" onclick="simpannButtonClick()"
-                        class="col-span-12 py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
-                    {{-- <button type="submit"
-                        class="col-span-12 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button> --}}
+            <div class="grid grid-rowa-1 px-8 pt-16 pb-10">
+                <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
+                    <span>Transaciton Order</span>
+                    <span id="table_name"></span>
                 </div>
-                {{-- </form> --}}
+                <div id="detailOrder" class="grid grid-cols-3 mb-5">
+                    <span class="font-semibold justify-self-start">Menu</span>
+                    <span class="font-semibold justify-self-center">Price</span>
+                    <span class="font-semibold justify-self-end">Qty</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Sub Total</span>
+                    <div class="flex">
+                        <span>Rp.</span>
+                        <span id="subTotal"></span>
+                    </div>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Tax</span>
+                    <div>
+                        <span>Rp.</span>
+                        <span id="pajak"></span>
+                    </div>
+                </div>
+                <div class="flex justify-between border-t border-gray-600 pt-2 font-semibold text-xl mb-3">
+                    <span>Total</span>
+                    <span id="total"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Pays</span>
+                    <div class="flex items-center">
+                        <span>Rp.</span>
+                        <input type="number" id="amountPaid" class="border-none w-fit h-1 focus:ring-0"
+                            placeholder="...">
+                    </div>
+                </div>
+                <div class="flex justify-between font-semibold text-xl">
+                    <span>Change / Retutrn</span>
+                    <span id="change"></span>
+                </div>
+                <button id="simpannButton" onclick="simpannButtonClick()" type="submit"
+                    class="mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
+            </div>
         </div>
     </div>
 </div>
@@ -91,4 +83,18 @@
             changeElement.textContent = ''; // Atur ke kosong jika input tidak valid
         }
     }
+
+    $(document).ready(function() {
+        // Mendeteksi peristiwa sebelum mencetak
+        window.onbeforeprint = function() {
+            // Lakukan sesuatu sebelum mencetak (jika diperlukan)
+            console.log('Before printing');
+        };
+
+        // Mendeteksi peristiwa setelah mencetak
+        window.onafterprint = function() {
+            // Lakukan penyegaran halaman setelah mencetak
+            location.reload();
+        };
+    });
 </script>

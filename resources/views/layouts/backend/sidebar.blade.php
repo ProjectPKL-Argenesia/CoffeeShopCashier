@@ -76,6 +76,15 @@
                             <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Cashier</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('store.index') }}"
+                            class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'store.index' ? 'bg-white text-gray-900' : 'text-white' }}">
+                            <span class="material-symbols-outlined md:text-xl lg:text-2xl">
+                                store
+                            </span>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Store</span>
+                        </a>
+                    </li>
                 @endrole
             </ul>
         </div>

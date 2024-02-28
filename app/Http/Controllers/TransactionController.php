@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\MenuCategory;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Store;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class TransactionController extends Controller
         $dataMenu = Menu::all();
         $dataMenuCategory = MenuCategory::all();
         $dataTable = Table::all();
-        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable'));
+        $dataStore = Store::all();
+        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable', 'dataStore'));
     }
 
     /**

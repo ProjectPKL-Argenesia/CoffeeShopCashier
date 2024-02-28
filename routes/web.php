@@ -9,6 +9,7 @@ use App\Http\Controllers\MenuHistoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StoreController;
 use App\Models\Menu;
 use App\Models\MenuCategory;
 use App\Models\Table;
@@ -60,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/menuList/store', [MenuListController::class, 'store'])->name('menuList.store');
     Route::patch('/menuList/{id}', [MenuListController::class, 'update'])->name('menuList.update');
     Route::delete('/menuList/destroy{id}', [MenuListController::class, 'destroy'])->name('menuList.destroy');
+    //restock
+    Route::patch('/menuList/restock/{id}', [MenuListController::class, 'restock'])->name('menuList.restock');
 
     //menuCategory
     Route::get('/menuCategory', [MenuCategoryController::class, 'index'])->name('menuCategory.index');
@@ -80,8 +83,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cashier/{id}', [CashierController::class, 'update'])->name('cashier.update');
     Route::delete('/cashier/destroy{id}', [CashierController::class, 'destroy'])->name('cashier.destroy');
 
-    //restock
-    Route::patch('/menuList/restock/{id}', [MenuListController::class, 'restock'])->name('menuList.restock');
+    //store
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::post('/store/store', [StoreController::class, 'store'])->name('store.store');
 });
 
 require __DIR__ . '/auth.php';
