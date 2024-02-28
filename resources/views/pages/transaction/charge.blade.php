@@ -13,8 +13,8 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-            <div class="grid grid-rowa-1 px-8 pt-16 pb-10">
-                <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
+            <div class="grid px-8 pt-16 pb-10 grid-rowa-1">
+                <div class="flex gap-1 mb-5 text-xl font-semibold place-self-center">
                     <span>Transaciton Order</span>
                     <span id="table_name"></span>
                 </div>
@@ -37,7 +37,7 @@
                         <span id="pajak"></span>
                     </div>
                 </div>
-                <div class="flex justify-between border-t border-gray-600 pt-2 font-semibold text-xl mb-3">
+                <div class="flex justify-between pt-2 mb-3 text-xl font-semibold border-t border-gray-600">
                     <span>Total</span>
                     <span id="total"></span>
                 </div>
@@ -45,16 +45,18 @@
                     <span>Pays</span>
                     <div class="flex items-center">
                         <span>Rp.</span>
-                        <input type="number" id="amountPaid" class="border-none w-fit h-1 focus:ring-0"
+                        <input type="number" id="amountPaid" class="h-1 border-none w-fit focus:ring-0"
                             placeholder="...">
                     </div>
                 </div>
-                <div class="flex justify-between font-semibold text-xl">
-                    <span>Change / Retutrn</span>
+                <div class="flex justify-between text-xl font-semibold">
+                    <span>Change / Return</span>
                     <span id="change"></span>
                 </div>
-                <button id="simpannButton" onclick="simpannButtonClick()" type="submit"
-                    class="mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
+                {{-- <button id="simpannButton" onclick="simpannButtonClick()" type="submit"
+                    class="py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button> --}}
+                <a href="#" id="simpannButton" onclick="simpannButtonClick()"
+                    class="py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
             </div>
         </div>
     </div>

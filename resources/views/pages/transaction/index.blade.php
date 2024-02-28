@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <form class="w-full h-screen col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
+        <form class="w-full h-full col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
             @csrf
             <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
@@ -97,7 +97,7 @@
             <div class="flex items-center justify-between p-4">
                 <div>
                     <select name="table_id" id="table_id" required onchange="handleTableChange()"
-                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
+                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg cursor-pointer 2xl:text-sm focus:ring-0">
                         <option selected hidden>Table</option>
                         @foreach ($dataTable as $item)
                             @if ($item->status == 'Empty')
@@ -379,9 +379,11 @@
                 const qty = cart_item[i].qty;
 
                 var menu = `
-                    <span class="justify-self-start">${menu_name}</span>
-                    <span class="justify-self-center">Rp. ${price}</span>
-                    <span class="justify-self-end">x ${qty}</span>
+                    <div class="flex gap-x-5">
+                        <span>${menu_name}</span>
+                        <span>Rp. ${price}</span>
+                        <span>${qty}</span>
+                    </div>
                 `;
 
                 detailOrder.innerHTML += menu;

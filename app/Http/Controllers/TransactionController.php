@@ -43,6 +43,13 @@ class TransactionController extends Controller
         // dd($request->all());
 
         $currentNoReceipt = Order::max('no_receipt');
+
+        if ($currentNoReceipt === null) {
+            $newNoReceipt = 1;
+        } else {
+            $newNoReceipt = $currentNoReceipt + 1;
+        }
+        
         $newNoReceipt = $currentNoReceipt + 1;
         $requestData = json_decode($request->getContent(), true);
         $cartItems = $requestData['cart_item'];
