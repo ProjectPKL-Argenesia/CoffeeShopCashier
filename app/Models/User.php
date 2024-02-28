@@ -44,8 +44,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // public function cashier()
+    // {
+    //     return $this->belongsTo(Cashier::class, 'cashier_id');
+    // }
+
     public function cashier()
     {
-        return $this->belongsTo(Cashier::class, 'cashier_id');
+        return $this->hasOne(Cashier::class);
     }
 }
