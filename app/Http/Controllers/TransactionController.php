@@ -53,6 +53,7 @@ class TransactionController extends Controller
         $sub_total = $orderInfo['sub_total'];
         $tax = $orderInfo['tax'];
         $total = $orderInfo['total'];
+        // dd($change);
 
         $dataOrder = Order::create([
             'table_id' => $tableId,
@@ -63,9 +64,9 @@ class TransactionController extends Controller
         $userAdmin = User::where('name', 'Admin')->first();
         $userIdAdmin = $userAdmin->id;
 
-        $cashier_id = null;
-
         $user = Auth::user();
+        $cashier_id = $user->id;
+
         if ($user->hasRole('cashier')) {
             $cashier_id = $user->cashier->id;
             // dd($cashier_id);
@@ -80,7 +81,7 @@ class TransactionController extends Controller
             'date_payment' => now(),
             'sub_total' => $sub_total,
             'tax' => $tax,
-            'total_price' => $total,
+            'total' => $total,
             'amount_paid' => $amount_paid,
             'change' => $change,
             'type_payment' => 'cash',
@@ -104,6 +105,7 @@ class TransactionController extends Controller
                 'qty' => $item['qty'],
                 'price' => $item['price'],
                 'tax' => $item['tax'],
+                'total_price' => $item['total_price'],
                 'discount' => 0,
             ]);
         }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('date_payment');
             $table->integer('sub_total');
             $table->integer('tax');
-            $table->integer('total_price');
+            $table->integer('total');
             $table->integer('amount_paid');
             $table->integer('change');
             $table->enum('type_payment', ['cash', 'debit']);

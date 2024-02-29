@@ -13,15 +13,16 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-            <div class="grid grid-rowa-1 px-8 pt-16 pb-10">
+            <div class="grid grid-rows-1 px-8 pt-16 pb-10">
                 <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
                     <span>Transaciton Order</span>
                     <span id="table_name"></span>
                 </div>
-                <div id="detailOrder" class="grid grid-cols-3 mb-5">
+                <div id="detailOrder" class="grid grid-cols-4 mb-5">
                     <span class="font-semibold justify-self-start">Menu</span>
                     <span class="font-semibold justify-self-center">Price</span>
                     <span class="font-semibold justify-self-end">Qty</span>
+                    <span class="font-semibold justify-self-end">Total Price</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Sub Total</span>

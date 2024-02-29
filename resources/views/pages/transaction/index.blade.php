@@ -208,6 +208,10 @@
             $("#containerOrder").html('');
             cart_item.forEach((menu) => {
                 menu.table_id = selectedTableId;
+
+                total_price = parseInt(menu.price) * parseInt(menu.qty);
+                menu.total_price = total_price;
+
                 $("#containerOrder").append(
                     template_item_html
                     .replaceAll("!menu_id!", menu.id)
@@ -216,6 +220,7 @@
                     .replaceAll("!menu_stock!", menu.stock)
                     .replaceAll("!qty!", menu.qty)
                 );
+
 
                 sub_total += parseInt(menu.price) * parseInt(menu.qty);
             });
@@ -382,11 +387,13 @@
                 const menu_name = cart_item[i].menu_name;
                 const price = cart_item[i].price;
                 const qty = cart_item[i].qty;
+                const total_price = cart_item[i].total_price;
 
                 var menu = `
                     <span class="justify-self-start">${menu_name}</span>
                     <span class="justify-self-center">Rp. ${price}</span>
                     <span class="justify-self-end">x ${qty}</span>
+                    <span class="justify-self-end">${total_price}</span>
                 `;
 
                 detailOrder.innerHTML += menu;
