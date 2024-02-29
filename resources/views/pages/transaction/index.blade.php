@@ -72,7 +72,8 @@
                             <div class="grid grid-cols-2 justify-items-stretch">
                                 <div class="flex flex-col capitalize ">
                                     <p class="font-semibold">{{ $item->menu_name }}</p>
-                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock: {{ $item->stock }}</p>
+                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock:
+                                        {{ $item->stock }}</p>
                                     <p class="harga-menu">Rp. {{ $item->price }}</p>
                                 </div>
                                 <div class="grid items-center justify-items-end">
@@ -294,11 +295,15 @@
             }
         }
 
-        function simpannButtonClick() {
+        function simpanButtonClick() {
+
+            calculateChange();
 
             const requestData = {
                 cart_item: cart_item,
-                order_info: order_info
+                order_info: order_info,
+                amount_paid: window.amountPaidValue,
+                change: window.changeAmount
             };
             const csrfToken = $('meta[name="csrf-token"]').attr('content');
             $.ajax({

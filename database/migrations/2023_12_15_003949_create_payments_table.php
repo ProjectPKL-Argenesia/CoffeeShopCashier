@@ -17,7 +17,11 @@ return new class extends Migration
             $table->foreignId('cashier_id')->references('id')->on('cashiers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('date_payment');
+            $table->integer('sub_total');
+            $table->integer('tax');
             $table->integer('total_price');
+            $table->integer('amount_paid');
+            $table->integer('change');
             $table->enum('type_payment', ['cash', 'debit']);
             $table->integer('discount');
             $table->timestamps();

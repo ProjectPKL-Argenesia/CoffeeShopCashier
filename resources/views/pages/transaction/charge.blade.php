@@ -50,10 +50,10 @@
                     </div>
                 </div>
                 <div class="flex justify-between font-semibold text-xl">
-                    <span>Change / Retutrn</span>
+                    <span>Change/Retutrn</span>
                     <span id="change"></span>
                 </div>
-                <button id="simpannButton" onclick="simpannButtonClick()" type="submit"
+                <button id="simpanButton" onclick="simpanButtonClick()" type="submit"
                     class="mt-7 py-2 text-sm text-gray-100 bg-gray-800 rounded-lg">Done</button>
             </div>
         </div>
@@ -77,8 +77,15 @@
         // Pastikan kedua nilai adalah angka yang valid
         if (!isNaN(total) && !isNaN(amountPaid)) {
             const change = amountPaid - total;
-            // Tampilkan kembalian dengan format mata uang (misal: Rp. 10,000)
-            changeElement.textContent = `Rp. ${change.toFixed(2)}`;
+
+            var changeAmount = change;
+
+            changeElement.textContent = `${change.toFixed(2)}`;
+
+            window.amountPaidValue = amountPaid;
+            window.changeAmount = changeAmount;
+
+            // console.log(window.amountPaidValue, window.changeAmount);
         } else {
             changeElement.textContent = ''; // Atur ke kosong jika input tidak valid
         }
