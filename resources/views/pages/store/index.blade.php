@@ -32,7 +32,7 @@
         </div>
         <div class="flex justify-center items-center mb-10">
             <div
-                class="flex flex-col items-center border-4 border-black w-fit rounded-lg p-5 gap-5 transition-all hover:scale-105">
+                class="flex flex-col items-center border border-black w-fit rounded-lg p-5 gap-5 transition-all hover:scale-105">
                 @if ($dataStore->isempty())
                     <div class="flex items-center gap-5">
                         <span class="material-symbols-rounded md:text-xl lg:text-6xl">
@@ -63,12 +63,18 @@
             </div>
         </div>
 
+        <div>
+            <div class="p-6 m-20 border border-black rounded shadow">
+                {!! $chart->container() !!}
+            </div>
+        </div>
+
         <div class="flex flex-col mb-10">
             <h1 class="text-2xl font-semibold text-black/80 mb-5">Cashier info</h1>
             <div class="grid grid-cols-5 gap-5 mb-2">
                 @if ($dataCashier->isempty())
                     <div
-                        class="flex items-center gap-5 border-2 border-black rounded-md w-full p-3 transition-all hover:scale-105">
+                        class="flex items-center gap-5 border border-black rounded-md w-full p-3 transition-all hover:scale-105">
                         <span class="material-symbols-rounded md:text-xl lg:text-6xl">
                             close
                         </span>
@@ -80,7 +86,7 @@
                 @endif
                 @foreach ($dataCashier as $itemCashier)
                     <div
-                        class="flex items-center gap-5 border-2 border-black rounded-md w-full p-3 transition-all hover:scale-105">
+                        class="flex items-center gap-5 border border-black rounded-md w-full p-3 transition-all hover:scale-105">
                         <span class="material-symbols-rounded md:text-xl lg:text-6xl">
                             {{ $itemCashier->gender == 'Male' ? 'face_6' : 'face_3' }}
                         </span>
@@ -104,7 +110,7 @@
                 <div class="grid grid-cols-3 gap-5">
                     @foreach ($dataMenuCategory as $itemMenuCategory)
                         <div
-                            class="flex items-center gap-5 border-2 border-black rounded-md w-full p-3 transition-all hover:scale-105">
+                            class="flex items-center gap-5 border border-black rounded-md w-full p-3 transition-all hover:scale-105">
                             <span class="material-symbols-rounded md:text-xl lg:text-6xl">
                                 {{ $itemMenuCategory->type == 'Food' ? 'lunch_dining' : 'coffee' }}
                             </span>
@@ -148,4 +154,8 @@
         </div>
 
     </section>
+
+    <script src="{{ $chart->cdn() }}"></script>
+
+    {{ $chart->script() }}
 @endsection

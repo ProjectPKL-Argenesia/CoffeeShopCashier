@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\TotalPaymentChart;
 use App\Models\Menu;
 use App\Models\User;
 use App\Models\Store;
@@ -16,14 +17,14 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TotalPaymentChart $chart)
     {
         $dataStore = Store::all();
         $dataCashier = Cashier::inRandomOrder()->take(3)->get();
         $dataMenu = Menu::inRandomOrder()->take(4)->get(['image', 'menu_name', 'price', 'stock']);
         $dataMenuCategory = MenuCategory::inRandomOrder()->take(3)->get();
 
-        return view('pages.store.index', ['title' => 'Store'], compact('dataStore', 'dataCashier', 'dataMenu', 'dataMenuCategory'));
+        return view('pages.store.index', ['title' => 'Store', 'chart' => $chart->build()], compact('dataStore', 'dataCashier', 'dataMenu', 'dataMenuCategory'));
     }
 
     /**
