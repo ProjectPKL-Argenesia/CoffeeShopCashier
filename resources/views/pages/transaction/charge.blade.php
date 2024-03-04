@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="flex justify-between font-semibold text-xl">
-                    <span>Change/Retutrn</span>
+                    <span>Change/Return</span>
                     <span id="change"></span>
                 </div>
                 <button id="simpanButton" onclick="simpanButtonClick()" type="submit"
