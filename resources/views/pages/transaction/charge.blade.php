@@ -18,10 +18,11 @@
                     <span>Transaciton Order</span>
                     <span id="table_name"></span>
                 </div>
-                <div id="detailOrder" class="grid grid-cols-3 mb-5">
+                <div id="detailOrder" class="grid grid-cols-4 mb-5">
                     <span class="font-semibold justify-self-start">Menu</span>
                     <span class="font-semibold justify-self-center">Price</span>
                     <span class="font-semibold justify-self-end">Qty</span>
+                    <span class="font-semibold justify-self-end">Total Price</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Sub Total</span>
@@ -50,13 +51,11 @@
                     </div>
                 </div>
                 <div class="flex justify-between text-xl font-semibold">
-                    <span>Change / Return</span>
+                    <span>Change / Retutrn</span>
                     <span id="change"></span>
                 </div>
-                {{-- <button id="simpannButton" onclick="simpannButtonClick()" type="submit"
-                    class="py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button> --}}
-                <a href="#" id="simpannButton" onclick="simpannButtonClick()"
-                    class="py-2 text-sm text-center text-gray-100 bg-gray-800 rounded-lg mt-7">Done</a>
+                <button id="simpanButton" onclick="simpanButtonClick()" type="submit"
+                    class="py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button>
             </div>
         </div>
     </div>
@@ -79,8 +78,15 @@
         // Pastikan kedua nilai adalah angka yang valid
         if (!isNaN(total) && !isNaN(amountPaid)) {
             const change = amountPaid - total;
-            // Tampilkan kembalian dengan format mata uang (misal: Rp. 10,000)
-            changeElement.textContent = `Rp. ${change.toFixed(2)}`;
+
+            var changeAmount = change;
+
+            changeElement.textContent = `${change.toFixed(2)}`;
+
+            window.amountPaidValue = amountPaid;
+            window.changeAmount = changeAmount;
+
+            // console.log(window.amountPaidValue, window.changeAmount);
         } else {
             changeElement.textContent = ''; // Atur ke kosong jika input tidak valid
         }

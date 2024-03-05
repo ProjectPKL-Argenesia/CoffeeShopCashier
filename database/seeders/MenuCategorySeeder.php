@@ -14,12 +14,12 @@ class MenuCategorySeeder extends Seeder
     public function run()
     {
         $categories = [
-            ['category_name' => 'Appetizer', 'type' => 'Food'],
-            ['category_name' => 'Main Course', 'type' => 'Food'],
-            ['category_name' => 'Dessert', 'type' => 'Food'],
-            ['category_name' => 'Coffee', 'type' => 'Drink'],
-            ['category_name' => 'Tea', 'type' => 'Drink'],
-            ['category_name' => 'Milk', 'type' => 'Drink']
+            ['category_name' => 'Appetizer', 'type' => 'Food', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Main Course', 'type' => 'Food', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Dessert', 'type' => 'Food', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Coffee', 'type' => 'Drink', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Tea', 'type' => 'Drink', 'created_at' => now(), 'updated_at' => now()],
+            ['category_name' => 'Milk', 'type' => 'Drink', 'created_at' => now(), 'updated_at' => now()]
         ];
 
         MenuCategory::insert($categories);

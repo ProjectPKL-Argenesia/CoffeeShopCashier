@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('cashier_id')->references('id')->on('cashiers')->onDelete('cascade')->onUpdate('cascade')->nullable();
+            $table->foreignId('cashier_id')->references('id')->on('cashiers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('date_payment');
-            $table->integer('total_price');
+            $table->integer('sub_total');
+            $table->integer('tax');
+            $table->integer('total');
+            $table->integer('amount_paid');
+            $table->integer('change');
             $table->enum('type_payment', ['cash', 'debit']);
             $table->integer('discount');
             $table->timestamps();

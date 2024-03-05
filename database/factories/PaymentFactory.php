@@ -30,6 +30,8 @@ class PaymentFactory extends Factory
             'total_price' => 17000,
             'type_payment' => 'cash',
             'discount' => '11',
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

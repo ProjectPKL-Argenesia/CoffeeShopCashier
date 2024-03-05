@@ -25,6 +25,8 @@ class TableFactory extends Factory
         return [
             'name' => 'Table' . self::$tableNumber++,
             'status' => $this->faker->randomElement(['Empty', 'Filled', 'Broken']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

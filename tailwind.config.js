@@ -35,10 +35,10 @@ module.exports = {
         "./node_modules/flowbite/**/*.js",
     ],
     theme: {
-        fontFamily: {
-            poppins: ["Poppins", "sans-serif"],
-        },
         extend: {},
+        fontFamily: {
+            sans: ['"Poppins", sans-serif'],
+        },
     },
     plugins: [require("flowbite/plugin")],
 };

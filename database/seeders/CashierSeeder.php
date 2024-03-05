@@ -18,6 +18,8 @@ class CashierSeeder extends Seeder
                 'user_id' => '2',
                 'name' => 'Bambang',
                 'gender' => 'Male',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ];
 

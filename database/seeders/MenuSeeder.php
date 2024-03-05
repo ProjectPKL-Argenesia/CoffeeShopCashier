@@ -21,7 +21,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/bakwan.png',
                 'price' => '1000',
                 'stock' => '50',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'menu_category_id' => '2',
@@ -30,7 +32,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/geprek.png',
                 'price' => '24000',
                 'stock' => '30',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'menu_category_id' => '3',
@@ -39,7 +43,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/pudding.png',
                 'price' => '10000',
                 'stock' => '45',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'menu_category_id' => '4',
@@ -48,7 +54,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/coffee.png',
                 'price' => '10000',
                 'stock' => '70',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'menu_category_id' => '5',
@@ -57,7 +65,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/iced_tea.png',
                 'price' => '5000',
                 'stock' => '40',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'menu_category_id' => '6',
@@ -66,7 +76,9 @@ class MenuSeeder extends Seeder
                 'image' => 'image-post/oreo_milkshake.png',
                 'price' => '12000',
                 'stock' => '30',
-                'tax' => '0.11'
+                'tax' => '0.11',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ];
 

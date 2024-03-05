@@ -54,8 +54,13 @@ class TransactionController extends Controller
         $requestData = json_decode($request->getContent(), true);
         $cartItems = $requestData['cart_item'];
         $orderInfo = $requestData['order_info'];
+        $amount_paid = $requestData['amount_paid'];
+        $change = $requestData['change'];
         $tableId = $cartItems[0]['table_id'];
+        $sub_total = $orderInfo['sub_total'];
+        $tax = $orderInfo['tax'];
         $total = $orderInfo['total'];
+        // dd($change);
 
         $dataOrder = Order::create([
             'table_id' => $tableId,
@@ -66,9 +71,9 @@ class TransactionController extends Controller
         $userAdmin = User::where('name', 'Admin')->first();
         $userIdAdmin = $userAdmin->id;
 
-        $cashier_id = null;
-
         $user = Auth::user();
+        $cashier_id = $user->id;
+
         if ($user->hasRole('cashier')) {
             $cashier_id = $user->cashier->id;
             // dd($cashier_id);
@@ -81,7 +86,11 @@ class TransactionController extends Controller
             'cashier_id' => $cashier_id,
             'order_id' => $dataOrder->id,
             'date_payment' => now(),
-            'total_price' => $total,
+            'sub_total' => $sub_total,
+            'tax' => $tax,
+            'total' => $total,
+            'amount_paid' => $amount_paid,
+            'change' => $change,
             'type_payment' => 'cash',
             'discount' => 0,
         ]);
@@ -103,6 +112,7 @@ class TransactionController extends Controller
                 'qty' => $item['qty'],
                 'price' => $item['price'],
                 'tax' => $item['tax'],
+                'total_price' => $item['total_price'],
                 'discount' => 0,
             ]);
         }

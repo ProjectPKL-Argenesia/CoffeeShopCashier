@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->decimal('price');
             $table->decimal('tax');
+            $table->decimal('total_price');
             $table->decimal('discount');
             $table->timestamps();
         });

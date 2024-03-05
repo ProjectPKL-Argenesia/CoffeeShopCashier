@@ -72,7 +72,8 @@
                             <div class="grid grid-cols-2 justify-items-stretch">
                                 <div class="flex flex-col capitalize ">
                                     <p class="font-semibold">{{ $item->menu_name }}</p>
-                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock: {{ $item->stock }}</p>
+                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock:
+                                        {{ $item->stock }}</p>
                                     <p class="harga-menu">Rp. {{ $item->price }}</p>
                                 </div>
                                 <div class="grid items-center justify-items-end">
@@ -86,7 +87,7 @@
             </div>
         </div>
 
-        <form class="w-full h-full col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
+        <form class="w-full h-screen col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
             @csrf
             <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
@@ -97,7 +98,7 @@
             <div class="flex items-center justify-between p-4">
                 <div>
                     <select name="table_id" id="table_id" required onchange="handleTableChange()"
-                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg cursor-pointer 2xl:text-sm focus:ring-0">
+                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
                         <option selected hidden>Table</option>
                         @foreach ($dataTable as $item)
                             @if ($item->status == 'Empty')
@@ -207,6 +208,10 @@
             $("#containerOrder").html('');
             cart_item.forEach((menu) => {
                 menu.table_id = selectedTableId;
+
+                total_price = parseInt(menu.price) * parseInt(menu.qty);
+                menu.total_price = total_price;
+
                 $("#containerOrder").append(
                     template_item_html
                     .replaceAll("!menu_id!", menu.id)
@@ -215,6 +220,7 @@
                     .replaceAll("!menu_stock!", menu.stock)
                     .replaceAll("!qty!", menu.qty)
                 );
+
 
                 sub_total += parseInt(menu.price) * parseInt(menu.qty);
             });
@@ -294,11 +300,15 @@
             }
         }
 
-        function simpannButtonClick() {
+        function simpanButtonClick() {
+
+            calculateChange();
 
             const requestData = {
                 cart_item: cart_item,
-                order_info: order_info
+                order_info: order_info,
+                amount_paid: window.amountPaidValue,
+                change: window.changeAmount
             };
             const csrfToken = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
@@ -377,13 +387,13 @@
                 const menu_name = cart_item[i].menu_name;
                 const price = cart_item[i].price;
                 const qty = cart_item[i].qty;
+                const total_price = cart_item[i].total_price;
 
                 var menu = `
-                    <div class="flex gap-x-5">
-                        <span>${menu_name}</span>
-                        <span>Rp. ${price}</span>
-                        <span>${qty}</span>
-                    </div>
+                    <span class="justify-self-start">${menu_name}</span>
+                    <span class="justify-self-center">Rp. ${price}</span>
+                    <span class="justify-self-end">x ${qty}</span>
+                    <span class="justify-self-end">${total_price}</span>
                 `;
 
                 detailOrder.innerHTML += menu;

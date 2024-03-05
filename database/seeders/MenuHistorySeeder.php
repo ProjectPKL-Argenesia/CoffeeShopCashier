@@ -24,7 +24,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '50',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'menu_category_id' => '2',
@@ -35,7 +37,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '30',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'menu_category_id' => '3',
@@ -46,7 +50,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '45',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'menu_category_id' => '4',
@@ -57,7 +63,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '70',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'menu_category_id' => '5',
@@ -68,7 +76,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '40',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'menu_category_id' => '6',
@@ -79,7 +89,9 @@ class MenuHistorySeeder extends Seeder
                     'stock' => '30',
                     'tax' => '0.11',
                     'nama' => 'Seeder',
-                    'status' => 'create'
+                    'status' => 'create',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]
             ];
 

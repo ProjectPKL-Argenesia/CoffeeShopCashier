@@ -10,6 +10,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StruckController;
 use App\Models\Menu;
 use App\Models\MenuCategory;
 use App\Models\Table;
@@ -86,6 +87,9 @@ Route::middleware('auth')->group(function () {
     //store
     Route::get('/store', [StoreController::class, 'index'])->name('store.index');
     Route::post('/store/store', [StoreController::class, 'store'])->name('store.store');
+    
+    //struck
+    Route::get('/struck/report', [StruckController::class, 'struckreport'])->name('struck.report');
 });
 
 require __DIR__ . '/auth.php';

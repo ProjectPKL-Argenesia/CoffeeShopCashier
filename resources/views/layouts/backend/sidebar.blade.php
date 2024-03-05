@@ -91,14 +91,10 @@
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <div>
-                <li class="font-medium list-none">
-                    <div
-                        class="flex items-center justify-center p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white group">
-                        <i class="fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>
-                        <button id="button-logout" type="submit"
-                            class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Log out</button>
-                    </div>
-                </li>
+
+                <button id="button-logout" type="submit"
+                    class="w-full p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white whitespace-nowrap md:text-xs lg:text-base"><i
+                        class="px-1 fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>Log out</button>
             </div>
         </form>
         <script>
