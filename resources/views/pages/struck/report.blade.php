@@ -48,7 +48,7 @@
                     <span class="justify-self-start">tax</span>
                     <span class="text-xl font-semibold justify-self-start">Total</span>
                 </div>
-                <div class="grid ">
+                <div class="grid">
                     <span class="justify-self-end">Rp. {{ $item->sub_total }}</span>
                     <span class="justify-self-end">Rp. {{ $item->tax }}</span>
                     <span class="text-xl font-semibold justify-self-end">Rp. {{ $item->total }}</span>
@@ -59,11 +59,11 @@
             </div>
         </div>
     @endforeach
-    {{-- <script>
+    <script>
         window.onload = function() {
             window.print();
         };
-    </script> --}}
+    </script>
 </body>
 
 </html>

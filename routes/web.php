@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
     
     //struck
     Route::get('/struck/report', [StruckController::class, 'struckreport'])->name('struck.report');
+    Route::get('/struck/all-report', [StruckController::class, 'struckallreport'])->name('struck.allreport');
 });
 
 require __DIR__ . '/auth.php';

@@ -13,4 +13,10 @@ class StruckController extends Controller
         $dataPayment = Payment::where('id', $paymentId)->get();
         return view('pages.struck.report', compact('dataPayment'));
     }
+    
+    public function struckallreport(Request $request)
+    {
+        $dataPayment = Payment::all();
+        return view('pages.struck.all-report', compact('dataPayment'));
+    }
 }
