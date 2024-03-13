@@ -27,6 +27,11 @@ class TransactionController extends Controller
         return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable', 'dataStore'));
     }
 
+    public function blank()
+    {
+        return view('pages.transaction.blank', ["title" => "blank"]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

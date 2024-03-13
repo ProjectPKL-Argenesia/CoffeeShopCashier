@@ -13,49 +13,48 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-            <div class="grid px-8 pt-16 pb-10 grid-rowa-1">
-                <div class="flex gap-1 mb-5 text-xl font-semibold place-self-center">
+            <div class="grid grid-rows-1 px-8 pt-16 pb-10">
+                <div class="place-self-center flex gap-1 font-semibold text-xl mb-5">
                     <span>Transaciton Order</span>
                     <span id="table_name"></span>
                 </div>
-                <div id="detailOrder" class="grid grid-cols-4 mb-5">
+                <div class="grid grid-cols-4">
                     <span class="font-semibold justify-self-start">Menu</span>
                     <span class="font-semibold justify-self-center">Price</span>
                     <span class="font-semibold justify-self-end">Qty</span>
                     <span class="font-semibold justify-self-end">Total Price</span>
                 </div>
+                <div id="detailOrder" class="grid grid-cols-4 mb-5">
+                </div>
                 <div class="flex justify-between">
                     <span>Sub Total</span>
-                    <div class="flex">
-                        <span>Rp.</span>
-                        <span id="subTotal"></span>
-                    </div>
+                    <span id="subTotal"></span>
                 </div>
                 <div class="flex justify-between mb-2">
                     <span>Tax</span>
-                    <div>
-                        <span>Rp.</span>
-                        <span id="pajak"></span>
-                    </div>
+                    <span id="pajak"></span>
                 </div>
                 <div class="flex justify-between pt-2 mb-3 text-xl font-semibold border-t border-gray-600">
                     <span>Total</span>
-                    <span id="total"></span>
+                    <span id="total" hidden></span>
+                    <span id="totalText"></span>
                 </div>
                 <div class="flex justify-between">
                     <span>Pays</span>
                     <div class="flex items-center">
                         <span>Rp.</span>
-                        <input type="number" id="amountPaid" class="h-1 border-none w-fit focus:ring-0"
-                            placeholder="...">
+                        <input type="number" id="amountPaid" class="border-none h-5 focus:ring-0" placeholder="...">
                     </div>
                 </div>
-                <div class="flex justify-between text-xl font-semibold">
-                    <span>Change / Retutrn</span>
-                    <span id="change"></span>
+                <div class="flex justify-between font-semibold text-xl">
+                    <span>Change/Return</span>
+                    <div class="flex">
+                        <span>Rp.</span>
+                        <span id="change"></span>
+                    </div>
                 </div>
-                <button id="simpanButton" onclick="simpanButtonClick()" type="submit"
-                    class="py-2 text-sm text-gray-100 bg-gray-800 rounded-lg mt-7">Done</button>
+                <button id="simpanButton" onclick="simpanButtonClick()" type="submit" disabled
+                    class="mt-7 py-2 text-sm text-gray-100 bg-red-800 rounded-lg">Done</button>
             </div>
         </div>
     </div>
@@ -67,6 +66,7 @@
     const amountPaidInput = document.getElementById('amountPaid');
     const changeElement = document.getElementById('change');
 
+
     // Tambahkan event listener untuk memantau perubahan pada input jumlah yang dibayarkan
     amountPaidInput.addEventListener('input', calculateChange);
 
@@ -74,8 +74,11 @@
     function calculateChange() {
         const total = parseFloat(totalElement.textContent);
         const amountPaid = parseFloat(amountPaidInput.value);
+        console.log(total);
 
-        // Pastikan kedua nilai adalah angka yang valid
+        updateButtonState(amountPaid);
+
+        // Check if both values are valid numbers
         if (!isNaN(total) && !isNaN(amountPaid)) {
             const change = amountPaid - total;
 
@@ -85,12 +88,20 @@
 
             window.amountPaidValue = amountPaid;
             window.changeAmount = changeAmount;
-
-            // console.log(window.amountPaidValue, window.changeAmount);
         } else {
-            changeElement.textContent = ''; // Atur ke kosong jika input tidak valid
+            changeElement.textContent = ''; // Set to empty if input is not valid
         }
     }
+
+    function updateButtonState(amountPaid) {
+        let hasValue = amountPaidInput.value.trim() !== '';
+        simpanButton.disabled = !hasValue;
+        simpanButton.classList.toggle('bg-red-800', !hasValue);
+        simpanButton.classList.toggle('bg-green-500', hasValue);
+    }
+
+    // const totalElement = document.getElementById('total');
+
 
     $(document).ready(function() {
         // Mendeteksi peristiwa sebelum mencetak

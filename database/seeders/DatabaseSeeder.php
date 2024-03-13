@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
 
         Store::create([
             'user_id' => '1',
-            'name' => 'Capuds',
-            'address' => 'Kuranji',
+            'name' => 'Capuds Store',
+            'address' => 'Kuranji, Padang Timur, Padang, Sumatera Barat',
             'phone_number' => '081365851330'
         ]);
 
