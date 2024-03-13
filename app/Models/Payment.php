@@ -25,4 +25,44 @@ class Payment extends Model
     {
         return $this->belongsTo(Cashier::class, 'cashier_id');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('type_payment', 'like', '%' . $search . '%')
+                    ->orWhere('date_payment', 'like', '%' . $search . '%')
+                    ->orWhere('sub_total', 'like', '%' . $search . '%')
+                    ->orWhere('tax', 'like', '%' . $search . '%')
+                    ->orWhere('total', 'like', '%' . $search . '%')
+                    ->orWhere('amount_paid', 'like', '%' . $search . '%')
+                    ->orWhere('change', 'like', '%' . $search . '%')
+                    ->orWhere('discount', 'like', '%' . $search . '%')
+                    ->orWhereHas('order', function ($query) use ($search) {
+                        $query->whereHas('table', function ($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%')
+                                ->orWhere('status', 'like', '%' . $search . '%');
+                        })
+                            ->orWhere('no_receipt', 'like', '%' . $search . '%')
+                            ->orWhereHas('orderDetails', function ($query) use ($search) {
+                                $query->where('menu_name', 'like', '%' . $search . '%')
+                                    ->orWhere('qty', 'like', '%' . $search . '%')
+                                    ->orWhere('price', 'like', '%' . $search . '%')
+                                    ->orWhere('tax', 'like', '%' . $search . '%')
+                                    ->orWhere('total_price', 'like', '%' . $search . '%')
+                                    ->orWhere('discount', 'like', '%' . $search . '%');
+                            });
+                    })
+                    ->orWhereHas('store', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('address', 'like', '%' . $search . '%')
+                            ->orWhere('phone_number', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('cashier', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('gender', 'like', '%' . $search . '%');
+                    });
+            });
+        });
+    }
 }

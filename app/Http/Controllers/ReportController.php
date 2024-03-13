@@ -13,7 +13,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $dataPayment = Payment::all();
+        $dataPayment = Payment::first()->filter(request(['search']))->get();
         $dataMenuHistory = MenuHistory::all();
         return view('pages.report.index', ['title' => 'report'], compact('dataPayment', 'dataMenuHistory'));
     }

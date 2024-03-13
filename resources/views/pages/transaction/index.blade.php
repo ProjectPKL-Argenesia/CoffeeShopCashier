@@ -35,14 +35,16 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <form action="">
+                    <form action="{{ route('transaction.index') }}" method="GET" id="searchForm">
                         <div
-                            class="flex justify-center items-center border border-gray-300 text-gray-500 bg-white rounded-lg md:w-[150px] lg:w-[200px]">
-                            <div class="ps-3 z-10 w-[10%]"><i class="fa-solid fa-search fa-md"></i></div>
-                            <input type="search" name="search-menu" id="search-menu"
-                                class="text-gray-500 border-none md:text-xs lg:text-sm text-start focus:ring-0 rounded-r-lg w-[90%]"
-                                placeholder="Search Menu">
+                            class="relative flex justify-center items-center border border-gray-300 text-gray-500 bg-white rounded-lg md:w-[150px] lg:w-[200px]">
+                            <label for="search" class="absolute mx-1.5 left-0 flex justify-end items-center w-[10%]"><i
+                                    class="fa-solid fa-search fa-md"></i></label>
+                            <input type="text" name="search" id="search"
+                                class="text-gray-500 border-none md:text-xs lg:text-sm text-start focus:ring-0 w-[70%]"
+                                placeholder="Search Menu" value="{{ request('search') }}">
+                            <span id="clearSearch"
+                                class="absolute right-0 w-[10%] px-1.5 mx-1.5 font-bold bg-gray-200 cursor-pointer {{ request('search') ? '' : 'hidden' }} hover:bg-gray-300">x</span>
                         </div>
                     </form>
                 </div>
@@ -544,6 +546,37 @@
             });
 
 
+        });
+
+
+        //search
+        $(document).ready(function() {
+            const searchInput = $('#search');
+            const clearSearch = $('#clearSearch');
+            let formSubmitted = {{ request()->has('search') ? 'true' : 'false' }};
+            if (searchInput.val().trim().length > 0) {
+                clearSearch.show();
+            }
+            searchInput.on('input', function() {
+                if ($(this).val().trim().length > 0) {
+                    clearSearch.show();
+                } else {
+                    clearSearch.hide();
+                }
+            })
+            searchInput.keypress(function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    $('#searchForm').submit();
+                }
+            });
+            clearSearch.click(function() {
+                searchInput.val('');
+                clearSearch.hide();
+                if (formSubmitted) {
+                    window.location.href = "{{ route('transaction.index') }}";
+                }
+            });
         });
     </script>
 @endsection

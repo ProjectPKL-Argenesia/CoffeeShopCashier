@@ -11,9 +11,16 @@ class TableController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dataTable = Table::orderBy('status', 'asc')->get();
+        $dataTable = Table::orderBy('status', 'asc');
+
+        if ($request->has('search')) {
+            $dataTable->filter(['search' => $request->search]);
+        }
+
+        $dataTable = $dataTable->get();
+        $dataMenuCategory = MenuCategory::all();
         $dataMenuCategory = MenuCategory::all();
         return view('pages.table.index', ["title" => "Table"], compact('dataTable', 'dataMenuCategory'));
     }

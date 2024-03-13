@@ -27,15 +27,18 @@
                     </select>
                 </div>
             </div>
-            <label for="table-search" class="sr-only">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
-                    <i class="pt-1 text-gray-500 fa-solid fa-search fa-md"></i>
+            <form action="{{ route('cashier.index') }}" method="GET" id="searchForm">
+                <div
+                    class="relative flex items-center justify-center text-gray-500 bg-white border border-gray-300 rounded-lg w-80">
+                    <label for="search" class="absolute mx-1.5 left-0 flex justify-end items-center w-[10%]"><i
+                            class="fa-solid fa-search fa-md"></i></label>
+                    <input type="text" name="search" id="search"
+                        class="text-gray-500 border-none md:text-xs lg:text-sm text-start focus:ring-0 w-[70%]"
+                        placeholder="Search Cashier" value="{{ request('search') }}">
+                    <span id="clearSearch"
+                        class="absolute right-0 w-[10%] px-1.5 text-center rounded-sm mx-1.5 font-bold bg-gray-300 cursor-pointer {{ request('search') ? '' : 'hidden' }} hover:bg-gray-400">x</span>
                 </div>
-                <input type="search" id="table-search-users"
-                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-0"
-                    placeholder="Search Cashier">
-            </div>
+            </form>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
@@ -61,7 +64,7 @@
                 <tbody>
                     @if ($dataCashier->isempty())
                         <tr>
-                            <td colspan="5" class="text-center font-semibold text-xl bg-white py-5">Doesn't have cashier
+                            <td colspan="5" class="py-5 text-xl font-semibold text-center bg-white">Doesn't have cashier
                             </td>
                         </tr>
                     @else
@@ -315,4 +318,39 @@
             </table>
         </div>
     </section>
+    <script>
+        //search
+        $(document).ready(function() {
+            const searchInput = $('#search');
+            const clearSearch = $('#clearSearch');
+            let formSubmitted = {{ request()->has('search') ? 'true' : 'false' }};
+
+            if (searchInput.val().trim().length > 0) {
+                clearSearch.show();
+            }
+
+            searchInput.on('input', function() {
+                if ($(this).val().trim().length > 0) {
+                    clearSearch.show();
+                } else {
+                    clearSearch.hide();
+                }
+            });
+
+            searchInput.keypress(function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    $('#searchForm').submit();
+                }
+            });
+
+            clearSearch.click(function() {
+                searchInput.val('');
+                clearSearch.hide();
+                if (formSubmitted) {
+                    window.location.href = "{{ route('cashier.index') }}";
+                }
+            });
+        });
+    </script>
 @endsection

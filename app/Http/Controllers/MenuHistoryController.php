@@ -13,7 +13,7 @@ class MenuHistoryController extends Controller
      */
     public function index()
     {
-        $dataMenuHistory = MenuHistory::latest()->get();
+        $dataMenuHistory = MenuHistory::latest()->filter(request(['search']))->get();
         $dataMenuCategory = MenuCategory::all();
         return view('pages.menuHistory.index', ['title' => 'Menu History'], compact('dataMenuHistory', 'dataMenuCategory'));
     }

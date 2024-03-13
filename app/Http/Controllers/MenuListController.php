@@ -15,7 +15,7 @@ class MenuListController extends Controller
      */
     public function index()
     {
-        $dataMenu = Menu::all();
+        $dataMenu = Menu::latest()->filter(request(['search']))->get();
         $dataMenuCategory = MenuCategory::all();
         return view('pages.menuList.index', ["title" => "Menu List"], compact('dataMenu', 'dataMenuCategory'));
     }
@@ -155,8 +155,12 @@ class MenuListController extends Controller
     {
         $dataMenu = Menu::find($id);
 
+        $currentStock = $dataMenu->stock;
+        $requestedStock = $request->stock;
+        $newStock = $currentStock + $requestedStock;
+
         $dataMenu->update([
-            'stock' => $request->stock,
+            'stock' => $newStock,
         ]);
 
         MenuHistory::create([

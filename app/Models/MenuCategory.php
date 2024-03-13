@@ -20,4 +20,12 @@ class MenuCategory extends Model
     {
         return $this->hasMany(MenuHistory::class, 'menu_history_id');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('category_name', 'like', '%' . $search . '%')
+            ->orWhere('type', 'like', '%' . $search . '%');
+        });
+    }
 }

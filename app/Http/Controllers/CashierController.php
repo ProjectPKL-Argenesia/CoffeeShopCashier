@@ -16,7 +16,7 @@ class CashierController extends Controller
     public function index()
     {
         $dataUser = User::all();
-        $dataCashier = Cashier::all(); 
+        $dataCashier = Cashier::latest()->filter(request(['search']))->get();
         return view('pages.cashier.index', ["title" => "Cashier"], compact('dataCashier', 'dataUser'));
     }
 

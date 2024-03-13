@@ -12,7 +12,7 @@ class MenuCategoryController extends Controller
      */
     public function index()
     {
-        $dataMenuCategory = MenuCategory::all();
+        $dataMenuCategory = MenuCategory::latest()->filter(request(['search']))->get();
         return view('pages.menuCategory.index', ['title' => 'Menu Category'], compact('dataMenuCategory'));
     }
 

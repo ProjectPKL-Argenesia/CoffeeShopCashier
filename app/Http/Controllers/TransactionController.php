@@ -20,7 +20,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $dataMenu = Menu::all();
+        $dataMenu = Menu::latest()->filter(request(['search']))->get();
         $dataMenuCategory = MenuCategory::all();
         $dataTable = Table::all();
         $dataStore = Store::all();
