@@ -29,14 +29,14 @@
 
                     <div class="border-y border-black border-dashed grid grid-cols-4 py-2 mb-5">
                         <span class="font-semibold">Barang</span>
-                        <span class="font-semibold">Harga</span>
-                        <span class="font-semibold">Jumlah</span>
-                        <span class="font-semibold">Total</span>
+                        <span class="font-semibold justify-self-center">Harga</span>
+                        <span class="font-semibold justify-self-center">Jumlah</span>
+                        <span class="font-semibold justify-self-end">Total</span>
                         @foreach ($item->order->orderDetails as $orderDetail)
                             <span>{{ $orderDetail->menu_name }}</span>
-                            <span>Rp. {{ $orderDetail->price }}</span>
-                            <span>x {{ $orderDetail->qty }}</span>
-                            <span>Rp. {{ $orderDetail->total_price }}</span>
+                            <span class="justify-self-center">Rp. {{ $orderDetail->price }}</span>
+                            <span class="justify-self-center">x {{ $orderDetail->qty }}</span>
+                            <span class="justify-self-end">Rp. {{ $orderDetail->total_price }}</span>
                         @endforeach
                     </div>
 

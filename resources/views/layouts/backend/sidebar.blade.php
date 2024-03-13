@@ -24,21 +24,30 @@
             <ul class="py-4 space-y-2 font-medium border-y">
                 @role('cashier')
                     <li>
-                        <a href="{{ route('transaction.index') }}"
-                            class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'transaction.index' ? 'bg-white text-gray-900' : ' text-white' }}">
-                            <i class="fa-solid fa-money-bill-transfer md:fa-xs lg:fa-lg"></i>
-                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Transaction</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('report.index') }}"
                             class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'report.index' ? 'bg-white text-gray-900' : 'text-white' }}">
                             <i class="fa-solid fa-print md:fa-xs lg:fa-lg"></i>
                             <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Report</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('transaction.index') }}"
+                            class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'transaction.index' ? 'bg-white text-gray-900' : ' text-white' }}">
+                            <i class="fa-solid fa-money-bill-transfer md:fa-xs lg:fa-lg"></i>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Transaction</span>
+                        </a>
+                    </li>
                 @endrole
                 @role('admin')
+                    <li>
+                        <a href="{{ route('store.index') }}"
+                            class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'store.index' ? 'bg-white text-gray-900' : 'text-white' }}">
+                            <span class="material-symbols-outlined md:text-xl lg:text-2xl">
+                                store
+                            </span>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Store</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('transaction.index') }}"
                             class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'transaction.index' ? 'bg-white text-gray-900' : ' text-white' }}">
@@ -92,15 +101,6 @@
                                 group
                             </span>
                             <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Cashier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('store.index') }}"
-                            class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'store.index' ? 'bg-white text-gray-900' : 'text-white' }}">
-                            <span class="material-symbols-outlined md:text-xl lg:text-2xl">
-                                store
-                            </span>
-                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Store</span>
                         </a>
                     </li>
                 @endrole

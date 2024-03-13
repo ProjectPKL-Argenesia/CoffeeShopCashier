@@ -18,13 +18,17 @@ class TotalPaymentChart
     public function build(): \ArielMejiaDev\LarapexCharts\AreaChart
     {
         $startDate = date('Y-m-d', strtotime('-6 days'));
-        $endDate = date('Y-m-d');
+        $today = date('Y-m-d');
+        $endDate = date('Y-m-d', strtotime('+1 days'));
 
         $dates = [];
+        $dayAndDate = []; // Add an array to store day names and dates
         $currentDate = new DateTime($startDate);
 
-        while ($currentDate->format('Y-m-d') <= $endDate) {
-            $dates[] = $currentDate->format('Y-m-d');
+        while ($currentDate->format('Y-m-d') <= $today) {
+            $formattedDate = $currentDate->format('Y-m-d');
+            $dayAndDate[$formattedDate] = $currentDate->format('D, M d');
+            $dates[] = $formattedDate;
             $currentDate->modify('+1 day');
         }
 
@@ -47,13 +51,13 @@ class TotalPaymentChart
             }
         }
 
-        $subtitleDate = "$startDate to $endDate";
+        $subtitleDate = "$startDate to $today";
 
         return $this->chart->areaChart()
             ->setTitle('Sales during 6 days ago')
             ->setSubtitle($subtitleDate)
             ->addData('Total sales', $paymentDataPerDay)
             ->setFontFamily('Poppins')
-            ->setXAxis($dates);
+            ->setXAxis(array_values($dayAndDate));
     }
 }
