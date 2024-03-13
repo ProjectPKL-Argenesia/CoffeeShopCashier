@@ -33,8 +33,8 @@
                     <span>Total</span>
                     @foreach ($item->order->orderDetails as $orderDetail)
                         <span>{{ $orderDetail->menu_name }}</span>
-                        <span>{{ $orderDetail->qty }}</span>
                         <span>Rp. {{ $orderDetail->price }}</span>
+                        <span>x{{ $orderDetail->qty }}</span>
                         <span>Rp. {{ $orderDetail->total_price }}</span>
                     @endforeach
                 </div>

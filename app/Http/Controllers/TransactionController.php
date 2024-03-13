@@ -54,7 +54,7 @@ class TransactionController extends Controller
         } else {
             $newNoReceipt = $currentNoReceipt + 1;
         }
-        
+
         $newNoReceipt = $currentNoReceipt + 1;
         $requestData = json_decode($request->getContent(), true);
         $cartItems = $requestData['cart_item'];
@@ -81,12 +81,11 @@ class TransactionController extends Controller
 
         if ($user->hasRole('cashier')) {
             $cashier_id = $user->cashier->id;
-            // dd($cashier_id);
         }
 
         $store = Store::where('user_id', $userIdAdmin)->first();
         $store_id = $store->id;
-        Payment::create([
+        $payment = Payment::create([
             'store_id' => $store_id,
             'cashier_id' => $cashier_id,
             'order_id' => $dataOrder->id,
@@ -125,6 +124,7 @@ class TransactionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Order created successfully',
+            'paymentId' => $payment->id,
 
         ], 200); // 201 Created status code
     }

@@ -44,7 +44,7 @@ class StoreController extends Controller
         }
         $dataMenuCategory = MenuCategory::inRandomOrder()->take(3)->get();
 
-        // dd($dataTopOrder);
+        // dd($dataTopOrder->count());
 
         return view('pages.store.index', ['title' => 'Store', 'chart' => $chart->build()], compact('dataStore', 'dataCashier', 'dataMenu', 'dataTopOrder', 'dataMenuCategory'));
     }

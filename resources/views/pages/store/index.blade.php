@@ -4,7 +4,7 @@
     <section class="p-10 bg-gray-200">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Store</h1>
-            @if ($dataStore->isempty())
+            @if ($dataStore->isEmpty())
                 <div>
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
                         class="block px-5 py-2 text-sm font-medium text-center text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-800">
@@ -32,7 +32,7 @@
         <div class="flex justify-center items-center mb-10">
             <div
                 class="flex flex-col items-center border border-gray-300 bg-white w-fit rounded-lg shadow-lg p-5 gap-5 transition-all hover:scale-105">
-                @if ($dataStore->isempty())
+                @if ($dataStore->isEmpty())
                     <div class="flex items-center gap-5">
                         <span class="material-symbols-rounded md:text-xl lg:text-6xl">
                             store
@@ -68,74 +68,187 @@
 
         <div class="mb-10">
             <h1 class="text-2xl font-semibold text-black/80 mb-5">Top 3 Order</h1>
-            <div class="flex justify-center gap-10 mb-5">
-                <div class="flex flex-col items-center mt-3 transition-all hover:shadow-yellow-300 hover:scale-105">
-                    <span class="font-semibold bg-slate-950/30 px-4 pt-1 rounded-t-3xl">2nd</span>
-                    <div
-                        class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+            @if ($dataTopOrder->isEmpty())
+                <div class="flex justify-center gap-10 mb-5">
+                    <div class="flex flex-col items-center mt-3 transition-all hover:scale-105">
+                        <span class="font-semibold bg-slate-950/30 px-4 pt-1 rounded-t-3xl">2nd</span>
                         <div
-                            class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
-                            <img src="{{ asset('storage/' . $dataTopOrder[1]->images) }}" class="object-contain"
-                                alt="gambar">
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
                         </div>
-                        <div class="grid items-center grid-cols-2">
-                            <div class="flex flex-col text-xs capitalize 2xl:text-sm">
-                                <h2 class="font-semibold">{{ $dataTopOrder[1]->menu_name }}</h2>
-                                <span>Rp. {{ $dataTopOrder[1]->prices }}</span>
+                    </div>
+                    <div class="flex flex-col items-center transition-all hover:scale-105">
+                        <span class="font-semibold bg-yellow-400/40 px-4 pt-1 rounded-t-3xl">1st</span>
+                        <div
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-5 transition-all hover:scale-105">
+                        <span class="font-semibold bg-amber-950/40 px-4 pt-1 rounded-t-3xl">3rd</span>
+                        <div
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
+                        </div>
+                    </div>
+                </div>
+            @elseif ($dataTopOrder->count() < 2)
+                <div class="flex justify-center gap-10 mb-5">
+                    <div class="flex flex-col items-center mt-3 transition-all hover:scale-105">
+                        <span class="font-semibold bg-slate-950/30 px-4 pt-1 rounded-t-3xl">2nd</span>
+                        <div
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center transition-all hover:scale-105">
+                        <span class="font-semibold bg-yellow-400/40 px-5 pt-1 rounded-t-3xl">1st</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[0]->images) }}" class="object-contain"
+                                    alt="gambar">
                             </div>
-                            <div class="flex items-center justify-end">
-                                <span class="text-sm">Sell Amount : {{ $dataTopOrder[1]->total_qty }}</span>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[0]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[0]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[0]->total_qty }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-5 transition-all hover:scale-105">
+                        <span class="font-semibold bg-amber-950/40 px-4 pt-1 rounded-t-3xl">3rd</span>
+                        <div
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
+                        </div>
+                    </div>
+                </div>
+            @elseif ($dataTopOrder->count() < 3)
+                <div class="flex justify-center gap-10 mb-5">
+                    <div class="flex flex-col items-center mt-3 transition-all hover:scale-105">
+                        <span class="font-semibold bg-slate-950/30 px-4 pt-1 rounded-t-3xl">2nd</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[1]->images) }}" class="object-contain"
+                                    alt="gambar">
+                            </div>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[1]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[1]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[1]->total_qty }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center transition-all hover:scale-105">
+                        <span class="font-semibold bg-yellow-400/40 px-5 pt-1 rounded-t-3xl">1st</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[0]->images) }}" class="object-contain"
+                                    alt="gambar">
+                            </div>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[0]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[0]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[0]->total_qty }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-5 transition-all hover:scale-105">
+                        <span class="font-semibold bg-amber-950/40 px-4 pt-1 rounded-t-3xl">3rd</span>
+                        <div
+                            class="flex justify-center items-center bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <span class="font-semibold">Belum memiliki pesanan</span>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="flex justify-center gap-10 mb-5">
+                    <div class="flex flex-col items-center mt-3 transition-all hover:scale-105">
+                        <span class="font-semibold bg-slate-950/30 px-4 pt-1 rounded-t-3xl">2nd</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[1]->images) }}" class="object-contain"
+                                    alt="gambar">
+                            </div>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[1]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[1]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[1]->total_qty }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center transition-all hover:scale-105">
+                        <span class="font-semibold bg-yellow-400/40 px-5 pt-1 rounded-t-3xl">1st</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[0]->images) }}" class="object-contain"
+                                    alt="gambar">
+                            </div>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[0]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[0]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[0]->total_qty }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-5 transition-all hover:scale-105">
+                        <span class="font-semibold bg-amber-950/40 px-4 pt-1 rounded-t-3xl">3rd</span>
+                        <div
+                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
+                            <div
+                                class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
+                                <img src="{{ asset('storage/' . $dataTopOrder[2]->images) }}" class="object-contain"
+                                    alt="gambar">
+                            </div>
+                            <div class="grid items-center grid-cols-2">
+                                <div class="flex flex-col text-xs capitalize 2xl:text-sm">
+                                    <h2 class="font-semibold">{{ $dataTopOrder[2]->menu_name }}</h2>
+                                    <span>Rp. {{ $dataTopOrder[2]->prices }}</span>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm">Sell Amount : {{ $dataTopOrder[2]->total_qty }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col items-center transition-all hover:scale-105">
-                    <span class="font-semibold bg-yellow-400/40 px-5 pt-1 rounded-t-3xl">1st</span>
-                    <div
-                        class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
-                        <div
-                            class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
-                            <img src="{{ asset('storage/' . $dataTopOrder[0]->images) }}" class="object-contain"
-                                alt="gambar">
-                        </div>
-                        <div class="grid items-center grid-cols-2">
-                            <div class="flex flex-col text-xs capitalize 2xl:text-sm">
-                                <h2 class="font-semibold">{{ $dataTopOrder[0]->menu_name }}</h2>
-                                <span>Rp. {{ $dataTopOrder[0]->prices }}</span>
-                            </div>
-                            <div class="flex items-center justify-end">
-                                <span class="text-sm">Sell Amount : {{ $dataTopOrder[0]->total_qty }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center mt-5 transition-all hover:scale-105">
-                    <span class="font-semibold bg-amber-950/40 px-4 pt-1 rounded-t-3xl">3rd</span>
-                    <div
-                        class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg shadow-lg w-[250px] min-h-[180px] 2xl:w-[320px] 2xl:max-h-[240px]">
-                        <div
-                            class="flex items-center justify-center rounded-[5.5px] overflow-hidden min-h-[100px] max-h-[115px] 2xl:max-h-[170px] 2xl:min-h-[150px]">
-                            <img src="{{ asset('storage/' . $dataTopOrder[2]->images) }}" class="object-contain"
-                                alt="gambar">
-                        </div>
-                        <div class="grid items-center grid-cols-2">
-                            <div class="flex flex-col text-xs capitalize 2xl:text-sm">
-                                <h2 class="font-semibold">{{ $dataTopOrder[2]->menu_name }}</h2>
-                                <span>Rp. {{ $dataTopOrder[2]->prices }}</span>
-                            </div>
-                            <div class="flex items-center justify-end">
-                                <span class="text-sm">Sell Amount : {{ $dataTopOrder[2]->total_qty }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
 
         <div class="flex flex-col mb-10">
             <h1 class="text-2xl font-semibold text-black/80 mb-5">Cashier info</h1>
             <div class="grid grid-cols-5 gap-5 mb-2">
-                @if ($dataCashier->isempty())
+                @if ($dataCashier->isEmpty())
                     <div
                         class="flex items-center gap-5 border border-black bg-slate-200 rounded-md w-full p-3 transition-all hover:scale-105">
                         <span class="material-symbols-rounded md:text-xl lg:text-6xl">

@@ -319,12 +319,21 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                success: function() {
-
-                    location.reload();
+                success: function(response) {
                     clearContent();
+                    // Mengambil ID pembayaran dari respons
+                    const paymentId = response.paymentId;
 
+                    // Membentuk URL untuk menuju ke laporan berdasarkan ID pembayaran
+                    const reportUrl = `struck/report?payment_id=${paymentId}`;
+
+                    // Mengarahkan halaman ke URL laporan
+                    window.location.href = reportUrl;
                 },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
             });
         }
 
@@ -404,8 +413,8 @@
             document.getElementById('table_name').innerText = selectedTableName;
 
             // order detail
+            viewMenu();
             let detailOrder = document.getElementById("detailOrder");
-
 
             // sub total
             let sub_total = order_info.sub_total;
