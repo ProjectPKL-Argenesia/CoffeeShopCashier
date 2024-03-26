@@ -321,12 +321,21 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                success: function() {
-
-                    location.reload();
+                success: function(response) {
                     clearContent();
+                    // Mengambil ID pembayaran dari respons
+                    const paymentId = response.paymentId;
 
+                    // Membentuk URL untuk menuju ke laporan berdasarkan ID pembayaran
+                    const reportUrl = `struck/report?payment_id=${paymentId}`;
+
+                    // Mengarahkan halaman ke URL laporan
+                    window.location.href = reportUrl;
                 },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
             });
         }
 
@@ -372,46 +381,55 @@
             refreshCart();
         }
 
+        function viewMenu() {
+            const menuItemsHTML = cart_item.map(item => `
+                <span class="justify-self-start">${item.menu_name}</span>
+                <span class="justify-self-center">${formatToRupiah(item.price)}</span>
+                <span class="justify-self-end">x ${item.qty}</span>
+                <span class="justify-self-end">${formatToRupiah(item.total_price)}</span>
+            `).join('');
+            console.log(menuItemsHTML);
+
+            detailOrder.innerHTML = menuItemsHTML;
+        }
+
+        viewMenu();
+
+        function formatToRupiah(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Fungsi untuk mengubah angka menjadi format mata uang Rupiah
+
         // charge item
         function chargeItem() {
             // table
-            var selectedElement = document.getElementById('table_id');
-            var selectedTableId = selectedElement.value;
-            var selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
+            let selectedElement = document.getElementById('table_id');
+            let selectedTableId = selectedElement.value;
+            let selectedTableName = selectedElement.options[selectedElement.selectedIndex].text;
 
             document.getElementById('table_name').innerText = selectedTableName;
 
             // order detail
-            var detailOrder = document.getElementById("detailOrder");
-
-            for (let i = 0; i < cart_item.length; i++) {
-                // const id = cart_item[i].id;
-                const menu_name = cart_item[i].menu_name;
-                const price = cart_item[i].price;
-                const qty = cart_item[i].qty;
-                const total_price = cart_item[i].total_price;
-
-                var menu = `
-                    <span class="justify-self-start">${menu_name}</span>
-                    <span class="justify-self-center">Rp. ${price}</span>
-                    <span class="justify-self-end">x ${qty}</span>
-                    <span class="justify-self-end">${total_price}</span>
-                `;
-
-                detailOrder.innerHTML += menu;
-            }
+            viewMenu();
+            let detailOrder = document.getElementById("detailOrder");
 
             // sub total
             let sub_total = order_info.sub_total;
-            document.getElementById('subTotal').innerText = sub_total;
+            document.getElementById('subTotal').innerText = formatToRupiah(sub_total);
 
             // tax
             let tax = order_info.tax;
-            document.getElementById('pajak').innerText = tax;
+            document.getElementById('pajak').innerText = formatToRupiah(tax);
 
             // total
             let total = order_info.total;
             document.getElementById('total').innerText = total;
+            document.getElementById('totalText').innerText = formatToRupiah(total);
         }
 
         //Script Tanggal

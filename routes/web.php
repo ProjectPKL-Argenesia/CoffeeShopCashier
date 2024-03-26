@@ -40,15 +40,11 @@ Route::middleware('auth')->group(function () {
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     //default
-    Route::get('/', function () {
-        $dataMenu = Menu::all();
-        $dataMenuCategory = MenuCategory::all();
-        $dataTable = Table::all();
-        return view('pages.transaction.index', ["title" => "Transaction"], compact('dataMenu', 'dataMenuCategory', 'dataTable'));
-    });
+    Route::get('/', [StoreController::class, 'index'])->name('store.index');
 
     //transaction
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transaction/blank', [TransactionController::class, 'blank'])->name('transaction.blank');
     Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 
     //table
@@ -87,13 +83,11 @@ Route::middleware('auth')->group(function () {
     //store
     Route::get('/store', [StoreController::class, 'index'])->name('store.index');
     Route::post('/store/store', [StoreController::class, 'store'])->name('store.store');
-    
+    Route::patch('store/update{id}', [StoreController::class, 'update'])->name('store.update');
+
     //struck
     Route::get('/struck/report', [StruckController::class, 'struckreport'])->name('struck.report');
     Route::get('/struck/all-report', [StruckController::class, 'struckallreport'])->name('struck.allreport');
 });
 
 require __DIR__ . '/auth.php';
-
-// Route::group(['middleware' => 'auth'], function () {
-// });

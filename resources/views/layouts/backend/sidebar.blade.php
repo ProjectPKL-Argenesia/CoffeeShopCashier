@@ -1,3 +1,7 @@
+@php
+    $currentStore = App\Models\Store::first();
+@endphp
+
 <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button"
     class="inline-flex items-center p-2 mt-2 text-sm text-gray-900 rounded-lg ms-3 sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
     <span class="sr-only">Open sidebar</span>
@@ -15,10 +19,17 @@
         <div>
             <a href="{{ route('transaction.index') }}" class="flex items-center justify-center py-6 text-white gap-x-2">
                 <i class="fa-solid fa-mug-hot md:fa-sm lg:fa-2xl"></i>
-                <span class="font-semibold md:text-sm lg:text-xl whitespace-nowrap">Coffee Shop</span>
+                <span class="font-semibold md:text-sm lg:text-xl whitespace-nowrap">{{ $currentStore->name }}</span>
             </a>
             <ul class="py-4 space-y-2 font-medium border-y">
-                @role(['admin', 'cashier'])
+                @role('cashier')
+                    <li>
+                        <a href="{{ route('report.index') }}"
+                            class="flex items-center p-2 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'report.index' ? 'bg-white text-gray-900' : 'text-white' }}">
+                            <i class="fa-solid fa-print md:fa-xs lg:fa-lg"></i>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Report</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('transaction.index') }}"
                             class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'transaction.index' ? 'bg-white text-gray-900' : ' text-white' }}">
@@ -28,6 +39,22 @@
                     </li>
                 @endrole
                 @role('admin')
+                    <li>
+                        <a href="{{ route('store.index') }}"
+                            class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'store.index' ? 'bg-white text-gray-900' : 'text-white' }}">
+                            <span class="material-symbols-outlined md:text-xl lg:text-2xl">
+                                store
+                            </span>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Store</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('transaction.index') }}"
+                            class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'transaction.index' ? 'bg-white text-gray-900' : ' text-white' }}">
+                            <i class="fa-solid fa-money-bill-transfer md:fa-xs lg:fa-lg"></i>
+                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Transaction</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('table.index') }}"
                             class="flex items-center p-2 hover:text-gray-900 rounded-lg hover:bg-white group {{ Route::currentRouteName() == 'table.index' ? 'bg-white text-gray-900' : ' text-white' }}">
@@ -76,15 +103,6 @@
                             <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Cashier</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('store.index') }}"
-                            class="flex items-center py-2 px-1 rounded-lg hover:text-gray-900 hover:bg-white group {{ Route::currentRouteName() == 'store.index' ? 'bg-white text-gray-900' : 'text-white' }}">
-                            <span class="material-symbols-outlined md:text-xl lg:text-2xl">
-                                store
-                            </span>
-                            <span class="ms-3 whitespace-nowrap md:text-xs lg:text-base">Store</span>
-                        </a>
-                    </li>
                 @endrole
             </ul>
         </div>
@@ -92,9 +110,12 @@
             @csrf
             <div>
 
+
                 <button id="button-logout" type="submit"
-                    class="w-full p-2 text-white rounded-lg hover:text-gray-900 hover:bg-white whitespace-nowrap md:text-xs lg:text-base"><i
-                        class="px-1 fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>Log out</button>
+                    class="p-2 text-white w-full rounded-lg hover:text-gray-900 hover:bg-white whitespace-nowrap md:text-xs lg:text-base">
+                    <i class="px-2 fa-solid fa-right-from-bracket md:fa-xs lg:fa-lg"></i>
+                    Logout
+                </button>
             </div>
         </form>
         <script>

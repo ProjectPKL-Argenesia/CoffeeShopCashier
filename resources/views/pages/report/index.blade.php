@@ -6,6 +6,10 @@
             <h1 class="text-3xl font-bold text-black/80">Report</h1>
         </div>
         <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                    <i class="pt-1 text-gray-500 fa-solid fa-search fa-md"></i>
             <div>
                 <a href="{{ route('struck.allreport') }}" target="_blank"
                     class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Print</a>
@@ -27,6 +31,20 @@
                     <span id="clearSearch"
                         class="absolute right-0 w-[10%] px-1.5 text-center rounded-sm mx-1.5 font-bold bg-gray-300 cursor-pointer {{ request('search') ? '' : 'hidden' }} hover:bg-gray-400">x</span>
                 </div>
+                <input type="search" id="table-search-users"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Search UID Transaksi">
+            </div>
+            <div id="date-Filter" class="flex items-center justify-center text-gray-500 border-none rounded-lg">
+                <input type="date" name="date_payment" id="date-filter"
+                    class="p-2 text-gray-500 bg-white border-none rounded-lg focus:ring-0">
+                <button id="filter-btn"
+                    class="px-4 py-2 ml-2 font-bold text-white bg-gray-400 rounded-lg hover:bg-gray-500">Filter</button>
+            </div>
+            <div>
+                <a href="{{ route('struck.allreport') }}" target="_blank"
+                    class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Print</a>
+            </div>
             </form>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
