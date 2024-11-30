@@ -1,30 +1,30 @@
 @extends('layouts.backend.main')
 
 @section('content')
-    <section class="h-screen p-10 bg-gray-300">
+    <section class="h-screen bg-gray-300 p-10">
         <div class="flex justify-between pb-5">
             <h1 class="text-3xl font-bold text-black/80">Menu History</h1>
         </div>
-        <div class="flex flex-wrap items-center justify-end pb-4 space-y-4 gap-x-2 flex-column md:flex-row md:space-y-0">
+        <div class="flex-column flex flex-wrap items-center justify-end gap-x-2 space-y-4 pb-4 md:flex-row md:space-y-0">
             <div class="flex gap-x-2">
-                <div id="foodType-Filter"
-                    class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
-                    <label for="food-filter" class="text-black/70">Food</label>
-                    <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                <div class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 bg-white p-2 text-gray-500 md:w-[75px] lg:w-[100px]"
+                    id="foodType-Filter">
+                    <label class="text-black/70" for="food-filter">Food</label>
+                    <input class="text-gray-500 focus:ring-white" id="food-filter" name="type" type="radio"
                         value="Food">
                 </div>
 
-                <div id="drinkType-Filter"
-                    class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
+                <div class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 bg-white p-2 text-gray-500 md:w-[75px] lg:w-[100px]"
+                    id="drinkType-Filter">
                     <label for="drink-filter">Drink</label>
-                    <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                    <input class="text-gray-500 focus:ring-white" id="drink-filter" name="type" type="radio"
                         value="Drink">
                 </div>
             </div>
             <div
-                class="flex justify-center items-center border border-gray-300 text-gray-500 gap-x-2 rounded-lg md:w-[150px] lg:w-[200px]">
-                <select name="menu-filter" id="menu-filter"
-                    class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
+                class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 text-gray-500 md:w-[150px] lg:w-[200px]">
+                <select class="w-full rounded-lg border-none p-2 focus:ring-0 md:text-xs lg:text-sm" id="menu-filter"
+                    name="menu-filter">
                     <option selected hidden>Menu Category</option>
                     <option value="Show All">Show All</option>
                     @foreach ($dataMenuCategory as $item)
@@ -33,28 +33,29 @@
                     @endforeach
                 </select>
             </div>
-            <div id="date-Filter" class="flex items-center justify-center text-gray-500 border-none rounded-lg">
-                <input type="date" name="date_payment" id="date-filter"
-                    class="p-1.5 bg-white text-gray-500 rounded-lg focus:ring-0 border-none">
-                <button id="filter-btn"
-                    class="px-4 py-2 ml-2 font-bold text-white bg-gray-400 rounded-lg hover:bg-gray-500">Filter</button>
+            <div class="flex items-center justify-center rounded-lg border-none text-gray-500" id="date-Filter">
+                <input class="rounded-lg border-none bg-white p-1.5 text-gray-500 focus:ring-0" id="date-filter"
+                    name="date_payment" type="date">
+                <button class="ml-2 rounded-lg bg-gray-400 px-4 py-2 font-bold text-white hover:bg-gray-500"
+                    id="filter-btn">Filter</button>
             </div>
-            <form action="{{ route('menuHistory.index') }}" method="GET" id="searchForm">
+            <form id="searchForm" action="{{ route('menuHistory.index') }}" method="GET">
                 <div
-                    class="relative flex items-center justify-center text-gray-500 bg-white border border-gray-300 rounded-lg w-80">
-                    <label for="search" class="absolute mx-1.5 left-0 flex justify-end items-center w-[10%]"><i
+                    class="relative flex w-80 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-500">
+                    <label class="absolute left-0 mx-1.5 flex w-[10%] items-center justify-end" for="search"><i
                             class="fa-solid fa-search fa-md"></i></label>
-                    <input type="text" name="search" id="search"
-                        class="text-gray-500 border-none md:text-xs lg:text-sm text-start focus:ring-0 w-[70%]"
-                        placeholder="Search Menu History" value="{{ request('search') }}">
-                    <span id="clearSearch"
-                        class="absolute right-0 w-[10%] px-1.5 text-center rounded-sm mx-1.5 font-bold bg-gray-300 cursor-pointer {{ request('search') ? '' : 'hidden' }} hover:bg-gray-400">x</span>
+                    <input class="w-[70%] border-none text-start text-gray-500 focus:ring-0 md:text-xs lg:text-sm"
+                        id="search" name="search" type="text" value="{{ request('search') }}"
+                        placeholder="Search Menu History">
+                    <span
+                        class="{{ request('search') ? '' : 'hidden' }} absolute right-0 mx-1.5 w-[10%] cursor-pointer rounded-sm bg-gray-300 px-1.5 text-center font-bold hover:bg-gray-400"
+                        id="clearSearch">x</span>
                 </div>
             </form>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 rtl:text-right" id="tableData">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <table class="w-full text-left text-sm text-gray-500 rtl:text-right" id="tableData">
+                <thead class="bg-gray-50 text-xs uppercase text-gray-700">
                     <tr class="bg-gray-400">
                         <th class="px-6 py-4">
                             No.
@@ -79,10 +80,10 @@
                 </thead>
                 <tbody>
                     @foreach ($dataMenuHistory as $item)
-                        <tr data-category-id="{{ $item->menu_category->id }}" class="bg-white border-b menu-item">
+                        <tr class="menu-item border-b bg-white" data-category-id="{{ $item->menu_category->id }}">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $item->menu_name }}</td>
-                            <td class="px-6 py-4 type-cell">{{ $item->type }}</td>
+                            <td class="type-cell px-6 py-4">{{ $item->type }}</td>
                             <td class="px-6 py-4">{{ $item->menu_category->category_name }}</td>
                             <td class="px-6 py-4">{{ $item->created_at }}</td>
                             @if ($item->status == 'create')
@@ -98,20 +99,20 @@
 
                                 <!-- Button Info -->
                                 <div>
-                                    <button data-modal-target="popup-modal-info-{{ $item->id }}"
-                                        data-modal-toggle="popup-modal-info-{{ $item->id }}"
-                                        class="block px-1 text-sm font-medium text-center text-blue-500" type="button">
-                                        <i class="px-1 fa-solid fa-file-signature"></i>Info
+                                    <button class="block px-1 text-center text-sm font-medium text-blue-500"
+                                        data-modal-target="popup-modal-info-{{ $item->id }}"
+                                        data-modal-toggle="popup-modal-info-{{ $item->id }}" type="button">
+                                        <i class="fa-solid fa-file-signature px-1"></i>Info
                                     </button>
 
-                                    <div id="popup-modal-info-{{ $item->id }}" tabindex="-1"
-                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                        <div class="relative p-4 w-full max-w-[40%] min-w-[35%] max-h-full">
-                                            <div class="relative bg-white rounded-lg shadow">
-                                                <button type="button"
-                                                    class="absolute top-3 end-2.5 text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="popup-modal-info-{{ $item->id }}">
-                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                    <div class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
+                                        id="popup-modal-info-{{ $item->id }}" tabindex="-1">
+                                        <div class="relative max-h-full w-full min-w-[35%] max-w-[40%] p-4">
+                                            <div class="relative rounded-lg bg-white shadow">
+                                                <button
+                                                    class="absolute end-2.5 top-3 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-500 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-hide="popup-modal-info-{{ $item->id }}" type="button">
+                                                    <svg class="h-3 w-3" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 14">
                                                         <path stroke="currentColor" stroke-linecap="round"
@@ -121,136 +122,143 @@
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
                                                 <form action="">
-                                                    <div class="grid grid-cols-12 px-8 pt-16 pb-10 gap-y-2">
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                    <div class="grid grid-cols-12 gap-y-2 px-8 pb-10 pt-16">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="menu_name"
-                                                                    class="whitespace-nowrap">Name</label>
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap"
+                                                                    for="menu_name">Name</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="menu_name" id="menu_name"
-                                                                    readonly disabled
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
-                                                                    value="{{ $item->menu_name }}">
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="menu_name" name="menu_name" type="text"
+                                                                    value="{{ $item->menu_name }}" readonly disabled>
                                                             </div>
                                                         </div>
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
                                                                 <label for="type">Type</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
-                                                            <div class="flex col-span-9 py-2 gap-x-2">
+                                                            <div class="col-span-9 flex gap-x-2 py-2">
                                                                 <div
-                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-4">
+                                                                    class="flex items-center justify-between gap-x-4 rounded-lg border border-gray-500 bg-gray-200 px-2 py-1 text-gray-900">
                                                                     <label for="food">Food</label>
-                                                                    <input type="radio" name="type" id="food"
-                                                                        value="Food" class="text-gray-500 focus:ring-0"
+                                                                    <input class="text-gray-500 focus:ring-0"
+                                                                        id="food" name="type" type="radio"
+                                                                        value="Food"
                                                                         {{ $item->type == 'Food' ? 'checked' : '' }}
                                                                         readonly disabled>
                                                                 </div>
                                                                 <div
-                                                                    class="flex items-center justify-between px-2 py-1 text-gray-900 bg-gray-200 border border-gray-500 rounded-lg gap-x-2">
+                                                                    class="flex items-center justify-between gap-x-2 rounded-lg border border-gray-500 bg-gray-200 px-2 py-1 text-gray-900">
                                                                     <label for="drink">Drink</label>
-                                                                    <input type="radio" name="type" id="drink"
-                                                                        value="Drink" class="text-gray-500 focus:ring-0"
+                                                                    <input class="text-gray-500 focus:ring-0"
+                                                                        id="drink" name="type" type="radio"
+                                                                        value="Drink"
                                                                         {{ $item->type == 'Drink' ? 'checked' : '' }}
                                                                         readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="category_name" class="whitespace-nowrap">Menu
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap" for="category_name">Menu
                                                                     Category</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="category_name"
-                                                                    id="category_name"
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="category_name" name="category_name"
+                                                                    type="text"
                                                                     value="{{ $item->menu_category->category_name }}"
                                                                     readonly disabled>
                                                             </div>
                                                         </div>
 
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="stock"
-                                                                    class="whitespace-nowrap">Stock</label>
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap"
+                                                                    for="stock">Stock</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="stock" id="stock"
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="stock" name="stock" type="text"
                                                                     value="{{ $item->stock }}" readonly disabled>
                                                             </div>
                                                         </div>
 
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="price"
-                                                                    class="whitespace-nowrap">Price</label>
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap"
+                                                                    for="price">Price</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="price" id="price"
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="price" name="price" type="text"
                                                                     value="{{ $item->price }}" readonly disabled>
                                                             </div>
                                                         </div>
 
-                                                        <div class="grid grid-cols-12 col-span-12">
+                                                        <div class="col-span-12 grid grid-cols-12">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="tax"
-                                                                    class="whitespace-nowrap">Tax</label>
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap"
+                                                                    for="tax">Tax</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="text" name="tax" id="tax"
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="tax" name="tax" type="text"
                                                                     value="{{ $item->tax }}" readonly disabled>
                                                             </div>
                                                         </div>
 
-                                                        <div class="grid grid-cols-12 col-span-12 pb-20">
+                                                        <div class="col-span-12 grid grid-cols-12 pb-20">
                                                             <div
-                                                                class="flex items-center justify-start col-span-2 text-sm font-semibold text-center gap-x-4">
-                                                                <label for="date"
-                                                                    class="whitespace-nowrap">Date</label>
+                                                                class="col-span-2 flex items-center justify-start gap-x-4 text-center text-sm font-semibold">
+                                                                <label class="whitespace-nowrap"
+                                                                    for="date">Date</label>
                                                             </div>
-                                                            <div class="flex items-center justify-center col-span-1">
+                                                            <div class="col-span-1 flex items-center justify-center">
                                                                 <span>:</span>
                                                             </div>
                                                             <div class="col-span-9">
-                                                                <input type="datetime-local" name="date"
-                                                                    id="date"
-                                                                    class="w-full px-2 py-1 text-gray-900 bg-gray-200 rounded-lg focus:ring-0"
+                                                                <input
+                                                                    class="w-full rounded-lg bg-gray-200 px-2 py-1 text-gray-900 focus:ring-0"
+                                                                    id="date" name="date" type="datetime-local"
                                                                     value="{{ $item->created_at }}" readonly disabled>
                                                             </div>
                                                         </div>
 
-                                                        <button type="submit"
-                                                            class="col-span-12 py-2 text-gray-100 bg-gray-800 rounded-lg">Print</button>
+                                                        <button
+                                                            class="col-span-12 rounded-lg bg-gray-800 py-2 text-gray-100"
+                                                            type="submit">Print</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -259,21 +267,21 @@
                                 </div>
 
                                 <!-- Button Hapus -->
-                                <button data-modal-target="popup-modal-delete-{{ $item->id }}"
-                                    data-modal-toggle="popup-modal-delete-{{ $item->id }}"
-                                    class="font-medium text-red-500" type="button"><i
-                                        class="px-1 fa-solid fa-trash-can"></i>
+                                <button class="font-medium text-red-500"
+                                    data-modal-target="popup-modal-delete-{{ $item->id }}"
+                                    data-modal-toggle="popup-modal-delete-{{ $item->id }}" type="button"><i
+                                        class="fa-solid fa-trash-can px-1"></i>
                                     Hapus
                                 </button>
 
-                                <div id="popup-modal-delete-{{ $item->id }}" tabindex="-1"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full p-4">
-                                        <div class="relative bg-white rounded-lg shadow">
-                                            <button type="button"
-                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                                data-modal-hide="popup-modal-delete-{{ $item->id }}">
-                                                <svg class="w-3 h-3" aria-hidden="true"
+                                <div class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
+                                    id="popup-modal-delete-{{ $item->id }}" tabindex="-1">
+                                    <div class="relative max-h-full w-full max-w-md p-4">
+                                        <div class="relative rounded-lg bg-white shadow">
+                                            <button
+                                                class="absolute end-2.5 top-3 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
+                                                data-modal-hide="popup-modal-delete-{{ $item->id }}" type="button">
+                                                <svg class="h-3 w-3" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 14 14">
                                                     <path stroke="currentColor" stroke-linecap="round"
@@ -283,7 +291,7 @@
                                                 <span class="sr-only">Close modal</span>
                                             </button>
                                             <div class="p-4 text-center md:p-5">
-                                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" aria-hidden="true"
+                                                <svg class="mx-auto mb-4 h-12 w-12 text-gray-400" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 20 20">
                                                     <path stroke="currentColor" stroke-linecap="round"
@@ -292,19 +300,22 @@
                                                 </svg>
                                                 <h3 class="mb-5 text-lg font-normal text-gray-500">Are
                                                     you sure you want to delete {{ $item->menu_name }}?</h3>
-                                                <form action="{{ route('menuHistory.destroy', $item->id) }}"
-                                                    method="POST" class="inline-flex">
+                                                <form class="inline-flex"
+                                                    action="{{ route('menuHistory.destroy', $item->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                                    <button
+                                                        class="me-2 inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300"
+                                                        type="submit">
                                                         Yes, I'm sure
                                                     </button>
                                                 </form>
 
-                                                <button data-modal-hide="popup-modal-delete-{{ $item->id }}"
-                                                    type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">No,
+                                                <button
+                                                    class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200"
+                                                    data-modal-hide="popup-modal-delete-{{ $item->id }}"
+                                                    type="button">No,
                                                     cancel</button>
                                             </div>
                                         </div>

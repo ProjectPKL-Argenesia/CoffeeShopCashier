@@ -2,30 +2,30 @@
 
 @section('content')
     <section class="grid grid-cols-12">
-        <div class="h-full col-span-9 px-10 bg-gray-200">
-            <div class="py-10 bg-gray-200">
+        <div class="col-span-9 h-full bg-gray-200 px-10">
+            <div class="bg-gray-200 py-10">
                 <div class="flex items-start justify-start pb-10">
                     <h1 class="text-3xl font-bold text-black/80">Cashier</h1>
                 </div>
                 <div class="flex items-center justify-end gap-x-2 md:text-xs lg:text-sm">
-                    <div id="foodType-Filter"
-                        class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
-                        <label for="food-filter" class="text-black/70">Food</label>
-                        <input type="radio" name="type" id="food-filter" class="text-gray-500 focus:ring-white"
+                    <div class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 bg-white p-2 text-gray-500 md:w-[75px] lg:w-[100px]"
+                        id="foodType-Filter">
+                        <label class="text-black/70" for="food-filter">Food</label>
+                        <input class="text-gray-500 focus:ring-white" id="food-filter" name="type" type="radio"
                             value="Food">
                     </div>
 
-                    <div id="drinkType-Filter"
-                        class="flex p-2 justify-center items-center border border-gray-300 text-gray-500 bg-white gap-x-2 rounded-lg md:w-[75px] lg:w-[100px]">
+                    <div class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 bg-white p-2 text-gray-500 md:w-[75px] lg:w-[100px]"
+                        id="drinkType-Filter">
                         <label for="drink-filter">Drink</label>
-                        <input type="radio" name="type" id="drink-filter" class="text-gray-500 focus:ring-white"
+                        <input class="text-gray-500 focus:ring-white" id="drink-filter" name="type" type="radio"
                             value="Drink">
                     </div>
 
                     <div
-                        class="flex justify-center items-center border border-gray-300 text-gray-500 gap-x-2 rounded-lg md:w-[150px] lg:w-[200px]">
-                        <select name="menu-filter" id="menu-filter"
-                            class="w-full p-2 border-none rounded-lg md:text-xs lg:text-sm focus:ring-0">
+                        class="flex items-center justify-center gap-x-2 rounded-lg border border-gray-300 text-gray-500 md:w-[150px] lg:w-[200px]">
+                        <select class="w-full rounded-lg border-none p-2 focus:ring-0 md:text-xs lg:text-sm"
+                            id="menu-filter" name="menu-filter">
                             <option selected hidden>Menu Category</option>
                             <option value="Show All">Show All</option>
                             @foreach ($dataMenuCategory as $item)
@@ -35,36 +35,37 @@
                             @endforeach
                         </select>
                     </div>
-                    <form action="{{ route('transaction.index') }}" method="GET" id="searchForm">
+                    <form id="searchForm" action="{{ route('transaction.index') }}" method="GET">
                         <div
-                            class="relative flex justify-center items-center border border-gray-300 text-gray-500 bg-white rounded-lg md:w-[150px] lg:w-[200px]">
-                            <label for="search" class="absolute mx-1.5 left-0 flex justify-end items-center w-[10%]"><i
+                            class="relative flex items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-500 md:w-[150px] lg:w-[200px]">
+                            <label class="absolute left-0 mx-1.5 flex w-[10%] items-center justify-end" for="search"><i
                                     class="fa-solid fa-search fa-md"></i></label>
-                            <input type="text" name="search" id="search"
-                                class="text-gray-500 border-none md:text-xs lg:text-sm text-start focus:ring-0 w-[70%]"
-                                placeholder="Search Menu" value="{{ request('search') }}">
-                            <span id="clearSearch"
-                                class="absolute right-0 w-[10%] px-1.5 mx-1.5 font-bold bg-gray-200 cursor-pointer {{ request('search') ? '' : 'hidden' }} hover:bg-gray-300">x</span>
+                            <input class="w-[70%] border-none text-start text-gray-500 focus:ring-0 md:text-xs lg:text-sm"
+                                id="search" name="search" type="text" value="{{ request('search') }}"
+                                placeholder="Search Menu">
+                            <span
+                                class="{{ request('search') ? '' : 'hidden' }} absolute right-0 mx-1.5 w-[10%] cursor-pointer bg-gray-200 px-1.5 font-bold hover:bg-gray-300"
+                                id="clearSearch">x</span>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-y-5 gap-x-5">
+            <div class="grid grid-cols-3 gap-x-5 gap-y-5">
                 @foreach ($dataMenu as $item)
                     @if ($item->stock >= 1)
-                        <div data-category-id="{{ $item->menu_category->id }}"
-                            class="menu-item flex flex-col gap-3 p-3 bg-white border border-gray-300 rounded-lg w-full min-h-[175px]">
+                        <div class="menu-item flex min-h-[175px] w-full flex-col gap-3 rounded-lg border border-gray-300 bg-white p-3"
+                            data-category-id="{{ $item->menu_category->id }}">
                             <div
-                                class="flex items-center justify-center  rounded-[5.5px] overflow-hidden min-h-[120px] max-h-[150px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
-                                <img src="{{ asset('storage/' . $item->image) }}" class="object-contain " alt="gambar">
+                                class="flex max-h-[150px] min-h-[120px] items-center justify-center overflow-hidden rounded-[5.5px] 2xl:max-h-[180px] 2xl:min-h-[160px]">
+                                <img class="object-contain" src="{{ asset('storage/' . $item->image) }}" alt="gambar">
                             </div>
-                            <p class="hidden type-cell">{{ $item->type }}</p>
+                            <p class="type-cell hidden">{{ $item->type }}</p>
                             <div class="hidden">
-                                <select name="menu_category_id" id="menu_category_id" required
-                                    class="w-full px-2 py-1 text-xs bg-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
+                                <select class="w-full rounded-lg bg-gray-200 px-2 py-1 text-xs focus:ring-0 2xl:text-sm"
+                                    id="menu_category_id" name="menu_category_id" required>
                                     <option selected hidden>Menu Category</option>
                                     @foreach ($dataMenuCategory as $itemMenuCategory)
-                                        <option value="{{ $itemMenuCategory->id }}" class="menu-cell"
+                                        <option class="menu-cell" value="{{ $itemMenuCategory->id }}"
                                             {{ $item->menu_category_id == $itemMenuCategory->id ? 'selected' : '' }}>
                                             {{ $itemMenuCategory->category_name }}
                                         </option>
@@ -72,14 +73,14 @@
                                 </select>
                             </div>
                             <div class="grid grid-cols-2 justify-items-stretch">
-                                <div class="flex flex-col capitalize ">
+                                <div class="flex flex-col capitalize">
                                     <p class="font-semibold">{{ $item->menu_name }}</p>
-                                    <p id="stock_{{ $item->id }}" class="mb-2 text-sm text-slate-500">Stock:
+                                    <p class="mb-2 text-sm text-slate-500" id="stock_{{ $item->id }}">Stock:
                                         {{ $item->stock }}</p>
                                     <p class="harga-menu">Rp. {{ $item->price }}</p>
                                 </div>
                                 <div class="grid items-center justify-items-end">
-                                    <button class="px-3 py-2 font-medium text-gray-800 bg-gray-200 rounded-md"
+                                    <button class="rounded-md bg-gray-200 px-3 py-2 font-medium text-gray-800"
                                         onclick="addOrderCart({{ $item }})">Order</button>
                                 </div>
                             </div>
@@ -89,18 +90,19 @@
             </div>
         </div>
 
-        <form class="w-full h-screen col-span-3 bg-white" action="{{ route('transaction.store') }}" method="POST">
+        <form class="col-span-3 h-screen w-full bg-white" action="{{ route('transaction.store') }}" method="POST">
             @csrf
             <div class="flex items-center justify-between p-4">
                 <p class="text-3xl font-semibold">Current Order</p>
-                <button class="z-40 right-2 top-2" onclick="clearContent()" type="button">
-                    <img src="{{ asset('assets/images/clear.svg') }}" alt="clear" class="">
+                <button class="right-2 top-2 z-40" type="button" onclick="clearContent()">
+                    <img class="" src="{{ asset('assets/images/clear.svg') }}" alt="clear">
                 </button>
             </div>
             <div class="flex items-center justify-between p-4">
                 <div>
-                    <select name="table_id" id="table_id" required onchange="handleTableChange()"
-                        class="w-full px-2 py-1 text-xs bg-white border border-gray-200 rounded-lg 2xl:text-sm focus:ring-0">
+                    <select
+                        class="w-full rounded-lg border border-gray-200 bg-white px-2 py-1 text-xs focus:ring-0 2xl:text-sm"
+                        id="table_id" name="table_id" required onchange="handleTableChange()">
                         <option selected hidden>Table</option>
                         @foreach ($dataTable as $item)
                             @if ($item->status == 'Empty')
@@ -110,13 +112,13 @@
                     </select>
                 </div>
                 <div>
-                    <p id="tanggal" class="text-sm"></p>
+                    <p class="text-sm" id="tanggal"></p>
                 </div>
             </div>
-            <div id="containerOrder" class="h-screen w-full max-h-[500px] overflow-y-auto px-3">
+            <div class="h-screen max-h-[500px] w-full overflow-y-auto px-3" id="containerOrder">
             </div>
-            <div class="flex flex-col p-10 gap-y-2">
-                <div class=" min-h-[180px] w-full border p-4 rounded-lg border-gray-300 z-50 grid grid-cols-1 gap-y-3">
+            <div class="flex flex-col gap-y-2 p-10">
+                <div class="z-50 grid min-h-[180px] w-full grid-cols-1 gap-y-3 rounded-lg border border-gray-300 p-4">
                     <div class="flex items-center justify-between">
                         <p>Sub Total</p>
                         <p>Rp. <span id="sub-total"></span></p>
@@ -125,14 +127,14 @@
                         <p>Tax</p>
                         <p>Rp. <span id="tax"></span></p>
                     </div>
-                    <div class="flex items-center justify-between mt-0 text-lg font-bold border-t-4 border-gray-300">
+                    <div class="mt-0 flex items-center justify-between border-t-4 border-gray-300 text-lg font-bold">
                         <p>Total</p>
                         <p>Rp. <span id="total-harga"></span></p>
                     </div>
                 </div>
-                <button id="buttonCharge" data-modal-target="popup-modal-charge" disabled
-                    data-modal-toggle="popup-modal-charge" type="button" onclick="chargeItem()"
-                    class="w-full p-4 font-semibold text-center text-white bg-green-500 rounded-lg cursor-pointer">
+                <button class="w-full cursor-pointer rounded-lg bg-green-500 p-4 text-center font-semibold text-white"
+                    id="buttonCharge" data-modal-target="popup-modal-charge" data-modal-toggle="popup-modal-charge"
+                    type="button" disabled onclick="chargeItem()">
                     <span>Charge</span>
                 </button>
 
@@ -388,7 +390,6 @@
                 <span class="justify-self-end">x ${item.qty}</span>
                 <span class="justify-self-end">${formatToRupiah(item.total_price)}</span>
             `).join('');
-            console.log(menuItemsHTML);
 
             detailOrder.innerHTML = menuItemsHTML;
         }
